@@ -230,6 +230,27 @@ h1{font-size:26px;margin:14px 0 4px}h2{font-size:22px;margin:26px 0 8px;display:
  .pp-let.go{opacity:0}.pp-pl.go{opacity:1;transform:translate(60px,-20px) rotate(-10deg)}.pp-ok.go{opacity:1}
  .dn.ph-n .st{animation:none}
 }
+/* bocka av */
+.bra{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;border:3px solid #9AA3AF;border-radius:16px;background:#fff;color:#4B5563;font:inherit;font-weight:800;font-size:19px;padding:8px 10px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.bra .bx{display:inline-grid;place-items:center;width:28px;height:28px;border:3px solid #9AA3AF;border-radius:8px;background:#fff;font-size:18px;line-height:1;color:transparent}
+.bra[aria-pressed="true"]{background:var(--ok);border-color:#14653a;color:#fff;box-shadow:0 0 0 4px rgba(27,127,74,.22)}
+.bra[aria-pressed="true"] .bx{background:#fff;border-color:#fff;color:var(--ok)}
+.bra:focus-visible{outline:3px solid #2B3A55;outline-offset:2px}
+.snd .bra{margin-top:8px}
+.sndw{border-bottom:1px solid #F1E3E6;padding-bottom:10px;margin-bottom:10px}.sndw:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.voice .bra{margin-top:10px}
+#val{border:3px solid var(--ok)}
+#val h2{margin-top:0}
+.vbar{position:fixed;left:12px;right:92px;bottom:16px;z-index:98;display:flex;align-items:center;gap:8px;background:#fff;border-radius:18px;box-shadow:0 4px 16px rgba(0,0,0,.25);padding:6px}
+.vbar .cnt{flex:none;min-width:48px;height:52px;display:grid;place-items:center;border-radius:14px;background:#E8F5EE;color:#14653a;font-weight:900;font-size:20px;padding:0 8px}
+.kop{flex:1;min-height:52px;border:0;border-radius:14px;background:var(--ok);color:#fff;font:inherit;font-weight:900;font-size:19px;cursor:pointer}
+.kop.big{width:100%;min-height:60px;font-size:21px}
+.rensa{min-height:48px;border:2px solid #C9A6AD;border-radius:14px;background:#fff;color:var(--b);font:inherit;font-weight:700;font-size:16px;padding:8px 16px;cursor:pointer;margin-top:10px}
+.kmsg{display:none;margin:10px 0 0;padding:10px 12px;border-radius:12px;background:#E8F5EE;color:#14653a;font-weight:800}
+.kmsg.on{display:block}
+#valtxt{display:none;width:100%;min-height:170px;margin-top:10px;font:inherit;font-size:16px;border:2px solid #9AA3AF;border-radius:12px;padding:10px}
+#valtxt.on{display:block}
+main{padding-bottom:110px}
 </style></head><body id="top"><main><a href="#top" id="hem" aria-label="Till toppen" style="position:fixed;right:16px;bottom:16px;z-index:99;width:64px;height:64px;border-radius:50%;background:#B02A43;color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3)">🏠</a>
 <div class="skiss">SKISS v41 – bara för test. Ändrar inget i den riktiga appen.</div>
 <h1>Animationer, ljud och röster</h1>
@@ -326,6 +347,14 @@ h1{font-size:26px;margin:14px 0 4px}h2{font-size:22px;margin:26px 0 8px;display:
 <li>Den som spelar in ska säga ja till att rösten används i appen.</li>
 </ol></details>
 
+<div class="card" id="val"><h2>✅ Mina val</h2>
+<p class="lead" style="margin:0 0 10px">Bocka i <b>✅ Bra</b> på det du gillar. Valen sparas bara i din telefon. Tryck sedan <b>Kopiera mina val</b> och klistra in i chatten.</p>
+<p style="margin:0 0 10px;font-weight:800">Valda: <span id="valn2">0</span></p>
+<button type="button" class="kop big" id="kop2">📋 Kopiera mina val</button>
+<div class="kmsg" id="kmsg" role="status" aria-live="polite"></div>
+<textarea id="valtxt" readonly aria-label="Dina val som text"></textarea>
+<button type="button" class="rensa" id="rensa">🗑️ Rensa val</button>
+</div>
 </main>
 <script>
 (function(){
@@ -414,5 +443,40 @@ document.getElementById('av').addEventListener('click',function(e){var b=e.targe
 });
 cfStill();addEventListener('resize',cfStill);
 document.getElementById('hem').addEventListener('click',function(){restart(this,'go')});
+})();
+</script>
+<div class="vbar" id="vbar"><span class="cnt" id="valn" aria-label="Antal valda">0</span><button type="button" class="kop" id="kop">📋 Kopiera mina val</button></div>
+<script>
+(function(){
+var KEY='testsida_val_v1',S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){S={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+var ITEMS=[];
+function mk(id,cat,name){ITEMS.push({id:id,cat:cat,name:name});var b=document.createElement('button');b.type='button';b.className='bra';b.dataset.v=id;b.setAttribute('aria-label','Bra: '+name);b.innerHTML='<span class="bx" aria-hidden="true">✓</span><span>✅ Bra</span>';return b}
+function nm(el){return (el?el.textContent:'').replace(/^\s*\d+\.\s*/,'').trim()}
+// animationer
+[['.ag','gammal','Gammal: ',1],['#ng','ny','',1],['#av','av','',8]].forEach(function(g){
+ var box=document.querySelector(g[0]);if(!box)return;
+ Array.prototype.forEach.call(box.querySelectorAll(':scope > .an'),function(an,i){var t=an.querySelector(':scope > b');an.appendChild(mk('a-'+g[1]+'-'+(i+g[3]),'Animationer',g[2]+nm(t)))})});
+// ljud
+Array.prototype.forEach.call(document.querySelectorAll('#sl .snd'),function(r,i){var w=document.createElement('div');w.className='sndw';r.parentNode.insertBefore(w,r);w.appendChild(r);
+ var ro=r.querySelector('.role'),d=r.querySelector('.t b');w.appendChild(mk('l-'+(i+1),'Ljud',(ro?ro.textContent.replace(/\s*\(.*\)/,''):'')+' ('+(d?d.textContent:'')+')'))});
+// röster
+Array.prototype.forEach.call(document.querySelectorAll('#vl .voice'),function(v,i){var h=v.querySelector('h3'),n=h?h.firstChild.textContent:'Röst '+(i+1);v.appendChild(mk('r-'+(i+1),'Röster',n.replace(/\s*\(.*\)/,'').trim()))});
+function paint(){var n=0;Array.prototype.forEach.call(document.querySelectorAll('.bra'),function(b){var on=!!S[b.dataset.v];b.setAttribute('aria-pressed',on?'true':'false');b.lastChild.textContent=on?'✅ Bra – vald':'✅ Bra'});
+ ITEMS.forEach(function(it){if(S[it.id])n++});document.getElementById('valn').textContent=n;document.getElementById('valn2').textContent=n+' av '+ITEMS.length}
+document.addEventListener('click',function(e){var b=e.target.closest('.bra');if(!b)return;var id=b.dataset.v;if(S[id])delete S[id];else S[id]=1;save();paint()});
+function text(){var out=['Mina val (testsidan):'];['Animationer','Ljud','Röster'].forEach(function(c){var l=ITEMS.filter(function(it){return it.cat===c&&S[it.id]}).map(function(it){return it.name});out.push(c+': '+(l.length?l.join(', '):'inga'))});return out.join('\n')}
+var msg=document.getElementById('kmsg'),ta=document.getElementById('valtxt');
+function ok(){msg.textContent='Kopierat! Klistra in i chatten med fack-botten';msg.classList.add('on');var k=document.getElementById('kop');k.textContent='✅ Kopierat!';setTimeout(function(){k.textContent='📋 Kopiera mina val'},2500)}
+function fail(t){ta.value=t;ta.classList.add('on');msg.textContent='Kunde inte kopiera automatiskt. Håll fingret på texten nedan, välj Markera alla och Kopiera.';msg.classList.add('on');document.getElementById('val').scrollIntoView({block:'start'});try{ta.focus();ta.select();ta.setSelectionRange(0,t.length)}catch(e){}}
+function legacy(t){try{ta.value=t;ta.classList.add('on');ta.removeAttribute('readonly');ta.focus();ta.select();ta.setSelectionRange(0,t.length);var r=document.execCommand('copy');ta.setAttribute('readonly','');return r}catch(e){return false}}
+function copy(){var t=text();ta.value=t;
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,function(){if(legacy(t))ok();else fail(t)})}
+ else{if(legacy(t))ok();else fail(t)}}
+document.getElementById('kop').addEventListener('click',copy);document.getElementById('kop2').addEventListener('click',copy);
+document.getElementById('rensa').addEventListener('click',function(){if(!confirm('Vill du rensa alla dina val?'))return;S={};save();paint();ta.value='';ta.classList.remove('on');msg.classList.remove('on')});
+window.__valText=text;
+paint();
 })();
 </script></body></html>
