@@ -74,6 +74,57 @@ h1{font-size:26px;margin:14px 0 4px}h2{font-size:22px;margin:26px 0 8px;display:
 .note{font-size:13.5px;color:var(--om);border-top:1px solid #D1D5DB;margin-top:14px;padding-top:10px}
 .lawref{font-size:14px;color:var(--om);margin-top:8px}
 .msg{min-height:22px;font-size:15px;font-weight:700;color:var(--ok);margin-top:6px}
+
+/* ---------- Nya animationer v41b ---------- */
+.ng{display:grid;grid-template-columns:1fr;gap:12px}
+.ng .stage{height:140px}
+.prova{border:0;border-radius:16px;background:var(--b);color:#fff;font:inherit;font-weight:800;font-size:22px;padding:16px 8px;width:100%;min-height:60px;cursor:pointer}
+.sky{background:linear-gradient(180deg,#DCEBFA,#F4F8FD 70%,#C9CED6 70%,#C9CED6 100%)}
+.np{position:absolute;left:0;bottom:24px;width:110px;transform:translateX(-130px)}
+.np.go{animation:taxi 2.4s ease-in-out forwards}
+@keyframes taxi{0%{transform:translateX(-130px)}40%{transform:translateX(90px)}55%{transform:translateX(130px) rotate(0)}100%{transform:translate(520px,-120px) rotate(-14deg)}}
+.cart{position:absolute;left:calc(50% - 75px);bottom:14px;width:150px;transform:translateX(-80vw)}
+.cart.go{animation:cartin 1s ease-out forwards}
+@keyframes cartin{to{transform:translateX(0)}}
+.cart .bag{opacity:0;transform:translateY(-60px)}
+.cart.go .bag{animation:bagdrop .6s 1.05s cubic-bezier(.3,1.3,.5,1) forwards}
+@keyframes bagdrop{0%{opacity:1;transform:translateY(-60px)}100%{opacity:1;transform:none}}
+.bigchk{width:110px;height:110px}
+.bigchk circle,.bigchk path{fill:none;stroke:var(--ok);stroke-linecap:round;stroke-linejoin:round}
+.bigchk circle{stroke-width:6;stroke-dasharray:302;stroke-dashoffset:302}
+.bigchk path{stroke-width:10;stroke-dasharray:80;stroke-dashoffset:80}
+.bigchk.go circle{animation:dr .8s ease-out forwards}
+.bigchk.go path{animation:dr .55s .7s ease-out forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.helm{width:120px;transition:none}
+.helm.go{animation:hglow 1.8s ease-in-out}
+@keyframes hglow{0%,100%{filter:drop-shadow(0 0 0 rgba(255,200,0,0))}45%{filter:drop-shadow(0 0 18px rgba(255,190,0,.95)) brightness(1.15)}}
+.helm .lamp{fill:#fff7c2}.helm.go .lamp{animation:lmp 1.8s ease-in-out}
+@keyframes lmp{45%{fill:#fff}}
+.hand{position:absolute;top:30px;font-size:56px;line-height:1}
+.hand.l{left:calc(50% - 110px)}.hand.r{right:calc(50% - 110px);transform:scaleX(-1)}
+.hand.l.go{animation:hl 1.4s ease-in-out}.hand.r.go{animation:hr 1.4s ease-in-out}
+@keyframes hl{0%,100%{transform:none}45%,55%{transform:translateX(46px) rotate(12deg)}}
+@keyframes hr{0%,100%{transform:scaleX(-1)}45%,55%{transform:scaleX(-1) translateX(46px) rotate(12deg)}}
+.spark{position:absolute;left:50%;top:22px;transform:translateX(-50%) scale(0);font-size:30px;opacity:0}
+.spark.go{animation:spk 1.4s ease-out}
+@keyframes spk{0%,40%{opacity:0;transform:translateX(-50%) scale(0)}55%{opacity:1;transform:translateX(-50%) scale(1.2)}100%{opacity:0;transform:translateX(-50%) scale(1)}}
+.tower{width:90px}
+.tower .tl{fill:#FFE08A}
+.tower.go .tl{animation:blink 1.8s steps(1)}
+@keyframes blink{0%,33%,66%{fill:#FF3B30}16%,50%,83%{fill:#FFE08A}100%{fill:#FFE08A}}
+.tower.go .ring{animation:ring 1.8s ease-out}
+.tower .ring{fill:none;stroke:#FF3B30;stroke-width:2;opacity:0;transform-origin:45px 18px}
+@keyframes ring{0%{opacity:.8;transform:scale(.3)}100%{opacity:0;transform:scale(2.4)}}
+.homedemo{width:76px;height:76px;border-radius:50%;border:0;background:#B02A43;color:#fff;font-size:36px;box-shadow:0 4px 12px rgba(0,0,0,.3);cursor:pointer}
+.homedemo.go,#hem.go{animation:hop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes hop{0%{transform:none}35%{transform:translateY(-14px) scale(1.08)}65%{transform:translateY(2px) scale(.97)}100%{transform:none}}
+@media (prefers-reduced-motion:reduce){
+ .np.go,.cart.go,.cart.go .bag,.bigchk.go circle,.bigchk.go path,.helm.go,.helm.go .lamp,.hand.go,.spark.go,.tower.go .tl,.tower.go .ring,.homedemo.go,#hem.go{animation:none!important}
+ .np.go{transform:translateX(40px)}.cart.go{transform:none}.cart.go .bag{opacity:1;transform:none}
+ .bigchk.go circle,.bigchk.go path{stroke-dashoffset:0}.helm.go{filter:drop-shadow(0 0 12px rgba(255,190,0,.9))}
+ .tower.go .tl{fill:#FF3B30}.spark.go{opacity:1;transform:translateX(-50%) scale(1)}
+}
 @media (prefers-reduced-motion:reduce){
  .plane.go,.chk.go,.chk.go path,.brist.go,.pt.go,.wing.go{animation:none!important}
  .plane.go{opacity:1;transform:translate(120%,-30px)}.chk.go,.wing.go{opacity:1}.chk.go path{stroke-dashoffset:0}
@@ -88,11 +139,23 @@ h1{font-size:26px;margin:14px 0 4px}h2{font-size:22px;margin:26px 0 8px;display:
 
 <h2>✨ Animationer</h2>
 <div class="ag">
- <div class="an"><b>1. Planet lyfter</b><small>När du sparar</small><div class="stage"><div class="ovl"><span class="plane" id="a1">✈️</span></div></div><button class="testa press" data-a="1">Testa</button></div>
+ <div class="an"><b>1. Gammalt plan</b><small>När du sparar</small><div class="stage"><div class="ovl"><span class="plane" id="a1">✈️</span></div></div><button class="testa press" data-a="1">Testa</button></div>
  <div class="an"><b>2. Bocken landar</b><small>När något är skickat</small><div class="stage"><svg class="chk" id="a2" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#1b7f4a"/><path d="M18 33l9 9 19-20" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><button class="testa press" data-a="2">Testa</button></div>
  <div class="an"><b>3. Knappen trycks in</b><small>Mjukt sken när du trycker</small><div class="stage"><span id="a3" class="press" style="background:#fff;border:2px solid #E6CDD1;border-radius:14px;padding:10px 12px;font-weight:800;font-size:16px">📝 Dokumentera</span></div><button class="testa press" data-a="3">Testa</button></div>
  <div class="an"><b>4. Röd puls</b><small>På ett brist-kort</small><div class="stage"><div class="brist" id="a4">⚠️ Underbemanning</div></div><button class="testa press" data-a="4">Testa</button></div>
  <div class="an" style="grid-column:1/3"><b>5. Vingar och konfetti</b><small>När en dokumentation är klar</small><div class="stage" id="s5"><span class="wing" id="a5">🪽 Klart! 🪽</span><div class="ovl" id="cf"></div></div><button class="testa press" data-a="5">Testa</button></div>
+</div>
+
+<h2>🆕 Nya animationer</h2>
+<p class="lead">Tryck på <b>Prova</b> för att se dem igen. Ljudet är lågt.</p>
+<div class="ng" id="ng">
+ <div class="an"><b>1. Nytt flygplan</b><small>Taxar fram och lyfter – när ett brev skickas</small><div class="stage sky"><svg class="np" id="n1" viewBox="0 0 120 50" aria-hidden="true"><path d="M8 26 Q8 20 20 20 L96 20 Q114 22 116 28 Q114 32 100 32 L20 32 Q8 32 8 26Z" fill="#fff" stroke="#8E1F35" stroke-width="2"/><path d="M50 22 L70 4 L80 4 L68 22Z M50 30 L66 46 L76 46 L66 30Z" fill="#B02A43"/><path d="M14 22 L8 8 L18 8 L26 20Z" fill="#B02A43"/><g fill="#5B8DD6"><circle cx="40" cy="25" r="2"/><circle cx="48" cy="25" r="2"/><circle cx="56" cy="25" r="2"/><circle cx="76" cy="25" r="2"/><circle cx="84" cy="25" r="2"/></g><path d="M100 22 Q110 23 112 27 L100 27Z" fill="#5B8DD6"/><g fill="#333"><circle cx="30" cy="36" r="3"/><circle cx="90" cy="36" r="3"/></g></svg></div><button class="prova press" data-n="1">Prova</button></div>
+ <div class="an"><b>2. Bagagevagn</b><small>Vagnen kör in och väskan lastas – när något är sparat</small><div class="stage sky"><svg class="cart" id="n2" viewBox="0 0 150 80" aria-hidden="true"><g class="bag"><rect x="62" y="22" width="40" height="30" rx="5" fill="#B02A43"/><rect x="74" y="15" width="16" height="8" rx="3" fill="none" stroke="#8E1F35" stroke-width="3"/><rect x="62" y="34" width="40" height="3" fill="#8E1F35"/></g><rect x="40" y="52" width="90" height="10" rx="3" fill="#2B3A55"/><rect x="4" y="38" width="34" height="24" rx="4" fill="#F4A261"/><rect x="10" y="42" width="16" height="10" rx="2" fill="#DCEBFA"/><rect x="36" y="56" width="8" height="3" fill="#333"/><g fill="#222"><circle cx="18" cy="66" r="7"/><circle cx="62" cy="66" r="7"/><circle cx="114" cy="66" r="7"/></g></svg></div><button class="prova press" data-n="2">Prova</button></div>
+ <div class="an"><b>3. Grön bock</b><small>Ritas fram – formuläret är klart</small><div class="stage"><svg class="bigchk" id="n3" viewBox="0 0 110 110" aria-hidden="true"><circle cx="55" cy="55" r="48"/><path d="M32 57 L48 73 L80 40"/></svg></div><button class="prova press" data-n="3">Prova</button></div>
+ <div class="an"><b>4. Hjälmen</b><small>Lyser upp – skyddsdelen</small><div class="stage"><svg class="helm" id="n4" viewBox="0 0 120 80" aria-hidden="true"><path d="M18 60 Q18 14 60 12 Q102 14 102 60Z" fill="#F6C343" stroke="#B8860B" stroke-width="2"/><rect x="54" y="12" width="12" height="48" fill="#E8B020"/><rect x="8" y="58" width="104" height="10" rx="5" fill="#E8B020" stroke="#B8860B" stroke-width="2"/><circle class="lamp" cx="60" cy="34" r="8" stroke="#B8860B" stroke-width="2"/></svg></div><button class="prova press" data-n="4">Prova</button></div>
+ <div class="an"><b>5. Händer som möts</b><small>High five – gå med i Signal-gruppen</small><div class="stage"><span class="hand l" id="n5l">🤚</span><span class="hand r" id="n5r">🤚</span><span class="spark" id="n5s">✨</span></div><button class="prova press" data-n="5">Prova</button></div>
+ <div class="an"><b>6. Kontrolltornet</b><small>Lampan blinkar – ny notis</small><div class="stage sky"><svg class="tower" id="n6" viewBox="0 0 90 130" aria-hidden="true"><circle class="ring" cx="45" cy="18" r="10"/><rect x="41" y="10" width="8" height="10" fill="#555"/><circle class="tl" cx="45" cy="14" r="6"/><path d="M14 22 L76 22 L68 50 L22 50Z" fill="#2B3A55"/><path d="M20 28 L70 28 L66 44 L24 44Z" fill="#8EC5F0"/><rect x="34" y="50" width="22" height="70" fill="#E6E9EE" stroke="#9AA3AF"/><rect x="26" y="118" width="38" height="8" fill="#9AA3AF"/></svg></div><button class="prova press" data-n="6">Prova</button></div>
+ <div class="an"><b>7. Hemknappen</b><small>Studsar lite när du trycker – du kom hem</small><div class="stage"><button class="homedemo" id="n7" aria-label="Hem (demo)">🏠</button></div><button class="prova press" data-n="7">Prova</button></div>
 </div>
 
 <h2>🔊 Ljud – ett ljud per jobb</h2>
@@ -152,5 +215,19 @@ document.querySelector('.ag').addEventListener('click',function(e){var b=e.targe
  if(n==='4'){restart(document.getElementById('a4'),'go');if(navigator.vibrate)navigator.vibrate(60)}
  if(n==='5'){restart(document.getElementById('a5'),'go');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)conf();sfx('oppna')}
 });
+
+// nya animationer (ljud max 0.3)
+function lowsfx(f,v){if(!document.getElementById('medljud').checked)return;try{var a=new Audio(f);a.volume=Math.min(.3,v);a.play().catch(function(){})}catch(e){}}
+function rs(id){var el=document.getElementById(id);if(el)restart(el,'go')}
+document.getElementById('ng').addEventListener('click',function(e){var b=e.target.closest('.prova,#n7');if(!b)return;var n=b.id==='n7'?'7':b.dataset.n;
+ if(n==='1'){rs('n1');lowsfx('skickat-dan03-sus-ljus.mp3',.25)}
+ if(n==='2'){rs('n2');lowsfx('sparat-dan01-melodi.mp3',.2)}
+ if(n==='3'){rs('n3');lowsfx('sparat-dan01-melodi.mp3',.2)}
+ if(n==='4'){rs('n4')}
+ if(n==='5'){rs('n5l');rs('n5r');rs('n5s');lowsfx('oppna-dan06-varm.mp3',.2)}
+ if(n==='6'){rs('n6');lowsfx('notis-dan10-pling.mp3',.2)}
+ if(n==='7'){rs('n7')}
+});
+document.getElementById('hem').addEventListener('click',function(){restart(this,'go')});
 })();
 </script></body></html>
