@@ -71,7 +71,7 @@ html.dark .skel{background:linear-gradient(90deg,rgba(255,255,255,.05) 0%,rgba(2
 /* lottie-scener */
 .scen{position:relative;height:190px;border-radius:20px;background:radial-gradient(120% 90% at 50% 100%,#FDE7EC 0%,#F6F8FC 70%);display:grid;place-items:center;overflow:hidden;margin-bottom:12px}
 html.dark .scen{background:radial-gradient(120% 90% at 50% 100%,#3A1D26 0%,#151B27 70%)}
-.lot{width:150px;height:150px}
+.lot{width:150px;height:150px}.lot svg{overflow:visible}
 .scen.duo{grid-template-columns:1fr 1fr}
 .status{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-weight:800;font-size:18px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .5s var(--spring)}
 .status.on{opacity:1;transform:none}
@@ -233,7 +233,7 @@ html.dark .scen{background:radial-gradient(120% 90% at 50% 100%,#3A1D26 0%,#151B
 </section>
 </main>
 <div class="vbar"><span class="cnt" id="valn" aria-label="Antal valda">0</span><button type="button" class="kop" id="kop">📋 Kopiera mina val</button></div>
-<script src="lottie-light-5.12.2.min.js"></script>
+<script src="lottie-5.12.2.min.js"></script>
 <script>
 (function(){
 'use strict';
@@ -261,7 +261,7 @@ lk.addEventListener('click',function(){ljudPa=!ljudPa;try{localStorage.setItem('
 var L={};
 function lot(id,file,loop){if(L[id])return L[id];var el=document.getElementById(id);if(!el||!window.lottie)return null;
  L[id]=lottie.loadAnimation({container:el,renderer:'svg',loop:!!loop,autoplay:false,path:file,rendererSettings:{preserveAspectRatio:'xMidYMid meet'}});
- L[id].addEventListener('DOMLoaded',function(){L[id].goToAndStop(0,true)});return L[id]}
+ L[id].addEventListener('DOMLoaded',function(){var g=el.querySelector('svg > g[clip-path]');if(g)g.removeAttribute('clip-path');L[id].goToAndStop(0,true)});return L[id]}
 function spela(id,times){var a=L[id];if(!a)return;if(RM){a.goToAndStop(Math.floor(a.totalFrames/2),true);return}
  a.loop=times>1?times-1:false;a.goToAndPlay(0,true)}
 lot('lotFlyg','noto-flygplan.json');lot('lotBock','noto-bock.json');lot('lotFest','noto-fest.json');lot('lotKlocka','noto-klocka.json');lot('lotTim','noto-timglas.json');lot('lotHand','noto-handslag.json');lot('lotToast','noto-klocka.json');
