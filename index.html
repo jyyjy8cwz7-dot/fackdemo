@@ -131,6 +131,105 @@ h1{font-size:26px;margin:14px 0 4px}h2{font-size:22px;margin:26px 0 8px;display:
  .brist.go{background:#FEE2E2}.pt.go{opacity:0}
  .press,.testa{transition:none}
 }
+/* ---------- Förhandsvisning nya animationer (stillbild innan Prova) ---------- */
+.np{transform:translateX(60px)}
+.np.go{animation:taxi 2.4s ease-in-out both}
+.cart{transform:none}
+.cart.go{animation:cartin2 1s ease-out both}
+@keyframes cartin2{from{transform:translateX(-80vw)}to{transform:none}}
+.cart .bag{opacity:1;transform:none}
+.cart.go .bag{animation:bagdrop2 .6s 1.05s cubic-bezier(.3,1.3,.5,1) both}
+@keyframes bagdrop2{0%{opacity:0;transform:translateY(-60px)}1%{opacity:1;transform:translateY(-60px)}100%{opacity:1;transform:none}}
+.bigchk circle,.bigchk path{stroke-dashoffset:0}
+.bigchk.go circle{animation:dr302 .8s ease-out both}
+.bigchk.go path{animation:dr80 .55s .7s ease-out both}
+@keyframes dr302{from{stroke-dashoffset:302}to{stroke-dashoffset:0}}
+@keyframes dr80{from{stroke-dashoffset:80}to{stroke-dashoffset:0}}
+
+/* ---------- Avancerade animationer v41c ---------- */
+.prova2{border:3px solid var(--b);border-radius:16px;background:#fff;color:var(--b);font:inherit;font-weight:800;font-size:20px;padding:12px 8px;width:100%;min-height:56px;cursor:pointer}
+.btn2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ng .stage.big{height:160px}
+.stage svg.full{position:absolute;inset:0;width:100%;height:100%}
+.cap{font-size:15px;font-weight:700;color:var(--mu);text-align:center;min-height:21px}
+/* 8 rampen */
+.rp-cart.go{animation:rpin 1.6s cubic-bezier(.2,.7,.3,1) both}
+.rp-fuel.go{animation:rpin2 1.8s .6s cubic-bezier(.2,.7,.3,1) both}
+@keyframes rpin{from{transform:translateX(260px)}to{transform:none}}
+@keyframes rpin2{from{transform:translateX(-300px)}to{transform:none}}
+.rp-beacon{fill:#B02A43}
+.rp.go .rp-beacon{animation:bcn .5s steps(1) 6}
+@keyframes bcn{0%{fill:#FF3B30}50%{fill:#5a1020}}
+.rp.go .rp-wheel{animation:none}
+/* 9 dag och natt */
+.dn .L{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
+.dn .L.m{background:linear-gradient(180deg,#F9C6A0,#FDE7C8)}
+.dn .L.d{background:linear-gradient(180deg,#7FB8EE,#DCEBFA)}
+.dn .L.e{background:linear-gradient(180deg,#5B3A72,#F08A5D)}
+.dn .L.n{background:linear-gradient(180deg,#0B1530,#24365E)}
+.dn.ph-m .L.m,.dn.ph-d .L.d,.dn.ph-e .L.e,.dn.ph-n .L.n{opacity:1}
+.dn .sun,.dn .moon{position:absolute;width:34px;height:34px;border-radius:50%;margin:-17px 0 0 -17px;transition:left .8s ease,top .8s ease,opacity .8s ease}
+.dn .sun{background:radial-gradient(circle,#FFF6B0,#FFC93C 60%,#F7A21B);box-shadow:0 0 18px 6px rgba(255,200,60,.6)}
+.dn .moon{background:#F4F1DE;box-shadow:inset -9px -3px 0 0 #C9C4A8,0 0 12px 3px rgba(240,240,220,.35)}
+.dn .sun{left:50%;top:30%}.dn .moon{left:75%;top:120%;opacity:0}
+.dn.ph-m .sun{left:18%;top:62%}.dn.ph-d .sun{left:50%;top:26%}.dn.ph-e .sun{left:82%;top:64%}.dn.ph-n .sun{left:90%;top:125%;opacity:0}
+.dn.ph-n .moon{left:72%;top:28%;opacity:1}
+.dn .st{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:0;transition:opacity .8s ease}
+.dn.ph-n .st{opacity:.9;animation:tw 1.6s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.3}}
+.dn .gnd{position:absolute;left:0;right:0;bottom:0;height:34px}
+.dn .lab{position:absolute;left:10px;top:8px;background:rgba(255,255,255,.85);border-radius:10px;padding:2px 10px;font-weight:800;font-size:15px;color:var(--tx)}
+.dn .win{transition:fill .8s ease;fill:#8EC5F0}.dn.ph-n .win,.dn.ph-e .win{fill:#FFE08A}
+.clk{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;min-height:44px}
+.clk input{width:28px;height:28px}
+/* 10 pappersflygplan */
+.pp-let{position:absolute;left:calc(50% - 40px);top:30px;width:80px;height:80px}
+.pp-let.go{animation:fold .7s ease-in both}
+@keyframes fold{0%{transform:none;opacity:1}50%{transform:perspective(300px) rotateX(55deg) scale(.8);opacity:1}100%{transform:perspective(300px) rotateX(80deg) scale(.4) rotate(20deg);opacity:0}}
+.pp-pl{position:absolute;left:calc(50% - 32px);top:44px;width:64px;height:44px;opacity:0}
+.pp-pl.go{animation:ppfly 1.9s ease-in both}
+@keyframes ppfly{0%,30%{opacity:0;transform:scale(.4)}40%{opacity:1;transform:scale(1) rotate(-6deg)}55%{transform:translate(-14px,10px) rotate(-2deg)}100%{opacity:0;transform:translate(240px,-120px) rotate(-18deg) scale(.6)}}
+.pp-ok{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-weight:900;color:var(--ok);font-size:20px;opacity:0}
+.pp-ok.go{animation:pop .6s 1.5s ease-out both}
+/* 11 sköld */
+.shd{width:96px;height:116px;transition:filter .3s}
+.shd .pc{opacity:.15;transition:opacity .35s ease,transform .35s ease}
+.shd .pc.on{opacity:1}
+.shd .tick{stroke-dasharray:70;stroke-dashoffset:70;transition:stroke-dashoffset .5s ease .1s}
+.shd.done .tick{stroke-dashoffset:0}
+.shd.done{animation:shglow 1.4s ease-in-out}
+.shd.done.still{animation:none;filter:drop-shadow(0 0 10px rgba(255,190,80,.8))}
+@keyframes shglow{0%{filter:none}40%{filter:drop-shadow(0 0 20px rgba(255,190,80,1)) brightness(1.1)}100%{filter:drop-shadow(0 0 10px rgba(255,190,80,.8))}}
+/* 12 konfetti */
+.cfc{position:absolute;inset:0;width:100%;height:100%}
+.cfx{position:relative;font-weight:900;font-size:22px;color:var(--b);background:rgba(255,255,255,.85);border-radius:12px;padding:4px 12px}
+.cfx.go{animation:pop .6s ease-out both}
+/* 13 radar */
+.rdr{position:relative;width:124px;height:124px;border-radius:50%;background:radial-gradient(circle,#0F3B2A 0,#08261B 70%);box-shadow:inset 0 0 0 2px #2E8B57;overflow:hidden}
+.rdr::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 19px,rgba(90,255,150,.35) 19px 20px),linear-gradient(90deg,transparent 49.6%,rgba(90,255,150,.3) 49.6% 50.4%,transparent 50.4%),linear-gradient(0deg,transparent 49.6%,rgba(90,255,150,.3) 49.6% 50.4%,transparent 50.4%)}
+.rdr .sw{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 290deg,rgba(90,255,150,.65) 360deg);transform:rotate(45deg)}
+.rdr.go .sw{animation:sweep 2.5s linear both}
+@keyframes sweep{from{transform:rotate(45deg)}to{transform:rotate(765deg)}}
+.rdr .bl{position:absolute;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#7CFFB0;box-shadow:0 0 8px 2px rgba(124,255,176,.8);opacity:.35}
+.rdr.go .bl{animation:blip 2.5s linear both}
+@keyframes blip{0%{opacity:0;transform:scale(.5)}4%{opacity:1;transform:scale(1.4)}30%{opacity:.4;transform:scale(1)}50%{opacity:.4}54%{opacity:1;transform:scale(1.3)}80%,100%{opacity:.7;transform:scale(1)}}
+.rdrw{display:flex;align-items:center;gap:14px}
+.rdrt{font-weight:800;font-size:16px;max-width:130px}
+/* 14 folk som samlas */
+.fig{position:absolute;bottom:16px;width:30px;height:56px;margin-left:-15px}
+.fig.go{animation:gather 1.6s cubic-bezier(.3,.6,.3,1) both}
+.fig.go svg{animation:bob .32s ease-in-out 5}
+@keyframes gather{from{transform:translateX(var(--s))}to{transform:none}}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.tog{position:absolute;left:0;right:0;top:10px;text-align:center;font-weight:900;font-size:18px;color:var(--b)}
+.tog.go{animation:pop .6s 1.6s ease-out both}
+@media (prefers-reduced-motion:reduce){
+ #av .go,#av .go *,.np.go,.cart.go,.cart.go .bag,.bigchk.go circle,.bigchk.go path{animation:none!important}
+ #av .dn *,#av .shd,#av .shd *{transition:none!important}
+ .np.go{transform:translateX(60px)}
+ .pp-let.go{opacity:0}.pp-pl.go{opacity:1;transform:translate(60px,-20px) rotate(-10deg)}.pp-ok.go{opacity:1}
+ .dn.ph-n .st{animation:none}
+}
 </style></head><body id="top"><main><a href="#top" id="hem" aria-label="Till toppen" style="position:fixed;right:16px;bottom:16px;z-index:99;width:64px;height:64px;border-radius:50%;background:#B02A43;color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3)">🏠</a>
 <div class="skiss">SKISS v41 – bara för test. Ändrar inget i den riktiga appen.</div>
 <h1>Animationer, ljud och röster</h1>
@@ -156,6 +255,55 @@ h1{font-size:26px;margin:14px 0 4px}h2{font-size:22px;margin:26px 0 8px;display:
  <div class="an"><b>5. Händer som möts</b><small>High five – gå med i Signal-gruppen</small><div class="stage"><span class="hand l" id="n5l">🤚</span><span class="hand r" id="n5r">🤚</span><span class="spark" id="n5s">✨</span></div><button class="prova press" data-n="5">Prova</button></div>
  <div class="an"><b>6. Kontrolltornet</b><small>Lampan blinkar – ny notis</small><div class="stage sky"><svg class="tower" id="n6" viewBox="0 0 90 130" aria-hidden="true"><circle class="ring" cx="45" cy="18" r="10"/><rect x="41" y="10" width="8" height="10" fill="#555"/><circle class="tl" cx="45" cy="14" r="6"/><path d="M14 22 L76 22 L68 50 L22 50Z" fill="#2B3A55"/><path d="M20 28 L70 28 L66 44 L24 44Z" fill="#8EC5F0"/><rect x="34" y="50" width="22" height="70" fill="#E6E9EE" stroke="#9AA3AF"/><rect x="26" y="118" width="38" height="8" fill="#9AA3AF"/></svg></div><button class="prova press" data-n="6">Prova</button></div>
  <div class="an"><b>7. Hemknappen</b><small>Studsar lite när du trycker – du kom hem</small><div class="stage"><button class="homedemo" id="n7" aria-label="Hem (demo)">🏠</button></div><button class="prova press" data-n="7">Prova</button></div>
+</div>
+
+<h2>✨ Avancerade animationer</h2>
+<p class="lead">Lite större små scener. Tryck på <b>Prova</b>. Ljudet är lågt.</p>
+<div class="ng" id="av">
+ <div class="an"><b>8. Hela rampen</b><small>Planet vid gaten, bagagevagn och tankbil kör fram – när appen startar</small><div class="stage big sky rp" id="r8"><svg class="full" viewBox="0 0 320 140" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+  <rect x="-200" y="98" width="720" height="60" fill="#C9CED6"/><g fill="#F6C343"><rect x="20" y="122" width="22" height="3"/><rect x="70" y="122" width="22" height="3"/><rect x="120" y="122" width="22" height="3"/><rect x="170" y="122" width="22" height="3"/><rect x="220" y="122" width="22" height="3"/><rect x="270" y="122" width="22" height="3"/></g>
+  <rect x="0" y="34" width="62" height="64" fill="#E6E9EE" stroke="#9AA3AF"/><g fill="#8EC5F0"><rect x="6" y="44" width="50" height="12"/><rect x="6" y="62" width="50" height="12"/></g><rect x="4" y="26" width="54" height="9" fill="#8E1F35"/>
+  <rect x="62" y="50" width="52" height="12" fill="#9AA3AF"/><rect x="86" y="62" width="4" height="36" fill="#6B7280"/>
+  <path d="M260 34 L284 10 L296 10 L286 48Z" fill="#B02A43"/>
+  <path d="M112 62 Q112 48 132 48 L280 48 Q296 50 296 60 Q296 72 278 72 L132 72 Q112 72 112 62Z" fill="#fff" stroke="#8E1F35" stroke-width="2"/>
+  <path d="M116 56 Q118 51 128 50 L128 58 L116 58Z" fill="#5B8DD6"/>
+  <g fill="#5B8DD6"><circle cx="146" cy="57" r="2.2"/><circle cx="156" cy="57" r="2.2"/><circle cx="166" cy="57" r="2.2"/><circle cx="176" cy="57" r="2.2"/><circle cx="186" cy="57" r="2.2"/><circle cx="226" cy="57" r="2.2"/><circle cx="236" cy="57" r="2.2"/><circle cx="246" cy="57" r="2.2"/><circle cx="256" cy="57" r="2.2"/></g>
+  <path d="M190 64 L240 64 L262 84 L246 84Z" fill="#B02A43"/><rect x="198" y="70" width="22" height="9" rx="4" fill="#9AA3AF"/>
+  <circle class="rp-beacon" cx="200" cy="47" r="3"/>
+  <g fill="#333"><rect x="137" y="72" width="3" height="12"/><circle cx="138.5" cy="86" r="4"/><rect x="226" y="72" width="3" height="12"/><circle cx="227.5" cy="86" r="4"/></g>
+  <g class="rp-fuel"><rect x="236" y="88" width="52" height="18" rx="9" fill="#E9EEF3" stroke="#6B7280" stroke-width="1.5"/><rect x="288" y="84" width="22" height="22" rx="4" fill="#2A9D8F"/><rect x="296" y="88" width="10" height="8" rx="2" fill="#DCEBFA"/><text x="262" y="101" font-size="9" text-anchor="middle" font-weight="700" fill="#2B3A55">JET A-1</text><g fill="#222"><circle cx="248" cy="108" r="5"/><circle cx="276" cy="108" r="5"/><circle cx="302" cy="108" r="5"/></g></g>
+  <g class="rp-cart"><rect x="106" y="110" width="26" height="16" rx="3" fill="#F4A261"/><rect x="111" y="113" width="11" height="7" rx="2" fill="#DCEBFA"/><rect x="132" y="120" width="8" height="2" fill="#333"/><rect x="140" y="112" width="40" height="12" rx="2" fill="#2B3A55"/><rect x="144" y="102" width="14" height="11" rx="2" fill="#B02A43"/><rect x="160" y="104" width="16" height="9" rx="2" fill="#5B8DD6"/><rect x="180" y="120" width="6" height="2" fill="#333"/><rect x="186" y="112" width="40" height="12" rx="2" fill="#2B3A55"/><rect x="190" y="100" width="16" height="13" rx="2" fill="#E9C46A"/><rect x="208" y="104" width="14" height="9" rx="2" fill="#2A9D8F"/><g fill="#222"><circle class="rp-wheel" cx="114" cy="128" r="4.5"/><circle cx="127" cy="128" r="4.5"/><circle cx="148" cy="127" r="3.5"/><circle cx="172" cy="127" r="3.5"/><circle cx="194" cy="127" r="3.5"/><circle cx="218" cy="127" r="3.5"/></g></g>
+ </svg></div><button class="prova press" data-n="8">Prova</button></div>
+
+ <div class="an"><b>9. Dag och natt</b><small>Himlen skiftar morgon → dag → kväll → natt, med stjärnor för nattpasset</small><div class="stage big dn ph-d" id="r9"><div class="L m"></div><div class="L d"></div><div class="L e"></div><div class="L n"></div>
+  <i class="st" style="left:12%;top:14%"></i><i class="st" style="left:24%;top:30%"></i><i class="st" style="left:36%;top:10%"></i><i class="st" style="left:48%;top:24%"></i><i class="st" style="left:58%;top:8%"></i><i class="st" style="left:86%;top:18%"></i><i class="st" style="left:92%;top:40%"></i><i class="st" style="left:30%;top:46%"></i><i class="st" style="left:64%;top:44%"></i><i class="st" style="left:6%;top:40%"></i>
+  <div class="sun"></div><div class="moon"></div>
+  <svg class="gnd" viewBox="0 0 320 34" preserveAspectRatio="none" aria-hidden="true"><rect y="18" width="320" height="16" fill="#3A4152"/><rect x="40" y="25" width="18" height="2" fill="#E6E9EE"/><rect x="90" y="25" width="18" height="2" fill="#E6E9EE"/><rect x="140" y="25" width="18" height="2" fill="#E6E9EE"/><rect x="190" y="25" width="18" height="2" fill="#E6E9EE"/><rect x="240" y="25" width="18" height="2" fill="#E6E9EE"/><rect x="262" y="0" width="10" height="18" fill="#2B3A55"/><rect x="254" y="-2" width="26" height="8" fill="#2B3A55"/><rect class="win" x="257" y="0" width="20" height="4"/><rect x="0" y="6" width="70" height="12" fill="#2B3A55"/><rect class="win" x="6" y="9" width="58" height="4"/></svg>
+  <span class="lab" id="dnlab">Dag</span></div>
+  <label class="clk"><input type="checkbox" id="dnclk"> Visa efter klockan <span id="dnnow" style="font-weight:600;color:var(--mu)"></span></label>
+  <button class="prova press" data-n="9">Prova</button></div>
+
+ <div class="an"><b>10. Pappersflygplan</b><small>Brevet viks till ett plan och flyger iväg – när du trycker Skicka</small><div class="stage" id="r10">
+  <svg class="pp-let" id="pl1" viewBox="0 0 80 80" aria-hidden="true"><rect x="12" y="6" width="56" height="68" rx="3" fill="#fff" stroke="#8E1F35" stroke-width="2"/><g stroke="#C9A6AD" stroke-width="3" stroke-linecap="round"><path d="M20 20h40M20 30h40M20 40h32M20 50h40M20 60h24"/></g></svg>
+  <svg class="pp-pl" id="pl2" viewBox="0 0 64 44" aria-hidden="true"><path d="M2 22 L62 2 L40 42 L30 28Z" fill="#fff" stroke="#8E1F35" stroke-width="2" stroke-linejoin="round"/><path d="M62 2 L30 28 L26 40 L22 25Z" fill="#F3E3E6" stroke="#8E1F35" stroke-width="2" stroke-linejoin="round"/></svg>
+  <div class="pp-ok" id="pl3">Skickat ✓</div></div>
+  <button class="prova press" data-n="10">Skicka</button></div>
+
+ <div class="an"><b>11. Sköld som byggs upp</b><small>Fylls bit för bit medan du fyller i en anmälan – lyser när den är klar</small><div class="stage" id="r11"><svg class="shd" id="shd" viewBox="0 0 100 120" aria-hidden="true">
+  <defs><clipPath id="shclip"><path d="M50 6 L90 20 V58 Q90 94 50 114 Q10 94 10 58 V20 Z"/></clipPath></defs>
+  <g clip-path="url(#shclip)"><rect class="pc" x="0" y="0" width="100" height="31" fill="#8E1F35"/><rect class="pc" x="0" y="31" width="100" height="27" fill="#B02A43"/><rect class="pc" x="0" y="58" width="100" height="27" fill="#C8475E"/><rect class="pc" x="0" y="85" width="100" height="35" fill="#E07A8C"/></g>
+  <path d="M50 6 L90 20 V58 Q90 94 50 114 Q10 94 10 58 V20 Z" fill="none" stroke="#8E1F35" stroke-width="3" stroke-linejoin="round"/>
+  <path class="tick" d="M32 60 L45 73 L70 44" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="cap" id="shlab">Anmälan: 0 av 4 steg</div>
+  <div class="btn2"><button class="prova press" data-n="11">Prova</button><button class="prova2 press" data-n="11s">Nästa steg</button></div></div>
+
+ <div class="an"><b>12. Konfetti</b><small>Kort och diskret – när en begäran är skickad</small><div class="stage" id="r12"><canvas class="cfc" id="cfc" aria-hidden="true"></canvas><span class="cfx" id="cfx">🎉 Skickat!</span></div><button class="prova press" data-n="12">Prova</button></div>
+
+ <div class="an"><b>13. Radarsvep</b><small>Radarn sveper medan appen letar i biblioteket</small><div class="stage big" id="r13" style="background:linear-gradient(180deg,#EAF4EE,#fff)"><div class="rdrw"><div class="rdr" id="rdr"><div class="sw"></div>
+  <i class="bl" style="left:76%;top:30%;animation-delay:0s"></i><i class="bl" style="left:68%;top:74%;animation-delay:0s"></i><i class="bl" style="left:26%;top:62%;animation-delay:0s"></i></div><div class="rdrt" id="rdrt">📚 Biblioteket</div></div></div>
+  <button class="prova press" data-n="13">Prova</button></div>
+
+ <div class="an"><b>14. Folk som samlas</b><small>Små figurer går ihop till en grupp – när du öppnar ombudsdelen</small><div class="stage" id="r14"><div class="tog" id="tog">Tillsammans är vi starka</div></div><button class="prova press" data-n="14">Prova</button></div>
 </div>
 
 <h2>🔊 Ljud – ett ljud per jobb</h2>
@@ -203,7 +351,7 @@ var LIC={'sofie':'Licens: Microsofts molntjänst. Gratis att testa, men oklart o
 document.getElementById('vl').innerHTML=VO.map(function(v){return '<div class="card voice"><h3>'+v.n+'<span class="tag '+v.t[0]+'">'+v.t[1]+'</span></h3><p class="lic">'+LIC[v.id]+'</p><div class="vb">'+PH.map(function(p,i){return '<button data-f="'+v.id+'-'+(i+1)+'.mp3">▶ '+['Välkommen','Sparad','Skickat'][i]+'</button>'}).join('')+'</div></div>'}).join('');
 document.getElementById('vl').onclick=function(e){var b=e.target.closest('button[data-f]');if(b)play(b.dataset.f,b,1)};
 // animationer
-function restart(el,c){el.classList.remove(c);void el.offsetWidth;el.classList.add(c)}
+function restart(el,c){el.classList.remove(c);void el.getBoundingClientRect();el.classList.add(c)}
 var CF=['#B02A43','#F4A261','#2A9D8F','#E9C46A','#8E1F35','#1b7f4a'];
 function conf(){var o=document.getElementById('cf');o.innerHTML='';for(var i=0;i<16;i++){var p=document.createElement('i');p.className='pt';var a=(i/16)*Math.PI*2,r=60+Math.random()*60;p.style.cssText='background:'+CF[i%CF.length]+';--x:'+Math.round(Math.cos(a)*r*1.6)+'px;--y:'+Math.round(Math.sin(a)*r*.8)+'px;--r:'+Math.round(Math.random()*540)+'deg';o.appendChild(p)}void o.offsetWidth;Array.prototype.forEach.call(o.children,function(p){p.classList.add('go')});setTimeout(function(){o.innerHTML=''},900)}
 function glow(el){el.classList.add('down','glow');setTimeout(function(){el.classList.remove('down')},140);setTimeout(function(){el.classList.remove('glow')},450)}
@@ -228,6 +376,43 @@ document.getElementById('ng').addEventListener('click',function(e){var b=e.targe
  if(n==='6'){rs('n6');lowsfx('notis-dan10-pling.mp3',.2)}
  if(n==='7'){rs('n7')}
 });
+// avancerade animationer (ljud max 0.3)
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var TM={};function later(k,fn,ms){(TM[k]=TM[k]||[]).push(setTimeout(fn,ms))}
+function clearT(k){(TM[k]||[]).forEach(clearTimeout);TM[k]=[]}
+function rsQ(sel){Array.prototype.forEach.call(document.querySelectorAll(sel),function(el){restart(el,'go')})}
+function unQ(sel){Array.prototype.forEach.call(document.querySelectorAll(sel),function(el){el.classList.remove('go')})}
+// 9 dag och natt
+var DN=document.getElementById('r9'),PHN={m:'Morgon',d:'Dag',e:'Kväll',n:'Natt'};
+function setPh(p){DN.className=DN.className.replace(/\bph-\w\b/g,'').trim()+' ph-'+p;document.getElementById('dnlab').textContent=PHN[p]}
+function clockPh(){var d=new Date(),h=d.getHours(),p=h>=5&&h<10?'m':h>=10&&h<17?'d':h>=17&&h<22?'e':'n';document.getElementById('dnnow').textContent='– nu kl '+('0'+h).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);return p}
+var dnIv=null,dnc=document.getElementById('dnclk');
+dnc.addEventListener('change',function(){clearT('dn');clearInterval(dnIv);if(dnc.checked){setPh(clockPh());dnIv=setInterval(function(){setPh(clockPh())},60000)}else{document.getElementById('dnnow').textContent='';setPh('d')}});
+// 11 sköld
+var SH=0,SHL=['Anmälan: 0 av 4 steg','1. Vad hände ✓','2. Var och när ✓','3. Vilka var med ✓','Klar! Anmälan är komplett 🛡️'];
+function shSet(n){SH=n;var pcs=document.querySelectorAll('#shd .pc');Array.prototype.forEach.call(pcs,function(p,i){p.classList.toggle('on',i<n)});var s=document.getElementById('shd');s.classList.remove('done','still');if(n>=4){void s.getBoundingClientRect();s.classList.add('done');lowsfx('sparat-dan01-melodi.mp3',.2)}document.getElementById('shlab').textContent=SHL[n]}
+// 12 konfetti (canvas)
+var CV=document.getElementById('cfc'),CX=CV.getContext('2d'),cfRaf=0;
+function cvSize(){var r=CV.getBoundingClientRect(),d=Math.min(2,window.devicePixelRatio||1);CV.width=Math.max(1,Math.round(r.width*d));CV.height=Math.max(1,Math.round(r.height*d));CX.setTransform(d,0,0,d,0,0);return r}
+function cfStill(){var r=cvSize(),pts=[[.12,.25],[.22,.7],[.32,.18],[.7,.2],[.8,.65],[.9,.3],[.18,.45],[.84,.82],[.62,.78],[.4,.82]];CX.clearRect(0,0,r.width,r.height);pts.forEach(function(p,i){CX.save();CX.translate(p[0]*r.width,p[1]*r.height);CX.rotate(i*.7);CX.fillStyle=CF[i%CF.length];CX.globalAlpha=.8;CX.fillRect(-4,-2.5,8,5);CX.restore()})}
+function cfBurst(){cancelAnimationFrame(cfRaf);var r=cvSize(),W=r.width,H=r.height,P=[],t0=performance.now();for(var i=0;i<44;i++){var a=-Math.PI/2+(Math.random()-.5)*2.2,s=180+Math.random()*220;P.push({x:W/2,y:H*.62,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:Math.random()*6,vr:(Math.random()-.5)*12,w:5+Math.random()*5,h:3+Math.random()*3,c:CF[i%CF.length]})}
+ var last=t0;function f(t){var dt=Math.min(.05,(t-last)/1000),el=(t-t0)/1000;last=t;CX.clearRect(0,0,W,H);var al=Math.max(0,1-Math.max(0,el-.7)/.6);P.forEach(function(p){p.vy+=520*dt;p.vx*=.985;p.x+=p.vx*dt;p.y+=p.vy*dt;p.r+=p.vr*dt;CX.save();CX.globalAlpha=al;CX.translate(p.x,p.y);CX.rotate(p.r);CX.fillStyle=p.c;CX.fillRect(-p.w/2,-p.h/2,p.w,Math.abs(Math.cos(p.r*2))*p.h+1);CX.restore()});if(el<1.3)cfRaf=requestAnimationFrame(f);else cfStill()}cfRaf=requestAnimationFrame(f)}
+// 13 radar: blippar tänds när svepet passerar
+Array.prototype.forEach.call(document.querySelectorAll('#rdr .bl'),function(b){var x=parseFloat(b.style.left)-50,y=50-parseFloat(b.style.top),ang=(Math.atan2(x,y)*180/Math.PI+360)%360,d=((ang-45+360)%360)/360*1.25;b.style.animationDelay=d.toFixed(2)+'s'});
+// 14 folk
+var FG=['#8E1F35','#2A9D8F','#F4A261','#5B8DD6','#B02A43','#E9C46A','#2B3A55'],FX=[-60,-38,-16,6,28,50,72],FS=[-220,-170,-120,0,140,190,240];
+document.getElementById('r14').insertAdjacentHTML('beforeend',FG.map(function(c,i){return '<div class="fig" style="left:calc(50% + '+(FX[i]-6)+'px);--s:'+FS[i]+'px;'+(i===3?'bottom:20px':'')+'"><svg viewBox="0 0 30 56" width="30" height="56" aria-hidden="true"><circle cx="15" cy="9" r="8" fill="#F1C7A8"/><rect x="5" y="19" width="20" height="24" rx="9" fill="'+c+'"/><rect x="7" y="40" width="6" height="15" rx="3" fill="#2B3A55"/><rect x="17" y="40" width="6" height="15" rx="3" fill="#2B3A55"/></svg></div>'}).join(''));
+document.getElementById('av').addEventListener('click',function(e){var b=e.target.closest('button[data-n]');if(!b)return;var n=b.dataset.n;
+ if(n==='8'){rsQ('#r8,#r8 .rp-cart,#r8 .rp-fuel');lowsfx('oppna-dan06-varm.mp3',.2);clearT('r8');later('r8',function(){unQ('#r8,#r8 .go')},3200)}
+ if(n==='9'){clearT('dn');var seq=['m','d','e','n'];seq.forEach(function(p,i){later('dn',function(){setPh(p)},i*900)});later('dn',function(){setPh(dnc.checked?clockPh():'d')},4300);lowsfx('notis-dan10-pling.mp3',.12)}
+ if(n==='10'){clearT('pp');rsQ('#pl1,#pl2,#pl3');later('pp',function(){lowsfx('skickat-dan03-sus-ljus.mp3',.25)},550);later('pp',function(){unQ('#r10 .go')},3000)}
+ if(n==='11'){clearT('sh');shSet(0);[1,2,3,4].forEach(function(k){later('sh',function(){shSet(k)},k*520)})}
+ if(n==='11s'){clearT('sh');shSet(SH>=4?0:SH+1)}
+ if(n==='12'){restart(document.getElementById('cfx'),'go');if(RM)cfStill();else cfBurst();lowsfx('skickat-dan03-sus-ljus.mp3',.2)}
+ if(n==='13'){clearT('rd');var t=document.getElementById('rdrt');t.textContent='🔎 Söker i biblioteket…';rsQ('#rdr');later('rd',function(){t.textContent='✅ 3 träffar';lowsfx('notis-dan10-pling.mp3',.15)},2500);later('rd',function(){unQ('#rdr')},3600)}
+ if(n==='14'){rsQ('#r14 .fig,#tog');lowsfx('oppna-dan06-varm.mp3',.18)}
+});
+cfStill();addEventListener('resize',cfStill);
 document.getElementById('hem').addEventListener('click',function(){restart(this,'go')});
 })();
 </script></body></html>
