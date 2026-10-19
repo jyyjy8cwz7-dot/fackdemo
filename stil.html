@@ -1,0 +1,771 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#0A1128">
+<link rel="icon" href="data:,"><title>Egen stil – Natt över Arlanda</title>
+<style>
+@font-face{font-family:"AHN";src:url(atkinson-next-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"AHN";src:url(atkinson-next-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"AHN";src:url(atkinson-next-800.woff2) format("woff2");font-weight:800 900;font-display:swap}
+:root{--n950:#050814;--n900:#0A1128;--n800:#111C3D;--n600:#22356B;--seko:#C8203E;--sekom:#8E1F35;--ban:#FFB547;--banv:#FF8A3D;--ok:#2FBF7A;--pap:#F4F1EC;--dim:#A9B3CF;
+--bg:var(--n900);--card:#0F1934;--tx:var(--pap);--mu:var(--dim);--line:rgba(255,255,255,.09);
+--sh:0 1px 0 rgba(255,255,255,.06) inset,0 18px 40px -12px rgba(0,0,0,.6);
+--ut:cubic-bezier(.16,1,.3,1);--inut:cubic-bezier(.65,0,.35,1)}
+html.ljus{--bg:#EEF3FB;--card:#FFFFFF;--tx:#14182A;--mu:#4A5470;--line:rgba(10,20,50,.1);--sh:0 1px 0 rgba(255,255,255,.8) inset,0 18px 40px -16px rgba(20,40,90,.28)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg);transition:background-color .6s var(--inut)}
+body{margin:0;font-family:"AHN",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--tx);font-size:18px;line-height:1.45;transition:color .6s var(--inut);
+ background:radial-gradient(120% 60% at 20% 0%,rgba(34,53,107,.55),transparent 60%),radial-gradient(90% 50% at 100% 10%,rgba(200,32,62,.12),transparent 60%)}
+html.ljus body{background:radial-gradient(120% 60% at 20% 0%,rgba(142,197,255,.45),transparent 60%),radial-gradient(90% 50% at 100% 10%,rgba(255,181,71,.18),transparent 60%)}
+main{max-width:640px;margin:0 auto;padding:10px 14px 130px}
+.skiss{background:rgba(255,181,71,.12);color:var(--ban);border:2px dashed rgba(255,181,71,.55);border-radius:14px;padding:8px 12px;font-weight:700;font-size:15px;text-align:center}
+html.ljus .skiss{color:#7a4a00;background:#FFF3C4;border-color:#C9A227}
+.topp{display:flex;gap:10px;align-items:center;margin:10px 0}
+.tillbaka{flex:1;display:flex;align-items:center;gap:10px;min-height:64px;padding:0 16px;border-radius:20px;background:var(--card);color:var(--tx);text-decoration:none;font-weight:800;box-shadow:var(--sh)}
+.tillbaka svg,.ikonknapp svg{width:28px;height:28px}
+.ikonknapp{width:64px;height:64px;border-radius:20px;border:0;background:var(--card);color:var(--tx);box-shadow:var(--sh);display:grid;place-items:center;cursor:pointer}
+h1{font-size:30px;margin:16px 0 4px;letter-spacing:-.015em;line-height:1.15}
+h1 span{color:var(--ban)} html.ljus h1 span{color:var(--sekom)}
+h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.nr{flex:none;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:linear-gradient(140deg,var(--seko),var(--sekom));color:#fff;font-size:17px;box-shadow:0 0 0 3px rgba(200,32,62,.18)}
+.lead{color:var(--mu);margin:0 0 14px;font-size:17px}
+.card{background:var(--card);border-radius:28px;padding:16px;box-shadow:var(--sh);margin:0 0 20px;border:1px solid var(--line)}
+.why{font-size:16px;color:var(--mu);margin:4px 0 12px}
+.stage{position:relative;width:100%;aspect-ratio:3/2;border-radius:24px;overflow:hidden;background:radial-gradient(120% 90% at 30% 10%,#1A2A5A 0%,#0A1128 55%,#050814 100%);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 0 0 1px rgba(255,255,255,.04);isolation:isolate;touch-action:manipulation}
+.stage.hog{aspect-ratio:4/5}
+.stage>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage>canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.stage .over{position:absolute;inset:0;pointer-events:none}
+.btn{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:64px;border:0;border-radius:20px;background:linear-gradient(180deg,#D42B48,#A51D36);color:#fff;font:inherit;font-weight:800;font-size:20px;padding:12px 16px;cursor:pointer;margin-top:12px;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 10px 24px -8px rgba(200,32,62,.6);touch-action:manipulation;user-select:none;-webkit-user-select:none;will-change:transform}
+.btn.sek{background:linear-gradient(180deg,#2A3F7A,#1A2A56);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 24px -8px rgba(0,0,0,.6)}
+.rad{display:grid;gap:10px}.r2{grid-template-columns:1fr 1fr}.r2 .btn{margin-top:12px}
+.btn:focus-visible,.bra:focus-visible,.ikonknapp:focus-visible,#hem:focus-visible,.tillbaka:focus-visible,.tile:focus-visible{outline:4px solid #7FB2FF;outline-offset:3px}
+.skip{position:absolute;right:10px;top:10px;z-index:3;min-height:48px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(5,8,20,.45);color:#fff;font:inherit;font-weight:700;font-size:16px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer;transition:opacity .3s}
+.skip[hidden]{display:block;opacity:0;pointer-events:none}
+/* ✅ Bra */
+.bra{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:60px;margin-top:12px;border:3px solid rgba(169,179,207,.5);border-radius:18px;background:transparent;color:var(--mu);font:inherit;font-weight:800;font-size:19px;padding:8px 10px;cursor:pointer;user-select:none;-webkit-user-select:none;will-change:transform}
+.bra .bx{width:30px;height:30px;border-radius:9px;border:3px solid currentColor;display:grid;place-items:center;font-size:18px;color:transparent}
+.bra[aria-pressed=true]{border-color:var(--ok);background:rgba(47,191,122,.14);color:var(--ok)}
+.bra[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok);color:#fff}
+html.ljus .bra[aria-pressed=true]{color:#14653a}
+/* ljudlista */
+.snd{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.snd:first-child{border-top:0}.snd .bra{grid-column:1/-1;margin-top:2px}
+.play{width:64px;height:64px;border-radius:50%;border:0;background:linear-gradient(160deg,#2A3F7A,#16234A);color:var(--ban);display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+.play svg{width:26px;height:26px}.play.on{background:linear-gradient(160deg,#D42B48,#8E1F35);color:#fff}
+.snd b{display:block;font-size:19px}.snd small{color:var(--mu);font-size:15px}
+.meter{display:block;height:4px;border-radius:2px;margin-top:6px;background:var(--line);overflow:hidden}.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ban),var(--seko));border-radius:2px}
+/* hem + valbar */
+#hem{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:99;width:68px;height:68px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#E0405C,#9E1C36 70%);color:#fff;display:grid;place-items:center;text-decoration:none;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 24px -6px rgba(200,32,62,.65),0 0 0 6px rgba(200,32,62,.12);cursor:pointer;will-change:transform}
+#hem svg{width:38px;height:38px;overflow:visible}
+.vbar{position:fixed;left:12px;right:96px;bottom:max(16px,env(safe-area-inset-bottom));z-index:98;display:flex;align-items:center;gap:8px;background:rgba(15,25,52,.82);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px -8px rgba(0,0,0,.6);padding:6px}
+html.ljus .vbar{background:rgba(255,255,255,.85)}
+.vbar .cnt{flex:none;min-width:52px;height:54px;display:grid;place-items:center;border-radius:14px;background:rgba(47,191,122,.16);color:var(--ok);font-weight:900;font-size:21px;padding:0 8px;font-variant-numeric:tabular-nums}
+.vbar .kop{flex:1;min-height:54px;border:0;border-radius:14px;background:linear-gradient(180deg,#2A3F7A,#1A2A56);color:#fff;font:inherit;font-weight:800;font-size:18px;cursor:pointer}
+.kmsg{display:none;margin-top:10px;font-weight:800;color:var(--ok)}.kmsg.on{display:block}
+textarea.valtxt{display:none;width:100%;min-height:120px;margin-top:10px;font:inherit;font-size:16px;border-radius:14px;padding:10px;background:var(--bg);color:var(--tx);border:2px solid var(--line)}textarea.valtxt.on{display:block}
+.sw{display:flex;align-items:center;gap:12px;min-height:64px;font-weight:800;cursor:pointer}
+.sw input{width:28px;height:28px;accent-color:var(--seko)}
+.palett{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 4px}
+.palett div{border-radius:14px;height:56px;display:flex;align-items:flex-end;padding:6px;font-size:12px;font-weight:700;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.fakta{font-size:15px;color:var(--mu);margin:8px 0 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){html,body{transition:none}}
+</style></head><body id="top">
+<button type="button" id="hem" aria-label="Hem – till toppen"><svg viewBox="-24 -24 48 48" aria-hidden="true"><g id="hemIkon"><path class="tak" d="M-17,-1 L0,-16 L17,-1" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path class="kropp" d="M-12,-3 L-12,15 Q-12,17 -10,17 L10,17 Q12,17 12,15 L12,-3" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><rect class="dorr" x="-4" y="5" width="8" height="12" rx="2" fill="currentColor"/></g></svg></button>
+<main>
+<div class="skiss">🧪 Egen stil – bara för test. Inte den riktiga appen.</div>
+<div class="topp">
+ <a class="tillbaka" href="proffs.html"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"/></svg>Till proffsdemon</a>
+ <button type="button" class="ikonknapp" id="ljudknapp" aria-pressed="true" aria-label="Ljud på eller av"></button>
+</div>
+<h1>Egen stil: <span>Natt över Arlanda</span></h1>
+<p class="lead">Allt här är ritat, animerat och tonsatt för hand – en enda stil i hela appen. Tryck <b>▶ Spela</b> och bocka i ✅ Bra för det du gillar. Ljudet är lågt.</p>
+
+<section class="card" id="c1">
+<h2><span class="nr">1</span>Appen startar</h2>
+<p class="why">Banljusen tänds ett i taget, planet rullar och lyfter, natten blir gryning. 2,5 sekunder – tryck "Hoppa över" eller på bilden för att gå direkt till appen.</p>
+<div class="stage" id="st1"><button type="button" class="skip" id="skip1">Hoppa över ›</button>
+<svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" aria-label="Flygplan lyfter från Arlanda i gryningen" role="img">
+<defs>
+ <linearGradient id="s1sky" x1="0" y1="0" x2="0" y2="1"><stop id="s1k0" offset="0"/><stop id="s1k1" offset=".55"/><stop id="s1k2" offset="1"/></linearGradient>
+ <radialGradient id="s1sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFD9A0" stop-opacity=".95"/><stop offset=".25" stop-color="#FF9D5C" stop-opacity=".55"/><stop offset="1" stop-color="#FF7A45" stop-opacity="0"/></radialGradient>
+ <radialGradient id="s1moon" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#E9EEFF" stop-opacity=".5"/><stop offset="1" stop-color="#E9EEFF" stop-opacity="0"/></radialGradient>
+ <radialGradient id="glowA" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE2A8"/><stop offset=".3" stop-color="#FFB547" stop-opacity=".7"/><stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/></radialGradient>
+ <radialGradient id="glowR" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FF8C9E"/><stop offset=".3" stop-color="#E0405C" stop-opacity=".7"/><stop offset="1" stop-color="#C8203E" stop-opacity="0"/></radialGradient>
+ <linearGradient id="s1plg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A4A78"/><stop offset="1" stop-color="#0B1230"/></linearGradient>
+ <linearGradient id="s1gnd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1736"/><stop offset="1" stop-color="#04070F"/></linearGradient>
+ <symbol id="plan" viewBox="-60 -26 120 52" overflow="visible">
+  <path d="M-8,0 L-24,-13 L-15,-13 L9,-1 Z" fill="#141E44"/>
+  <path d="M-44,-1 L-55,-21 L-47,-21 L-30,-3 Z" fill="url(#s1plg)"/>
+  <path d="M-48,-2 C-40,-5 28,-6 40,-5 C48,-4 55,-1 55,1 C55,3 49,5 40,5 L-44,5 C-49,5 -51,1 -48,-2 Z" fill="url(#s1plg)"/>
+  <path d="M-47,-2 C-40,-5 28,-6 40,-5 C46,-4.4 51,-2.6 53,-1" fill="none" stroke="#FFC77A" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round" class="rim"/>
+  <line x1="-30" y1="-1" x2="34" y2="-1" stroke="#FFD08A" stroke-width="1.4" stroke-dasharray="1.2 2.6" stroke-linecap="round" opacity=".85"/>
+  <path d="M-4,2 L-28,17 L-18,17 L13,3 Z" fill="#26346A"/>
+  <ellipse cx="-6" cy="8" rx="7" ry="3" fill="#1A2550"/>
+  <path d="M-42,0 L-53,-6 L-46,-6 L-35,0 Z" fill="#26346A"/>
+  <circle class="nav" cx="-55" cy="-21" r="1.4" fill="#FF5A6E"/>
+ </symbol>
+</defs>
+<rect width="360" height="240" fill="url(#s1sky)"/>
+<circle id="s1sunc" cx="270" cy="196" r="170" fill="url(#s1sun)" opacity="0"/>
+<g id="s1stars"></g>
+<g id="s1moong"><circle cx="64" cy="46" r="34" fill="url(#s1moon)"/><circle cx="64" cy="46" r="9" fill="#EEF1FF"/><circle cx="68" cy="43" r="8" fill="#22356B" opacity=".55"/></g>
+<g id="s1far"><path d="M-20,182 C20,170 40,176 70,168 C100,160 120,172 150,166 C190,158 210,170 250,163 C290,156 320,168 360,160 C400,152 430,166 470,160 L470,200 L-20,200 Z" fill="#152048"/></g>
+<g id="s1mid">
+ <path d="M30,186 L30,176 L150,176 L158,186 Z" fill="#101A3E"/>
+ <g id="s1win"></g>
+ <path d="M196,186 L198,120 L202,112 L218,112 L222,120 L224,186 Z" fill="#0F1940"/>
+ <path d="M192,112 L228,112 L224,102 L196,102 Z" fill="#1B2A5C"/><rect x="196" y="104" width="28" height="5" rx="1" fill="#FFC77A" opacity=".75"/>
+ <line x1="210" y1="102" x2="210" y2="92" stroke="#1B2A5C" stroke-width="2"/>
+ <circle id="s1beac" cx="210" cy="91" r="9" fill="url(#glowR)"/><circle cx="210" cy="91" r="1.8" fill="#FF6E82"/>
+ <path d="M240,186 L240,172 L340,172 L346,186 Z" fill="#101A3E"/>
+</g>
+<g id="s1near">
+ <rect x="-20" y="186" width="760" height="60" fill="url(#s1gnd)"/>
+ <rect x="-20" y="196" width="760" height="12" fill="#0B1229"/>
+ <g id="s1cl"></g>
+ <g id="s1lights"></g>
+</g>
+<g id="s1exh"></g>
+<g id="s1plane"><use href="#plan" x="-60" y="-26" width="120" height="52"/></g>
+<g id="s1title" opacity="0"><text x="180" y="120" text-anchor="middle" font-family="AHN,system-ui" font-weight="800" font-size="25" fill="#F4F1EC">Seko-klubben</text><text x="180" y="141" text-anchor="middle" font-family="AHN,system-ui" font-weight="700" font-size="14" fill="#FFD9A0" letter-spacing="2.2">MENZIES · ARLANDA</text></g>
+</svg><canvas></canvas></div>
+<div class="rad r2"><button type="button" class="btn" data-play="1">▶ Spela</button><button type="button" class="btn sek" data-rm="1">⏭ Slutbild</button></div>
+<div data-bra="s-start" data-n="Appstart: banljus och planet lyfter"></div>
+</section>
+
+<section class="card" id="c0">
+<h2><span class="nr">★</span>Stilen i korthet</h2>
+<p class="why">Mörkblå natthimmel, varma banljus i bärnsten och klubbens röda som signal. Allt rör sig som riktiga saker: med tyngd och mjuk fjädring.</p>
+<div class="palett" aria-hidden="true"><div style="background:#0A1128">Natt</div><div style="background:#22356B">Skymning</div><div style="background:#C8203E">Seko-röd</div><div style="background:#FFB547;color:#3a2600">Banljus</div></div>
+<label class="sw"><input type="checkbox" id="rmTest"> Testa "minskad rörelse" (så ser det ut för den som stängt av animationer)</label>
+<div data-bra="s-helhet" data-n="Helheten: Natt över Arlanda"></div>
+</section>
+
+<section class="card" id="c2">
+<h2><span class="nr">2</span>Skickat</h2>
+<p class="why">Brevet viks till ett pappersflygplan, flyger iväg med en glittrande svans och landar som en grön bock.</p>
+<div class="stage" id="st2"><svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Brev blir pappersflygplan som landar som en bock">
+<defs><linearGradient id="s2pap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCD5CA"/></linearGradient>
+<radialGradient id="s2dg" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#4BD995"/><stop offset="1" stop-color="#1E9A5E"/></radialGradient></defs>
+<path d="M40,190 C110,210 140,120 180,120 C230,120 260,60 330,40" fill="none" stroke="#22356B" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
+<circle id="s2glow" cx="180" cy="120" r="80" fill="url(#glowA)" opacity="0"/>
+<circle id="s2ring" cx="180" cy="120" r="46" fill="none" stroke="#4BD995" stroke-width="3" opacity="0"/>
+<circle id="s2disc" cx="180" cy="120" r="46" fill="url(#s2dg)" opacity="0"/>
+<g id="s2obj"><g id="s2sq"><path id="s2body" fill="url(#s2pap)" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="1" stroke-linejoin="round"/><path id="s2fold" fill="#BFB6A8" opacity="0"/><path id="s2crease" fill="none" stroke="#9C9384" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></g></g>
+<text id="s2txt" x="180" y="208" text-anchor="middle" font-family="AHN,system-ui" font-weight="800" font-size="18" fill="#F4F1EC" opacity="0">Skickat till Menzies</text>
+</svg><canvas></canvas></div>
+<button type="button" class="btn" data-play="2">▶ Spela</button>
+<div data-bra="s-skicka" data-n="Skickat: brev blir flygplan och bock"></div>
+</section>
+
+<section class="card" id="c3">
+<h2><span class="nr">3</span>Klart</h2>
+<p class="why">En ring ritas, smälter om till en bock med en liten fjädrande studs – och lite konfetti i rött och bärnsten.</p>
+<div class="stage" id="st3"><svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Bock som studsar fram med konfetti">
+<defs><radialGradient id="s3dg" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#4BD995"/><stop offset=".7" stop-color="#1E9A5E"/><stop offset="1" stop-color="#157A49"/></radialGradient>
+<radialGradient id="s3gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#4BD995" stop-opacity=".45"/><stop offset="1" stop-color="#4BD995" stop-opacity="0"/></radialGradient></defs>
+<circle id="s3glow" cx="180" cy="108" r="110" fill="url(#s3gl)" opacity="0"/>
+<g id="s3g"><circle id="s3disc" cx="180" cy="108" r="52" fill="url(#s3dg)" opacity="0"/>
+<path id="s3hl" d="M146,84 C156,68 176,62 194,64" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="4" stroke-linecap="round" opacity="0"/>
+<path id="s3p" fill="none" stroke="#F4F1EC" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></g>
+<text id="s3txt" x="180" y="204" text-anchor="middle" font-family="AHN,system-ui" font-weight="800" font-size="19" fill="#F4F1EC" opacity="0">Klart! Det är sparat.</text>
+</svg><canvas></canvas></div>
+<button type="button" class="btn" data-play="3">▶ Spela</button>
+<div data-bra="s-klart" data-n="Klart: bock med fjäder och konfetti"></div>
+</section>
+
+<section class="card" id="c4">
+<h2><span class="nr">4</span>Notis</h2>
+<p class="why">Fyren på flygledartornet sveper över himlen och notisen glider ner med en mjuk fjäder. Klockan i notisen ringer lite.</p>
+<div class="stage" id="st4"><svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Flygledartorn med svepande fyr">
+<defs><linearGradient id="s4beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".85"/><stop offset=".35" stop-color="#FFB547" stop-opacity=".35"/><stop offset="1" stop-color="#FFB547" stop-opacity="0"/></linearGradient></defs>
+<g id="s4stars"></g>
+<path d="M-10,214 C60,204 120,210 180,202 C250,194 300,206 370,200 L370,250 L-10,250 Z" fill="#111C40"/>
+<g id="s4beamg" style="mix-blend-mode:screen"><path id="s4beam" d="M0,0 L300,-34 L300,34 Z" fill="url(#s4beam)"/></g>
+<path d="M70,240 L73,118 L77,110 L103,110 L107,118 L110,240 Z" fill="#0F1940"/>
+<path d="M64,110 L116,110 L110,94 L70,94 Z" fill="#1B2A5C"/><rect x="72" y="97" width="36" height="8" rx="1.5" fill="#FFC77A" opacity=".8"/>
+<rect x="86" y="80" width="8" height="14" fill="#1B2A5C"/>
+<circle id="s4flash" cx="90" cy="76" r="22" fill="url(#glowA)" opacity=".5"/><circle cx="90" cy="76" r="3" fill="#FFF1D2"/>
+<g opacity=".7"><rect x="82" y="130" width="16" height="3" rx="1" fill="#FFC77A" opacity=".35"/><rect x="82" y="160" width="16" height="3" rx="1" fill="#FFC77A" opacity=".25"/></g>
+</svg>
+<div class="over"><div id="s4toast" style="position:absolute;left:5%;right:5%;top:0;display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:22px;background:rgba(17,28,61,.72);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);border:1px solid rgba(255,255,255,.14);box-shadow:0 16px 40px -10px rgba(0,0,0,.7);transform:translateY(-140%);will-change:transform">
+<svg id="s4bell" viewBox="-20 -20 40 40" width="46" height="46" style="flex:none;overflow:visible" aria-hidden="true"><circle r="19" fill="#C8203E"/><g id="s4bellg"><path d="M-8,5 L-8,-2 C-8,-7 -4,-10 0,-10 C4,-10 8,-7 8,-2 L8,5 L10,8 L-10,8 Z" fill="#F4F1EC"/><circle id="s4clap" cx="0" cy="11" r="2.6" fill="#F4F1EC"/></g></svg>
+<div style="min-width:0"><b style="display:block;font-size:17px;color:#F4F1EC">Ny notis från klubben</b><span style="font-size:15px;color:#A9B3CF">Medlemsmöte torsdag 18.00</span></div></div></div>
+</div>
+<button type="button" class="btn" data-play="4">▶ Spela</button>
+<div data-bra="s-notis" data-n="Notis: tornets fyr och notis med fjäder"></div>
+</section>
+
+<section class="card" id="c5">
+<h2><span class="nr">5</span>Laddar</h2>
+<p class="why">Radarn sveper med efterglöd, och prickar tänds när den hittar något. Bara när man väntar.</p>
+<div class="stage" id="st5"><canvas></canvas><div class="over"><div id="s5txt" style="position:absolute;left:0;right:0;bottom:12px;text-align:center;font-weight:800;font-size:18px;color:#F4F1EC;text-shadow:0 2px 10px #000" aria-live="polite">Tryck Spela</div></div></div>
+<button type="button" class="btn" data-play="5">▶ Spela</button>
+<div data-bra="s-laddar" data-n="Laddar: radar med efterglöd"></div>
+</section>
+
+<section class="card" id="c6">
+<h2><span class="nr">6</span>Skydd</h2>
+<p class="why">Skölden byggs av fyra delar som landar med tyngd. Sen glimmar den till, och klubbens tre figurer syns i mitten.</p>
+<div class="stage" id="st6"><svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sköld som byggs upp av delar">
+<defs><linearGradient id="s6g" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#E8486A"/><stop offset=".55" stop-color="#B51E3A"/><stop offset="1" stop-color="#6E1428"/></linearGradient>
+<linearGradient id="s6glint" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<path id="s6shape" d="M180,36 C204,49 230,53 252,53 C252,120 230,168 180,194 C130,168 108,120 108,53 C130,53 156,49 180,36 Z"/>
+<clipPath id="s6q0"><rect x="0" y="0" width="180" height="112"/></clipPath><clipPath id="s6q1"><rect x="180" y="0" width="180" height="112"/></clipPath>
+<clipPath id="s6q2"><rect x="0" y="112" width="180" height="140"/></clipPath><clipPath id="s6q3"><rect x="180" y="112" width="180" height="140"/></clipPath>
+<mask id="s6m"><use href="#s6shape" fill="#fff"/></mask></defs>
+<circle id="s6halo" cx="180" cy="116" r="120" fill="url(#glowR)" opacity="0"/>
+<g id="s6pieces"></g>
+<g mask="url(#s6m)"><rect id="s6glint" x="-80" y="20" width="60" height="200" fill="url(#s6glint)" transform="skewX(-20)"/></g>
+<g id="s6emb" transform="translate(180 112)"><g id="s6embs">
+ <circle cx="-17" cy="-6" r="7" fill="#F4F1EC" opacity=".8"/><path d="M-29,16 C-29,6 -24,2 -17,2 C-10,2 -5,6 -5,16 Z" fill="#F4F1EC" opacity=".8"/>
+ <circle cx="17" cy="-6" r="7" fill="#F4F1EC" opacity=".8"/><path d="M5,16 C5,6 10,2 17,2 C24,2 29,6 29,16 Z" fill="#F4F1EC" opacity=".8"/>
+ <circle cx="0" cy="-12" r="8.5" fill="#FFF"/><path d="M-14,16 C-14,3 -8,-2 0,-2 C8,-2 14,3 14,16 Z" fill="#FFF"/></g></g>
+<g id="s6sp"></g>
+</svg><canvas></canvas></div>
+<button type="button" class="btn" data-play="6">▶ Spela</button>
+<div data-bra="s-skydd" data-n="Skydd: sköld byggs av delar"></div>
+</section>
+
+<section class="card" id="c7">
+<h2><span class="nr">7</span>Tillsammans</h2>
+<p class="why">Kollegor kommer gående från alla håll och ställer sig i ett hjärta. Hjärtat slår med en lugn röd puls.</p>
+<div class="stage" id="st7"><svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Figurer samlas i ett hjärta">
+<circle id="s7glow" cx="180" cy="110" r="120" fill="url(#glowR)" opacity="0"/>
+<path id="s7fill" fill="#C8203E" opacity="0"/>
+<path id="s7heart" fill="none" stroke="#FF6E82" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+<g id="s7figs"></g>
+<text id="s7txt" x="180" y="226" text-anchor="middle" font-family="AHN,system-ui" font-weight="800" font-size="18" fill="#F4F1EC" opacity="0">Tillsammans är vi starkare</text>
+</svg><canvas></canvas></div>
+<button type="button" class="btn" data-play="7">▶ Spela</button>
+<div data-bra="s-tillsammans" data-n="Tillsammans: figurer bildar ett hjärta"></div>
+</section>
+
+<section class="card" id="c8">
+<h2><span class="nr">8</span>Hemknappen</h2>
+<p class="why">Knappen trycks in, taket hoppar och landar, och dörren lyser upp. Samma känsla som den riktiga 🏠-knappen nere till höger – prova den också.</p>
+<div class="stage" id="st8"><svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g id="s8rings"></g></svg><canvas></canvas>
+<div class="over" style="display:grid;place-items:center;pointer-events:auto"><button type="button" id="s8btn" aria-label="Hemknapp att prova" style="width:124px;height:124px;border-radius:50%;border:0;cursor:pointer;color:#fff;background:radial-gradient(circle at 35% 30%,#E0405C,#9E1C36 70%);box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 18px 40px -10px rgba(200,32,62,.7),0 0 0 10px rgba(200,32,62,.12);display:grid;place-items:center;will-change:transform">
+<svg viewBox="-24 -24 48 48" width="70" height="70" style="overflow:visible" aria-hidden="true"><g id="s8ik"><path class="tak" d="M-17,-1 L0,-16 L17,-1" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path class="kropp" d="M-12,-3 L-12,15 Q-12,17 -10,17 L10,17 Q12,17 12,15 L12,-3" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><rect class="dorr" x="-4" y="5" width="8" height="12" rx="2" fill="currentColor"/></g></svg></button></div></div>
+<button type="button" class="btn" data-play="8">▶ Spela</button>
+<div data-bra="s-hem" data-n="Hemknappen: tryck, tak hoppar, dörr lyser"></div>
+</section>
+
+<section class="card" id="c9">
+<h2><span class="nr">9</span>Sidbyte</h2>
+<p class="why">Tryck på en ruta: den växer och blir sidans rubrik, resten tonar undan och raderna glider in. "Tillbaka" gör samma sak baklänges.</p>
+<div class="stage hog" id="st9" style="background:linear-gradient(170deg,#16244E,#0A1128 60%)">
+<div class="over" id="s9app" style="pointer-events:auto;padding:16px;font-size:16px">
+ <div id="s9home"><div style="color:#A9B3CF;font-size:15px">God morgon</div><div style="font-weight:800;font-size:22px;margin-bottom:12px;color:#F4F1EC">Seko-klubben</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="s9grid"></div></div>
+ <div id="s9det" hidden><button type="button" id="s9back" style="min-height:48px;border:0;background:rgba(255,255,255,.08);color:#F4F1EC;border-radius:14px;font:inherit;font-weight:800;padding:0 14px;cursor:pointer">‹ Tillbaka</button>
+  <div id="s9hero" style="height:120px;margin:10px 0;border-radius:22px"></div><div id="s9rows"></div></div>
+</div></div>
+<button type="button" class="btn" data-play="9">▶ Spela</button>
+<div data-bra="s-sidbyte" data-n="Sidbyte: rutan växer till rubrik"></div>
+</section>
+
+<section class="card" id="c10">
+<h2><span class="nr">10</span>Dag och natt</h2>
+<p class="why">Månen blir sol, stjärnorna slocknar och himlen ljusnar – och hela sidan byter till ljust eller mörkt läge samtidigt.</p>
+<div class="stage" id="st10"><svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Himmel som går från natt till dag">
+<defs><linearGradient id="s10sky" x1="0" y1="0" x2="0" y2="1"><stop id="s10a" offset="0"/><stop id="s10b" offset="1"/></linearGradient>
+<mask id="s10mask"><rect x="0" y="0" width="360" height="240" fill="#fff"/><circle id="s10cut" cx="196" cy="78" r="26" fill="#000"/></mask>
+<radialGradient id="s10sg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE7A8" stop-opacity=".9"/><stop offset="1" stop-color="#FFB547" stop-opacity="0"/></radialGradient></defs>
+<rect width="360" height="240" fill="url(#s10sky)"/>
+<g id="s10stars"></g>
+<circle id="s10glow" cx="180" cy="90" r="80" fill="url(#s10sg)" opacity="0"/>
+<g id="s10rays" transform="translate(180 90)"></g>
+<circle id="s10orb" cx="180" cy="90" r="30" mask="url(#s10mask)"/>
+<g id="s10clouds" opacity="0"><path d="M40,70 a14,14 0 0 1 26,-6 a12,12 0 0 1 22,6 a10,10 0 0 1 0,20 l-48,0 a10,10 0 0 1 0,-20z" fill="#fff"/><path d="M250,110 a12,12 0 0 1 22,-5 a10,10 0 0 1 18,5 a9,9 0 0 1 0,18 l-40,0 a9,9 0 0 1 0,-18z" fill="#fff" opacity=".9"/></g>
+<path id="s10h1" d="M-10,190 C60,170 110,182 170,174 C240,164 300,180 370,170 L370,250 L-10,250 Z"/>
+<path id="s10h2" d="M-10,212 C70,200 140,214 210,204 C270,196 320,206 370,200 L370,250 L-10,250 Z"/>
+</svg></div>
+<div class="rad r2"><button type="button" class="btn sek" id="s10natt">🌙 Natt</button><button type="button" class="btn sek" id="s10dag">☀️ Dag</button></div>
+<div data-bra="s-dagnatt" data-n="Dag och natt: himlen och sidan byter"></div>
+</section>
+
+<section class="card" id="c11">
+<h2><span class="nr">♪</span>Egna ljud</h2>
+<p class="why">Syntetiserade från grunden för den här stilen: varma klockor, trä och luft. Alla lika starka och lågt inställda.</p>
+<div id="sl"></div>
+</section>
+
+<section class="card" id="val">
+<h2><span class="nr">📋</span>Skicka dina val</h2>
+<p class="why">Du har valt <b id="valn2">0</b>. Tryck Kopiera och klistra in i chatten med fack-botten.</p>
+<button type="button" class="btn" id="kop2">📋 Kopiera mina val</button>
+<div class="kmsg" id="kmsg" role="status"></div><textarea class="valtxt" id="valtxt" readonly aria-label="Dina val"></textarea>
+<p class="fakta">Allt på sidan är egengjort: inga bibliotek, inga hämtningar från andra sidor, inga uppgifter sparas utanför din mobil.</p>
+</section>
+</main>
+<div class="vbar"><span class="cnt" id="valn" aria-label="Antal valda">0</span><button type="button" class="kop" id="kop">📋 Kopiera mina val</button></div>
+<script>
+(function(){
+'use strict';
+/* =====================================================================
+   Stil-motor (handskriven, inga bibliotek)
+   - Kurvor, analytisk fjäder + fjäder-integrator, tidslinjer med seek/cues
+   - Partikelmotor (2D canvas), sökvägs-morph, ljud via Web Audio
+   ===================================================================== */
+var MQ=matchMedia('(prefers-reduced-motion: reduce)');
+var rmTest=false; function RM(){return MQ.matches||rmTest}
+var $=function(id){return document.getElementById(id)};
+var NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+function clamp(x,a,b){return x<a?a:x>b?b:x}
+function lerp(a,b,p){return a+(b-a)*p}
+function seg(t,a,b){return clamp((t-a)/(b-a),0,1)}
+function rnd(seed){var s=seed>>>0||1;return function(){s^=s<<13;s^=s>>>17;s^=s<<5;return ((s>>>0)%100000)/100000}}
+/* ---- kurvor: cubic-bezier-lösare (Newton + bisektion) ---- */
+function bez(x1,y1,x2,y2){
+ function A(a,b){return 1-3*b+3*a}function B(a,b){return 3*b-6*a}function C(a){return 3*a}
+ function calc(t,a,b){return((A(a,b)*t+B(a,b))*t+C(a))*t}function slope(t,a,b){return 3*A(a,b)*t*t+2*B(a,b)*t+C(a)}
+ return function(x){if(x<=0)return 0;if(x>=1)return 1;var t=x;for(var i=0;i<6;i++){var s=slope(t,x1,x2);if(Math.abs(s)<1e-6)break;t-=(calc(t,x1,x2)-x)/s}
+  if(Math.abs(calc(t,x1,x2)-x)>1e-4){var lo=0,hi=1;t=x;for(i=0;i<30;i++){var v=calc(t,x1,x2);if(v<x)lo=t;else hi=t;t=(lo+hi)/2}}return calc(t,y1,y2)}}
+var E={ut:bez(.16,1,.3,1),in:bez(.7,0,.84,0),inut:bez(.65,0,.35,1),lin:function(p){return p},cubIn:function(p){return p*p*p},quadOut:function(p){return 1-(1-p)*(1-p)}};
+/* ---- fjäder: analytisk lösning av x''+c x'+k x=0 (massa 1) ---- */
+var SP={mjuk:[170,26],studs:[320,18],tung:[120,20],tryck:[600,30]};
+function springAt(t,name,v0){var k=SP[name][0],c=SP[name][1];v0=v0||0;if(t<=0)return 0;
+ var w0=Math.sqrt(k),z=c/(2*w0),x0=-1,x;
+ if(z<1){var wd=w0*Math.sqrt(1-z*z);x=Math.exp(-z*w0*t)*(x0*Math.cos(wd*t)+((v0+z*w0*x0)/wd)*Math.sin(wd*t))}
+ else{x=Math.exp(-w0*t)*(x0+(v0+w0*x0)*t)}
+ return 1+x} /* 0 -> 1 med översväng */
+/* integrerande fjäder för interaktiva mål (halv-implicit Euler, 240 Hz delsteg) */
+function Spring(v,name){this.x=v;this.v=0;this.to=v;this.set(name||'mjuk')}
+Spring.prototype.set=function(n){this.k=SP[n][0];this.c=SP[n][1];return this};
+Spring.prototype.step=function(dt){var h=1/240,n=Math.ceil(dt/h);h=dt/n;for(var i=0;i<n;i++){var a=-this.k*(this.x-this.to)-this.c*this.v;this.v+=a*h;this.x+=this.v*h}};
+Spring.prototype.done=function(){return Math.abs(this.x-this.to)<1e-3&&Math.abs(this.v)<1e-3};
+Spring.prototype.snap=function(v){this.x=this.to=v;this.v=0};
+/* ---- sökvägs-morph: samma kommandostruktur, interpolera alla tal ---- */
+function nums(d){return d.match(/-?\d*\.?\d+(?:e-?\d+)?/g).map(Number)}
+function morph(a,b,p){var na=nums(a),nb=nums(b),i=0;return a.replace(/-?\d*\.?\d+(?:e-?\d+)?/g,function(){var v=lerp(na[i],nb[i],p);i++;return v.toFixed(2)})}
+function polyD(pts){return 'M'+pts.map(function(q){return q[0].toFixed(2)+','+q[1].toFixed(2)}).join(' L')+' Z'}
+function lerpPts(a,b,p){return a.map(function(q,i){return [lerp(q[0],b[i][0],p),lerp(q[1],b[i][1],p)]})}
+/* ---- partiklar ---- */
+function Particles(canvas){this.c=canvas;this.x=canvas.getContext('2d');this.p=[];this.w=0;this.h=0;this.vb=null}
+Particles.prototype.fit=function(vbW,vbH){var r=this.c.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);
+ if(!r.width)return;var W=Math.round(r.width*d),H=Math.round(r.height*d);if(this.c.width!==W||this.c.height!==H){this.c.width=W;this.c.height=H}
+ /* samma koordinater som SVG (viewBox + slice) */
+ var s=Math.max(r.width/vbW,r.height/vbH);this.s=s*d;this.ox=(r.width-vbW*s)/2*d;this.oy=(r.height-vbH*s)/2*d;this.w=W;this.h=H};
+Particles.prototype.add=function(o){if(RM())return;o.age=0;if(this.p.length<600)this.p.push(o)};
+Particles.prototype.step=function(dt){var x=this.x;x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,this.w,this.h);
+ if(!this.p.length)return false;x.setTransform(this.s,0,0,this.s,this.ox,this.oy);
+ for(var i=this.p.length-1;i>=0;i--){var q=this.p[i];q.age+=dt;if(q.age>=q.life){this.p.splice(i,1);continue}
+  var drag=Math.pow(q.drag||0.9,dt*60);q.vx*=drag;q.vy*=drag;q.vy+=(q.g||0)*dt;q.x+=q.vx*dt;q.y+=q.vy*dt;q.rot=(q.rot||0)+(q.vr||0)*dt;
+  var lp=q.age/q.life,a=(q.a==null?1:q.a)*(lp<.1&&q.fadeIn?lp/.1:1)*(1-Math.pow(lp,q.fade||2));
+  x.globalAlpha=clamp(a,0,1);x.globalCompositeOperation=q.add?'lighter':'source-over';
+  if(q.k==='rect'){x.save();x.translate(q.x,q.y);x.rotate(q.rot);var fl=Math.cos(q.age*(q.flip||9)+q.ph);x.scale(1,fl);x.fillStyle=fl>0?q.col:q.col2||q.col;x.fillRect(-q.r,-q.r*.55,q.r*2,q.r*1.1);x.restore()}
+  else if(q.k==='spark'){var r=q.r*(1-lp*.6);x.fillStyle=q.col;x.beginPath();x.moveTo(q.x,q.y-r*2.2);x.quadraticCurveTo(q.x,q.y,q.x+r*2.2,q.y);x.quadraticCurveTo(q.x,q.y,q.x,q.y+r*2.2);x.quadraticCurveTo(q.x,q.y,q.x-r*2.2,q.y);x.quadraticCurveTo(q.x,q.y,q.x,q.y-r*2.2);x.fill()}
+  else{var rr=q.r*(q.grow?1+lp*q.grow:1);var g=x.createRadialGradient(q.x,q.y,0,q.x,q.y,rr);g.addColorStop(0,q.col);g.addColorStop(1,q.col.replace(/[\d.]+\)$/,'0)'));x.fillStyle=g;x.beginPath();x.arc(q.x,q.y,rr,0,6.283);x.fill()}}
+ x.globalAlpha=1;x.globalCompositeOperation='source-over';return true};
+/* ---- ljud (Web Audio, volym max 0,3) ---- */
+var VOL=0.3,ljudPa=true;try{ljudPa=localStorage.getItem('stil_ljud')!=='0'}catch(e){}
+var SND={oppna:'stil-oppna.mp3',sparat:'stil-sparat.mp3',skickat:'stil-skickat.mp3',notis:'stil-notis.mp3',klart:'stil-klart.mp3',tryck:'stil-tryck.mp3',hem:'stil-hem.mp3',terminal:'stil-terminal.mp3'};
+var AC=null,BUF={},amb=null;
+function ac(){if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(C)AC=new C()}if(AC&&AC.state==='suspended')AC.resume().catch(function(){});return AC}
+function load(k){if(BUF[k])return BUF[k];BUF[k]=fetch(SND[k]).then(function(r){return r.arrayBuffer()}).then(function(a){return new Promise(function(res,rej){ac().decodeAudioData(a,res,rej)})});BUF[k].catch(function(){});return BUF[k]}
+var lastSnd=0;
+function play(k,v){if(!ljudPa||!SND[k]||!AC)return;v=Math.min(v==null?VOL:v,VOL);var now=performance.now();if(now-lastSnd<60&&k!=='tryck')return;lastSnd=now;
+ load(k).then(function(b){var s=AC.createBufferSource(),g=AC.createGain();g.gain.value=v;s.buffer=b;s.connect(g);g.connect(AC.destination);s.start()}).catch(function(){})}
+function ambToggle(on){if(!AC)ac();if(!AC)return;if(amb){var g=amb.g;g.gain.setTargetAtTime(0,AC.currentTime,.4);var s=amb.s;setTimeout(function(){try{s.stop()}catch(e){}},1600);amb=null}
+ if(on&&ljudPa)load('terminal').then(function(b){var s=AC.createBufferSource(),g=AC.createGain();s.buffer=b;s.loop=true;s.loopStart=.06;s.loopEnd=b.duration-.06;g.gain.value=0;g.gain.setTargetAtTime(.3,AC.currentTime,.8);s.connect(g);g.connect(AC.destination);s.start(0,.06);amb={s:s,g:g}})}
+/* ---- haptik ---- */
+function haptic(ms){if(navigator.vibrate){try{navigator.vibrate(ms||8)}catch(e){}}}
+/* ---- scener + gemensam bildloop ---- */
+var SC={},running=new Set(),vis=new Set(),last=0;
+function Scene(id,o){var s={id:id,dur:o.dur,t:0,playing:false,render:o.render,idle:o.idle,cues:o.cues||[],fired:{},stage:$('st'+id),onEnd:o.onEnd,reset:o.reset};
+ var cv=s.stage.querySelector('canvas');if(cv&&o.particles!==false)s.P=new Particles(cv);s.vbW=o.vbW||360;s.vbH=o.vbH||240;SC[id]=s;
+ if(o.init)o.init(s);return s}
+function startScene(s){if(s.reset)s.reset(s);s.t=0;s.fired={};s.playing=true;
+ if(RM()){s.t=s.dur;s.cues.forEach(function(c){if(c[2]!=='fx')c[1](s,true)});s.playing=false;s.render(s.dur,s);if(s.onEnd)s.onEnd(s);return}
+ s.render(0,s);running.add(s);kick()}
+function skipScene(s){if(!s.playing)return;s.t=s.dur;s.cues.forEach(function(c,i){if(!s.fired[i]&&!c[2]){s.fired[i]=1;c[1](s,true)}});s.playing=false;s.render(s.dur,s);if(s.onEnd)s.onEnd(s)}
+var raf=0;function kick(){if(!raf)raf=requestAnimationFrame(frame)}
+function frame(now){raf=0;var dt=last?Math.min((now-last)/1000,1/20):1/60;last=now;var more=false;
+ Object.keys(SC).forEach(function(k){var s=SC[k];var active=s.playing||(s.P&&s.P.p.length)||(s.idle&&vis.has(s)&&!RM())||s.live;
+  if(!active)return;more=true;
+  if(s.playing){s.t+=dt;s.cues.forEach(function(c,i){if(!s.fired[i]&&s.t>=c[0]){s.fired[i]=1;c[1](s,false)}});
+   if(s.t>=s.dur){s.t=s.dur;s.playing=false;s.render(s.dur,s);if(s.onEnd)s.onEnd(s)}else s.render(s.t,s)}
+  if(s.idle&&vis.has(s)&&!RM())s.idle(now/1000,dt,s);
+  if(s.tick)s.tick(dt,s);
+  if(s.P){s.P.fit(s.vbW,s.vbH);s.P.step(dt)}});
+ if(more)kick();else last=0}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){var s=SC[e.target.id.slice(2)];if(!s)return;if(e.isIntersecting){vis.add(s);kick()}else vis.delete(s)})},{rootMargin:'40px'});
+window.STIL={SC:SC,start:function(id){startScene(SC[id])},skip:function(id){skipScene(SC[id])}};
+/* ================= 1. Appstart ================= */
+(function(){
+ var NIGHT=[[8,12,32],[17,28,64],[30,44,92]],DAWN=[[40,58,120],[214,120,110],[255,190,130]];
+ function mix(a,b,p){return 'rgb('+a.map(function(v,i){return Math.round(lerp(v,b[i],p))}).join(',')+')'}
+ var stars=$('s1stars'),R=rnd(42),ST=[];for(var i=0;i<46;i++){var c=el('circle',{cx:(R()*360).toFixed(1),cy:(R()*150).toFixed(1),r:(R()*1.1+.3).toFixed(2),fill:'#fff'},stars);ST.push([c,R()*6.28,R()*.5+.5])}
+ var win=$('s1win');for(i=0;i<14;i++)el('rect',{x:36+i*8,y:179,width:4,height:3,rx:.6,fill:'#FFC77A',opacity:(R()*.5+.35).toFixed(2)},win);
+ for(i=0;i<12;i++)el('rect',{x:246+i*8,y:176,width:4,height:3,rx:.6,fill:'#FFC77A',opacity:(R()*.5+.3).toFixed(2)},win);
+ var cl=$('s1cl');for(i=0;i<30;i++)el('rect',{x:i*26,y:201,width:12,height:1.6,rx:.8,fill:'#F4F1EC',opacity:.35},cl);
+ var LG=$('s1lights'),L=[];for(i=0;i<32;i++){var x=i*23+4;var g=el('g',{transform:'translate('+x+' 0)'},LG);
+  var h1=el('circle',{cx:0,cy:196,r:5,fill:'url(#glowA)',opacity:0},g),d1=el('circle',{cx:0,cy:196,r:1.1,fill:'#FFE2A8',opacity:0},g);
+  var h2=el('circle',{cx:0,cy:209,r:7,fill:'url(#glowA)',opacity:0},g),d2=el('circle',{cx:0,cy:209,r:1.6,fill:'#FFF1D2',opacity:0},g);L.push([h1,d1,h2,d2,x])}
+ var plane=$('s1plane'),far=$('s1far'),mid=$('s1mid'),near=$('s1near'),title=$('s1title'),sun=$('s1sunc'),moon=$('s1moong'),beac=$('s1beac'),k0=$('s1k0'),k1=$('s1k1'),k2=$('s1k2'),skip=$('skip1');
+ var px=0,py=0,tx=0,ty=0; /* parallax från lutning/finger */
+ var st=$('st1');st.addEventListener('pointermove',function(e){var r=st.getBoundingClientRect();tx=((e.clientX-r.left)/r.width-.5)*2;ty=((e.clientY-r.top)/r.height-.5)*2});
+ st.addEventListener('pointerleave',function(){tx=ty=0});
+ function planePos(t){var a=seg(t,.2,1.75),wx=60+340*E.cubIn(a);var lift=seg(t,1.25,2.5);wx+=lift*lift*180;
+  var y=199-Math.pow(lift,1.6)*146,rot=-15*springAt(Math.max(0,t-1.12),'tung')*(t>1.12?1:0)+(lift>0?lift*3:0);var sc=1-lift*.45;return {wx:wx,y:y,rot:rot,sc:sc}}
+ function camX(t){var p=planePos(t);return clamp(p.wx-150,0,330)}
+ var lastEmit=0;
+ var S=Scene(1,{dur:2.5,
+  cues:[[0,function(){play('oppna',.28)},'snd'],[.02,function(){skip.hidden=false}],[2.5,function(){skip.hidden=true}]],
+  reset:function(s){skip.hidden=false;lastEmit=0;s.lastCam=null},
+  render:function(t,s){var dawn=E.inut(seg(t,.5,2.5));
+   k0.setAttribute('stop-color',mix(NIGHT[0],DAWN[0],dawn));k1.setAttribute('stop-color',mix(NIGHT[1],DAWN[1],dawn));k2.setAttribute('stop-color',mix(NIGHT[2],DAWN[2],dawn));
+   sun.setAttribute('opacity',(dawn*.9).toFixed(3));sun.setAttribute('cy',(230-dawn*40).toFixed(1));
+   stars.setAttribute('opacity',(1-dawn*.85).toFixed(3));moon.setAttribute('opacity',(1-dawn*.7).toFixed(3));
+   var cam=camX(t),P=planePos(t);
+   far.setAttribute('transform','translate('+(-cam*.12-px*3).toFixed(2)+' '+(-py*1).toFixed(2)+')');
+   mid.setAttribute('transform','translate('+(-cam*.5-px*6).toFixed(2)+' '+(-py*2).toFixed(2)+')');
+   near.setAttribute('transform','translate('+(-cam-px*10).toFixed(2)+' '+(-py*3).toFixed(2)+')');
+   /* banljus tänds i sekvens + "kanin"-puls som springer framåt */
+   for(var i=0;i<L.length;i++){var on=E.ut(seg(t,.04+i*.028,.24+i*.028)),flash=Math.exp(-Math.max(0,t-(.04+i*.028))*9)*on;
+    var rab=Math.exp(-Math.pow(((t*3.2)%1.6)*32-i,2)*.5)*on*.9;
+    L[i][0].setAttribute('opacity',(on*.55+flash*.6+rab*.4).toFixed(3));L[i][1].setAttribute('opacity',(on*.9).toFixed(3));
+    L[i][2].setAttribute('opacity',(on*.7+flash*.7+rab*.5).toFixed(3));L[i][3].setAttribute('opacity',on.toFixed(3))}
+   var sx=P.wx-cam-px*10;plane.setAttribute('transform','translate('+sx.toFixed(2)+' '+P.y.toFixed(2)+') rotate('+P.rot.toFixed(2)+') scale('+(P.sc*.92).toFixed(3)+')');
+   var tp=Math.max(0,t-1.85);title.setAttribute('opacity',E.ut(seg(t,1.85,2.4)).toFixed(3));
+   title.setAttribute('transform','translate(0 '+((1-springAt(tp,'mjuk'))*16).toFixed(2)+')');
+   /* motorglöd/avgaser */
+   if(s.P&&s.playing&&t>.6&&t-lastEmit>.016){lastEmit=t;var a=P.rot*Math.PI/180,sc=P.sc*.92,ex=sx+Math.cos(a)*(-14*sc)-Math.sin(a)*8*sc,ey=P.y+Math.sin(a)*(-14*sc)+Math.cos(a)*8*sc;
+    s.P.add({x:ex,y:ey,vx:-30-Math.random()*20,vy:(Math.random()-.5)*6,r:1.6+Math.random(),grow:1.2,life:.35,drag:.9,col:'rgba(255,200,130,0.55)',add:true,a:.5});
+    if(t>1.35)s.P.add({x:ex-6,y:ey,vx:-10,vy:-2,r:1.4,grow:4,life:1.3,drag:.95,col:'rgba(230,236,255,0.22)',a:.45,fade:1.2})}
+   /* partiklar följer världen när kameran åker */
+   if(s.P){var dc=cam-(s.lastCam==null?cam:s.lastCam);if(dc)for(var j=0;j<s.P.p.length;j++)s.P.p[j].x-=dc;s.lastCam=cam}},
+  idle:function(time,dt,s){px+=(tx-px)*Math.min(1,dt*4);py+=(ty-py)*Math.min(1,dt*4);
+   for(var i=0;i<ST.length;i++){ST[i][0].setAttribute('opacity',(ST[i][2]*(.55+.45*Math.sin(time*1.7+ST[i][1]))).toFixed(2))}
+   var b=Math.pow(Math.max(0,Math.sin(time*3.3)),12);beac.setAttribute('opacity',(.25+b*.75).toFixed(2));
+   if(!s.playing)s.render(s.t,s)}});
+ st.addEventListener('click',function(e){if(e.target.closest('.skip')||S.playing){skipScene(S);haptic()}});
+ skip.addEventListener('click',function(e){e.stopPropagation();skipScene(S);play('tryck',.2);haptic()});
+ S.render(0,S);skip.hidden=true;
+})();
+/* ================= 2. Skickat ================= */
+(function(){
+ var ENV=[[-40,-26],[40,-26],[40,2],[40,30],[-40,30],[-40,2]],
+     PLN=[[-44,-34],[4,-13],[48,0],[4,13],[-44,34],[-20,0]],
+     CHK=[[-27,-3],[-10,14],[29,-27],[39,-17],[-10,34],[-37,7]],
+     CR_E=[[-40,-26],[0,4],[40,-26]],CR_P=[[-20,0],[14,0],[48,0]];
+ var body=$('s2body'),crease=$('s2crease'),fold=$('s2fold'),obj=$('s2obj'),sq=$('s2sq'),disc=$('s2disc'),ring=$('s2ring'),glow=$('s2glow'),txt=$('s2txt');
+ function cb(p0,p1,p2,p3,t){var u=1-t;return [u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]]}
+ var A=[[180,120],[250,110],[320,50],[420,0]],B=[[-60,210],[40,200],[110,128],[180,120]];
+ function pos(t){ /* returnerar x,y,vinkel,skala,synlig */
+  if(t<.62)return {x:180,y:120,a:0,s:1,v:1};
+  if(t<1.08){var p=E.in(seg(t,.62,1.08)),q=cb(A[0],A[1],A[2],A[3],p),q2=cb(A[0],A[1],A[2],A[3],Math.min(1,p+.01));return {x:q[0],y:q[1],a:Math.atan2(q2[1]-q[1],q2[0]-q[0]),s:lerp(1,.5,E.ut(seg(t,.62,.8))),v:1}}
+  if(t<1.16)return {x:-80,y:0,a:0,s:.5,v:0};
+  var p=E.ut(seg(t,1.16,1.72)),q=cb(B[0],B[1],B[2],B[3],p),q2=cb(B[0],B[1],B[2],B[3],Math.min(1,p+.01)),a=Math.atan2(q2[1]-q[1],q2[0]-q[0]);
+  if(p>=.999)a=0;return {x:q[0],y:q[1],a:a*(1-seg(t,1.62,1.78)),s:lerp(.5,1,E.inut(seg(t,1.55,1.85))),v:1}}
+ var lastE=0,prev=null;
+ var S=Scene(2,{dur:2.6,
+  cues:[[.6,function(){play('skickat',.3)},'snd'],[1.72,function(s){haptic(12);for(var i=0;i<26;i++){var a=Math.random()*6.283,v=60+Math.random()*120;s.P.add({k:'spark',x:180,y:120,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:1.6+Math.random()*1.6,life:.6+Math.random()*.4,drag:.9,col:i%3?'#FFE2A8':'#FFFFFF',add:true})}},'fx']],
+  reset:function(){lastE=0;prev=null},
+  render:function(t,s){
+   var squash=t<.62?1-Math.sin(Math.PI*seg(t,0,.22))*.12:1;
+   var m1=E.inut(seg(t,.18,.6)),m2=E.inut(seg(t,1.7,2.0));
+   var pts=m2>0?lerpPts(PLN,CHK,m2):lerpPts(ENV,PLN,m1);body.setAttribute('d',polyD(pts));
+   var cr=lerpPts(CR_E,CR_P,m1);crease.setAttribute('d','M'+cr.map(function(q){return q[0].toFixed(2)+','+q[1].toFixed(2)}).join(' L'));
+   crease.setAttribute('opacity',(1-m2).toFixed(3));
+   fold.setAttribute('d',polyD([pts[5],pts[2],pts[3],pts[4]]));fold.setAttribute('opacity',(m1*.55*(1-m2)).toFixed(3));
+   var col=m2>0?'#FFFFFF':'url(#s2pap)';body.setAttribute('fill',col);
+   var P=pos(t);obj.setAttribute('transform','translate('+P.x.toFixed(2)+' '+P.y.toFixed(2)+') rotate('+(P.a*57.3).toFixed(2)+') scale('+P.s.toFixed(3)+')');obj.setAttribute('opacity',P.v);
+   sq.setAttribute('transform','scale('+(1+(1-squash)*.6).toFixed(3)+' '+squash.toFixed(3)+')');
+   var dp=t>1.66?springAt(t-1.66,'studs'):0;disc.setAttribute('opacity',Math.min(1,dp*1.5).toFixed(3));disc.setAttribute('r',(46*dp).toFixed(2));
+   var rp=seg(t,1.72,2.4);ring.setAttribute('r',(46+rp*40).toFixed(2));ring.setAttribute('opacity',(rp>0?(1-rp)*.9:0).toFixed(3));
+   glow.setAttribute('opacity',(seg(t,1.7,1.9)*(1-seg(t,2.0,2.6))*.6).toFixed(3));
+   txt.setAttribute('opacity',E.ut(seg(t,1.9,2.4)).toFixed(3));txt.setAttribute('transform','translate(0 '+((1-E.ut(seg(t,1.9,2.4)))*10).toFixed(2)+')');
+   /* glittrande svans */
+   if(s.playing&&P.v&&t>.66&&t<1.72&&s.P){if(prev){var n=4;for(var i=0;i<n;i++){var f=i/n,x=lerp(prev[0],P.x,f)-Math.cos(P.a)*20*P.s,y=lerp(prev[1],P.y,f)-Math.sin(P.a)*20*P.s;
+     s.P.add({x:x,y:y,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10+6,r:5,life:.55,drag:.9,col:'rgba(255,200,120,0.45)',add:true});
+     if(Math.random()<.35)s.P.add({k:'spark',x:x,y:y,vx:(Math.random()-.5)*40,vy:(Math.random()-.5)*40,r:1+Math.random()*1.4,life:.5+Math.random()*.5,drag:.92,col:'#FFF1D2',add:true})}}
+    prev=[P.x,P.y]}else prev=t>1.1&&t<1.2?null:prev}});
+ S.render(0,S);
+})();
+/* ================= 3. Klart ================= */
+(function(){
+ var CIR='M180,56 C208.7,56 232,79.3 232,108 C232,136.7 208.7,160 180,160 C151.3,160 128,136.7 128,108 C128,79.3 151.3,56 180,56',
+     CHK='M154,110 C157,113 160,116 163,119 C166,122 169,125 172,128 C178,122 184,115 190,109 C196,103 202,96 208,90';
+ var p=$('s3p'),disc=$('s3disc'),g=$('s3g'),hl=$('s3hl'),glow=$('s3glow'),txt=$('s3txt');
+ var COL=[['#C8203E','#8E1F35'],['#FFB547','#E08A1E'],['#F4F1EC','#B9B2A6'],['#FF6E82','#C8203E'],['#4BD995','#1E9A5E']];
+ var S=Scene(3,{dur:1.9,
+  cues:[[.72,function(){play('klart',.28)},'snd'],[.8,function(s){haptic([10,30,14]);for(var i=0;i<80;i++){var a=-Math.PI/2+(Math.random()-.5)*2.4,v=160+Math.random()*230,c=COL[i%COL.length];
+    s.P.add({k:'rect',x:180+(Math.random()-.5)*30,y:108,vx:Math.cos(a)*v,vy:Math.sin(a)*v,g:420,drag:.955,r:2.6+Math.random()*2.2,rot:Math.random()*6,vr:(Math.random()-.5)*14,flip:6+Math.random()*10,ph:Math.random()*6,life:1.8+Math.random()*.9,fade:4,col:c[0],col2:c[1]})}},'fx']],
+  render:function(t){var draw=E.inut(seg(t,0,.45)),m=E.inut(seg(t,.42,.82));
+   p.setAttribute('d',m>0?morph(CIR,CHK,m):CIR);p.setAttribute('stroke-dasharray',m>0?'1 0':(draw+' 1'));p.setAttribute('stroke-width',(7+m*4).toFixed(2));
+   p.setAttribute('opacity',t>0?1:0);
+   var dp=t>.38?springAt(t-.38,'mjuk'):0;disc.setAttribute('opacity',Math.min(1,dp).toFixed(3));disc.setAttribute('r',(52*(.6+.4*dp)).toFixed(2));
+   hl.setAttribute('opacity',(seg(t,.6,.9)).toFixed(3));
+   var b=t>.78?springAt(t-.78,'studs',14):1,sc=t>.78?.86+.14*b:1-.14*E.inut(seg(t,.66,.78));
+   g.setAttribute('transform','translate(180 108) scale('+sc.toFixed(4)+') translate(-180 -108)');
+   glow.setAttribute('opacity',(seg(t,.75,.95)*(1-seg(t,1.2,1.9)*.5)).toFixed(3));
+   txt.setAttribute('opacity',E.ut(seg(t,.95,1.4)).toFixed(3));txt.setAttribute('transform','translate(0 '+((1-E.ut(seg(t,.95,1.4)))*10).toFixed(2)+')')}});
+ S.render(0,S);
+})();
+/* ================= 4. Notis ================= */
+(function(){
+ var stars=$('s4stars'),R=rnd(7),ST=[];for(var i=0;i<36;i++)ST.push([el('circle',{cx:(R()*360).toFixed(1),cy:(R()*180).toFixed(1),r:(R()*1+.3).toFixed(2),fill:'#fff'},stars),R()*6.3]);
+ var beamg=$('s4beamg'),flash=$('s4flash'),toast=$('s4toast'),bell=$('s4bellg'),clap=$('s4clap');
+ var ang=0,speed=1.4;
+ function beam(a){var c=Math.cos(a),sn=Math.sin(a);beamg.setAttribute('transform','translate(90 76) scale('+c.toFixed(3)+' '+(1).toFixed(2)+')');
+  beamg.setAttribute('opacity',(.25+.75*Math.abs(c)).toFixed(3));flash.setAttribute('opacity',(.35+.65*Math.pow(Math.max(0,sn),6)).toFixed(3));
+  flash.setAttribute('r',(18+16*Math.pow(Math.max(0,sn),6)).toFixed(1))}
+ var S=Scene(4,{dur:4.2,
+  cues:[[.55,function(){play('notis',.28);haptic(10)},'snd']],
+  render:function(t,s){
+   var inP=t>.5?springAt(t-.5,'studs'):0,out=E.in(seg(t,3.5,4.0));
+   var y=lerp(-120,12,inP)-out*140;toast.style.transform='translateY('+y.toFixed(2)+'px) scale('+(.96+.04*Math.min(inP,1)).toFixed(4)+')';
+   var r=t>.6?Math.sin((t-.6)*26)*22*Math.exp(-(t-.6)*3.2):0;bell.setAttribute('transform','rotate('+r.toFixed(2)+' 0 -10)');
+   clap.setAttribute('cx',(r>0?-1:1)*Math.min(3,Math.abs(r)/6));
+   if(!s.playing)return;speed=lerp(4.2,1.4,seg(t,0,1.4))},
+  idle:function(time,dt,s){ang+=dt*speed;beam(ang);for(var i=0;i<ST.length;i++)ST[i][0].setAttribute('opacity',(.4+.4*Math.sin(time*1.3+ST[i][1])).toFixed(2))}});
+ S.reset=function(){speed=4.2};S.render(0,S);beam(1.2);
+})();
+/* ================= 5. Laddar (radar på canvas) ================= */
+(function(){
+ var st=$('st5'),cv=st.querySelector('canvas'),x=cv.getContext('2d'),txt=$('s5txt'),R=rnd(99);
+ var BL=[];for(var i=0;i<6;i++)BL.push({a:R()*6.283,r:.25+R()*.65,hit:-9,s:R()});
+ var sweep=0,found=false,state=0,dots=0;
+ function fit(){var r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2),W=Math.round(r.width*d),H=Math.round(r.height*d);if(cv.width!==W){cv.width=W;cv.height=H}return [W,H,d]}
+ function draw(time,dt){var f=fit(),W=f[0],H=f[1],d=f[2];if(!W)return;var cx=W/2,cy=H/2-8*d,R0=Math.min(W,H)*.42;
+  x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,W,H);
+  var bg=x.createRadialGradient(cx,cy,0,cx,cy,R0);bg.addColorStop(0,'rgba(34,80,90,.35)');bg.addColorStop(1,'rgba(10,17,40,0)');x.fillStyle=bg;x.beginPath();x.arc(cx,cy,R0,0,6.283);x.fill();
+  x.strokeStyle='rgba(120,230,190,.18)';x.lineWidth=1.2*d;for(var k=1;k<=4;k++){x.beginPath();x.arc(cx,cy,R0*k/4,0,6.283);x.stroke()}
+  x.beginPath();x.moveTo(cx-R0,cy);x.lineTo(cx+R0,cy);x.moveTo(cx,cy-R0);x.lineTo(cx,cy+R0);x.stroke();
+  for(k=0;k<72;k++){var a=k/72*6.283,l=k%6?4:9;x.beginPath();x.moveTo(cx+Math.cos(a)*R0,cy+Math.sin(a)*R0);x.lineTo(cx+Math.cos(a)*(R0-l*d),cy+Math.sin(a)*(R0-l*d));x.stroke()}
+  /* efterglöd: 40 tunna kilar med avtagande alfa (fungerar överallt, även utan conic gradient) */
+  var tail=1.3;for(k=0;k<40;k++){var a0=sweep-tail*(k+1)/40,a1=sweep-tail*k/40;x.fillStyle='rgba(90,240,180,'+(.42*Math.pow(1-k/40,1.8)).toFixed(3)+')';x.beginPath();x.moveTo(cx,cy);x.arc(cx,cy,R0,a0,a1+.004);x.closePath();x.fill()}
+  x.strokeStyle='rgba(170,255,215,.95)';x.lineWidth=2*d;x.shadowColor='rgba(90,240,180,.9)';x.shadowBlur=12*d;x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+Math.cos(sweep)*R0,cy+Math.sin(sweep)*R0);x.stroke();x.shadowBlur=0;
+  for(k=0;k<BL.length;k++){var b=BL[k],age=time-b.hit;if(age<0)age=99;var I=Math.exp(-age/1.6)*(found?1:.85);if(found&&k<3)I=Math.max(I,.55+.25*Math.sin(time*4+k));if(I<.02)continue;
+   var bx=cx+Math.cos(b.a)*b.r*R0,by=cy+Math.sin(b.a)*b.r*R0,col=found&&k<3?'255,181,71':'140,255,205';
+   var gg=x.createRadialGradient(bx,by,0,bx,by,14*d);gg.addColorStop(0,'rgba('+col+','+(.9*I).toFixed(3)+')');gg.addColorStop(1,'rgba('+col+',0)');x.fillStyle=gg;x.beginPath();x.arc(bx,by,14*d,0,6.283);x.fill();
+   x.fillStyle='rgba(255,255,255,'+I.toFixed(3)+')';x.beginPath();x.arc(bx,by,2.2*d,0,6.283);x.fill()}
+  x.fillStyle='rgba(170,255,215,.9)';x.beginPath();x.arc(cx,cy,3*d,0,6.283);x.fill()}
+ var t0=0,prevSweep=0;
+ var S=Scene(5,{dur:3.0,particles:false,
+  cues:[[3.0,function(){found=true;txt.textContent='✓ Hittade 3 svar i biblioteket';play('sparat',.26)},'']],
+  reset:function(){found=false;BL.forEach(function(b){b.hit=-9})},
+  render:function(t,s){if(t<3){dots=Math.floor(t*3)%4;txt.textContent='Söker i biblioteket'+'...'.slice(0,dots)}},
+  idle:function(time,dt,s){var spd=s.playing?3.6:(found?.9:0);prevSweep=sweep;sweep+=dt*spd;
+   BL.forEach(function(b){var a=((b.a-prevSweep)%6.283+6.283)%6.283;if(a<dt*spd+1e-3&&(s.playing||found))b.hit=time});draw(time,dt)}});
+ S.cues[0][2]=undefined;
+ /* statisk bild för minskad rörelse / innan start */
+ function still(){BL.forEach(function(b,i){b.hit=i<3?performance.now()/1000:-9});sweep=-.6;draw(performance.now()/1000,0)}
+ S.onEnd=function(){if(RM()){found=true;txt.textContent='✓ Hittade 3 svar i biblioteket';still()}};
+ requestAnimationFrame(still);window.addEventListener('resize',function(){if(RM())still()});
+})();
+/* ================= 6. Skydd ================= */
+(function(){
+ var root=$('s6pieces'),PC=[],OFF=[[-110,-80,-28],[110,-86,24],[-104,90,22],[112,84,-26]];
+ for(var i=0;i<4;i++){var o=el('g',{},root),c=el('g',{'clip-path':'url(#s6q'+i+')'},o);
+  el('use',{href:'#s6shape',fill:'url(#s6g)'},c);
+  el('path',{d:'M180,46 C201,57 224,61 243,62 C242,121 223,162 180,184 C137,162 118,121 117,62 C136,61 159,57 180,46 Z',fill:'none',stroke:'#fff','stroke-opacity':'.22','stroke-width':'2'},c);
+  el('use',{href:'#s6shape',fill:'none',stroke:'#FFB547','stroke-opacity':'.55','stroke-width':'2.5'},c);PC.push(o)}
+ var emb=$('s6embs'),gl=$('s6glint'),halo=$('s6halo'),spg=$('s6sp'),SPK=[];
+ [[236,58,1],[122,150,.7],[214,170,.55]].forEach(function(q){var g=el('g',{transform:'translate('+q[0]+' '+q[1]+')'},spg);el('path',{d:'M0,-10 Q0,0 10,0 Q0,0 0,10 Q0,0 -10,0 Q0,0 0,-10Z',fill:'#FFF1D2'},g);SPK.push([g,q[2]])});
+ var S=Scene(6,{dur:2.1,
+  cues:[[.62,function(){haptic(14)},'snd'],[.8,function(){play('sparat',.26)},'snd'],[1.0,function(s){for(var i=0;i<18;i++){var a=Math.random()*6.283,v=40+Math.random()*90;s.P.add({k:'spark',x:180+Math.cos(a)*60,y:114+Math.sin(a)*70,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:1.2+Math.random()*1.4,life:.7+Math.random()*.5,drag:.9,col:i%2?'#FFE2A8':'#FFFFFF',add:true})}},'fx']],
+  render:function(t){
+   for(var i=0;i<4;i++){var d=.07*i,p=t>d?springAt(t-d,'tung'):0,a=Math.min(1,p*2.2),o=OFF[i],gap=(1-Math.min(p,1))*8;
+    var sx=(i%2?1:-1)*gap,sy=(i<2?-1:1)*gap;
+    PC[i].setAttribute('transform','translate('+(o[0]*(1-p)+sx).toFixed(2)+' '+(o[1]*(1-p)+sy).toFixed(2)+') rotate('+(o[2]*(1-p)).toFixed(2)+' 180 112)');PC[i].setAttribute('opacity',a.toFixed(3))}
+   var e=t>.78?springAt(t-.78,'studs'):0;emb.setAttribute('transform','scale('+e.toFixed(4)+')');emb.setAttribute('opacity',Math.min(1,e*1.5).toFixed(3));
+   var g=E.inut(seg(t,1.0,1.55));gl.setAttribute('x',(-60+g*360).toFixed(1));gl.setAttribute('opacity',g>0&&g<1?1:0);
+   halo.setAttribute('opacity',(E.ut(seg(t,.6,1.2))*.55).toFixed(3));
+   SPK.forEach(function(q,i){var p=seg(t,1.15+i*.1,1.75+i*.1),s=Math.sin(Math.PI*p)*q[1];q[0].firstChild.setAttribute('transform','scale('+s.toFixed(3)+') rotate('+(p*90).toFixed(1)+')')})}});
+ S.render(0,S);
+})();
+/* ================= 7. Tillsammans ================= */
+(function(){
+ function H(u){var x=16*Math.pow(Math.sin(u),3),y=-(13*Math.cos(u)-5*Math.cos(2*u)-2*Math.cos(3*u)-Math.cos(4*u));return [180+x*5.4,104+y*5.4]}
+ var d='';for(var i=0;i<=96;i++){var q=H(i/96*6.283);d+=(i?'L':'M')+q[0].toFixed(1)+','+q[1].toFixed(1)}d+='Z';
+ $('s7heart').setAttribute('d',d);$('s7fill').setAttribute('d',d);
+ var figs=$('s7figs'),R=rnd(3),F=[],N=11,COLS=['#F4F1EC','#F4F1EC','#FFB547','#F4F1EC','#C8D4F5','#F4F1EC','#FF6E82','#F4F1EC','#FFB547','#F4F1EC','#C8D4F5'];
+ for(i=0;i<N;i++){var u=(i+.5)/N*6.283,tg=H(u),g=el('g',{},figs),side=R();
+  var an=side*6.283,sx=180+Math.cos(an)*270,sy=110+Math.sin(an)*190;
+  el('ellipse',{cx:0,cy:13,rx:8,ry:2.2,fill:'#000',opacity:.35},g);
+  el('path',{d:'M-8,12 C-8,3 -4.5,0 0,0 C4.5,0 8,3 8,12 Z',fill:COLS[i]},g);el('circle',{cx:0,cy:-6,r:5,fill:COLS[i]},g);
+  F.push({g:g,sx:sx,sy:sy,tx:tg[0],ty:tg[1]-6,d:i*.06+R()*.05,ph:R()*6})}
+ var heart=$('s7heart'),fill=$('s7fill'),glow=$('s7glow'),txt=$('s7txt');
+ var S=Scene(7,{dur:2.8,
+  cues:[[1.7,function(){play('sparat',.24)},'snd'],[1.95,function(s){for(var i=0;i<16;i++){var q=H(Math.random()*6.283);s.P.add({k:'spark',x:q[0],y:q[1],vx:(Math.random()-.5)*30,vy:-20-Math.random()*30,r:1.2+Math.random(),life:.9,col:'#FFD9DF',add:true})}},'fx']],
+  render:function(t){F.forEach(function(f){var p=t>f.d?springAt(t-f.d,'tung'):0,pc=Math.min(p,1.05);
+    var x=lerp(f.sx,f.tx,p),y=lerp(f.sy,f.ty,p),walk=(1-Math.min(1,p))*Math.abs(Math.sin(t*16+f.ph))*5;
+    f.g.setAttribute('transform','translate('+x.toFixed(2)+' '+(y-walk).toFixed(2)+') rotate('+((1-Math.min(1,p))*Math.sin(t*16+f.ph)*6).toFixed(2)+')')});
+   var hd=E.inut(seg(t,1.25,1.95));heart.setAttribute('stroke-dashoffset',(1-hd).toFixed(4));heart.setAttribute('opacity',hd>0?1:0);
+   var beat=t>1.9?Math.pow(Math.sin(Math.min(1,(t-1.9)/.5)*Math.PI),2):0;
+   fill.setAttribute('opacity',(seg(t,1.85,2.2)*.28+beat*.2).toFixed(3));glow.setAttribute('opacity',(seg(t,1.85,2.3)*.4+beat*.3).toFixed(3));
+   var sc=1+beat*.05;fill.setAttribute('transform','translate(180 104) scale('+sc.toFixed(4)+') translate(-180 -104)');heart.setAttribute('transform',fill.getAttribute('transform'));
+   txt.setAttribute('opacity',E.ut(seg(t,2.1,2.6)).toFixed(3))},
+  idle:function(time,dt,s){if(s.playing||s.t<s.dur)return;var ph=(time%1.6)/1.6,b=Math.exp(-Math.pow((ph-.1)/.06,2))+.6*Math.exp(-Math.pow((ph-.3)/.06,2));
+   glow.setAttribute('opacity',(.4+b*.25).toFixed(3));fill.setAttribute('opacity',(.28+b*.14).toFixed(3));var tr='translate(180 104) scale('+(1+b*.025).toFixed(4)+') translate(-180 -104)';fill.setAttribute('transform',tr);heart.setAttribute('transform',tr)}});
+ S.render(0,S);
+})();
+/* ================= 8. Hemknapp (mikrointeraktion, används även av riktiga 🏠) ================= */
+function HemFx(btn,ik,stageSc){
+ var sc=new Spring(1,'tryck'),roof=new Spring(0,'studs'),door=new Spring(0,'mjuk'),tak=ik.querySelector('.tak'),dorr=ik.querySelector('.dorr'),live=false,ob={live:false};
+ function loop(){if(!live)return;var dt=1/60;sc.step(dt);roof.step(dt);door.step(dt);
+  btn.style.transform='scale('+sc.x.toFixed(4)+')';tak.setAttribute('transform','translate(0 '+(roof.x*7).toFixed(2)+') scale('+(1+Math.max(0,roof.x)*.25).toFixed(3)+' 1)');
+  dorr.setAttribute('fill',door.x>.02?'rgb(255,'+Math.round(lerp(255,200,door.x))+','+Math.round(lerp(255,110,door.x))+')':'currentColor');
+  dorr.style.filter=door.x>.05?'drop-shadow(0 0 '+(door.x*5).toFixed(1)+'px #FFB547)':'';
+  if(sc.done()&&roof.done()&&door.done()&&!holding){live=false;return}requestAnimationFrame(loop)}
+ function go(){if(!live){live=true;requestAnimationFrame(loop)}}
+ var holding=false;
+ function down(){if(RM())return;holding=true;sc.set('tryck').to=.88;go()}
+ function up(fire){holding=false;if(RM()){if(fire)fire();return}sc.set('studs');sc.to=1;sc.v+=2.5;roof.x=0;roof.v=0;roof.to=0;roof.v=-9;door.to=1;go();setTimeout(function(){door.to=0;go()},900);if(fire)fire()}
+ btn.addEventListener('pointerdown',down);btn.addEventListener('pointerleave',function(){if(holding){holding=false;sc.set('studs').to=1;go()}});
+ return {down:down,up:up}}
+(function(){
+ var btn=$('s8btn'),rings=$('s8rings');
+ var fx=HemFx(btn,$('s8ik'));
+ function ripple(){if(RM())return;for(var k=0;k<2;k++)(function(k){var c=el('circle',{cx:180,cy:120,r:46,fill:'none',stroke:k?'#FFB547':'#FF6E82','stroke-width':3},rings),t0=performance.now()+k*120;
+  (function an(n){var p=clamp((n-t0)/700,0,1);c.setAttribute('r',(46+E.ut(p)*70).toFixed(1));c.setAttribute('opacity',((1-p)*.7).toFixed(3));if(p<1)requestAnimationFrame(an);else c.remove()})(performance.now())})(k)}
+ function fire(){play('hem',.28);haptic(10);ripple();var s=SC[8];if(s&&s.P){for(var i=0;i<14;i++){var a=Math.random()*6.283,v=70+Math.random()*80;s.P.add({k:'spark',x:180+Math.cos(a)*50,y:120+Math.sin(a)*50,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:1.3+Math.random(),life:.6,drag:.9,col:'#FFE2A8',add:true})}kick()}}
+ btn.addEventListener('pointerup',function(){fx.up(fire)});btn.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fx.down();setTimeout(function(){fx.up(fire)},110)}});
+ Scene(8,{dur:.5,render:function(){},cues:[[0,function(){fx.down()}],[.12,function(){fx.up(fire)}]]});
+ /* riktiga hemknappen */
+ var hem=$('hem'),hfx=HemFx(hem,$('hemIkon'));
+ hem.addEventListener('pointerup',function(){hfx.up(function(){play('hem',.25);haptic(10);window.scrollTo({top:0,behavior:RM()?'auto':'smooth'})})});
+ hem.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();hfx.up(function(){play('hem',.25);window.scrollTo({top:0,behavior:RM()?'auto':'smooth'})})}});
+})();
+/* ================= 9. Sidbyte (delat element, fjäder-FLIP) ================= */
+(function(){
+ var IC={
+  rattigheter:'<svg viewBox="-24 -24 48 48" width="100%" height="100%"><path d="M-14,-14 L-2,-11 L-2,15 L-14,12Z" fill="#F4F1EC"/><path d="M14,-14 L2,-11 L2,15 L14,12Z" fill="#DCD5CA"/><path d="M-11,-7 L-5,-5.6 M-11,-1 L-5,.4 M-11,5 L-5,6.4" stroke="#8E1F35" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  begar:'<svg viewBox="-24 -24 48 48" width="100%" height="100%"><rect x="-16" y="-11" width="32" height="23" rx="4" fill="#F4F1EC"/><path d="M-15,-9 L0,3 L15,-9" fill="none" stroke="#B9B2A6" stroke-width="2.4" stroke-linejoin="round"/><circle cx="13" cy="-11" r="6" fill="#FFB547"/></svg>',
+  skydd:'<svg viewBox="-24 -24 48 48" width="100%" height="100%"><path d="M0,-17 C6,-13 12,-12 16,-12 C16,4 10,13 0,18 C-10,13 -16,4 -16,-12 C-12,-12 -6,-13 0,-17Z" fill="#F4F1EC"/><path d="M-6,0 L-1,5 L7,-4" fill="none" stroke="#C8203E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  ombud:'<svg viewBox="-24 -24 48 48" width="100%" height="100%"><circle cx="-8" cy="-6" r="5" fill="#DCD5CA"/><path d="M-17,12 C-17,4 -13,1 -8,1 C-3,1 1,4 1,12Z" fill="#DCD5CA"/><circle cx="7" cy="-8" r="6" fill="#F4F1EC"/><path d="M-3,13 C-3,3 2,-1 7,-1 C12,-1 17,3 17,13Z" fill="#F4F1EC"/></svg>'};
+ var T=[['rattigheter','Mina rättigheter','linear-gradient(150deg,#2E4C9A,#1A2A5C)',['📖 Kollektivavtalet','⏰ Arbetstid och övertid','🏖️ Semester och ledighet']],
+  ['begar','Begär uppgifter','linear-gradient(150deg,#D42B48,#8E1F35)',['🗂️ Mina uppgifter (GDPR)','📨 Min övertid','📄 Mina anställningsvillkor']],
+  ['skydd','Skydd','linear-gradient(150deg,#E08A1E,#A85A0C)',['🦺 Anmäl en brist','🛑 Hotad eller utsatt för våld?','📋 Skyddsronder']],
+  ['ombud','Ombud och klubb','linear-gradient(150deg,#2B7A6B,#164C43)',['📨 Begär uppgifter som klubb','🤝 Förhandling','🗓️ Möten']]];
+ var app=$('s9app'),grid=$('s9grid'),home=$('s9home'),det=$('s9det'),hero=$('s9hero'),rows=$('s9rows'),back=$('s9back'),tiles=[],cur=-1,morphEl=null,anim=null;
+ T.forEach(function(d,i){var b=document.createElement('button');b.type='button';b.className='tile';b.setAttribute('aria-label',d[1]);
+  b.style.cssText='position:relative;min-height:128px;border:0;border-radius:22px;background:'+d[2]+';color:#fff;font:inherit;font-weight:800;font-size:16px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:12px;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 12px 24px -12px rgba(0,0,0,.7);transition:opacity .3s,transform .45s cubic-bezier(.16,1,.3,1);text-align:left';
+  b.innerHTML='<span class="ic" style="width:52px;height:52px;display:block">'+IC[d[0]]+'</span><span>'+d[1]+'</span>';b.addEventListener('click',function(){open(i)});grid.appendChild(b);tiles.push(b)});
+ function rel(e){var a=app.getBoundingClientRect(),r=e.getBoundingClientRect();return {x:r.left-a.left,y:r.top-a.top,w:r.width,h:r.height}}
+ function springs(){return {x:new Spring(0,'tung'),y:new Spring(0,'tung'),w:new Spring(0,'tung'),h:new Spring(0,'tung'),ic:new Spring(0,'tung')}}
+ function fillRows(i){rows.innerHTML='';T[i][3].forEach(function(t,k){var r=document.createElement('div');r.textContent=t;
+  r.style.cssText='display:flex;align-items:center;min-height:56px;margin-bottom:8px;padding:0 14px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);color:#F4F1EC;font-weight:700;opacity:0;transform:translateY(16px);transition:opacity .45s cubic-bezier(.16,1,.3,1) '+(140+k*60)+'ms,transform .6s cubic-bezier(.16,1,.3,1) '+(140+k*60)+'ms';rows.appendChild(r)});
+  requestAnimationFrame(function(){requestAnimationFrame(function(){Array.prototype.forEach.call(rows.children,function(r){r.style.opacity=1;r.style.transform='none'})})})}
+ function runMorph(from,to,icFrom,icTo,done){if(morphEl)morphEl.remove();var m=document.createElement('div'),d=T[cur];
+  m.style.cssText='position:absolute;left:0;top:0;border-radius:22px;background:'+d[2]+';box-shadow:0 20px 40px -14px rgba(0,0,0,.7);z-index:5;overflow:hidden;will-change:transform,width,height';
+  var ic=document.createElement('div');ic.innerHTML=IC[d[0]];ic.style.cssText='position:absolute;left:0;top:0;width:52px;height:52px;transform-origin:0 0';m.appendChild(ic);app.appendChild(m);morphEl=m;
+  var S=springs();S.x.snap(from.x);S.y.snap(from.y);S.w.snap(from.w);S.h.snap(from.h);S.ic.snap(0);S.x.to=to.x;S.y.to=to.y;S.w.to=to.w;S.h.to=to.h;S.ic.to=1;
+  if(RM()){S.x.snap(to.x);S.y.snap(to.y);S.w.snap(to.w);S.h.snap(to.h);S.ic.snap(1)}
+  var lastT=performance.now();
+  (function f(now){var dt=Math.min(.05,(now-lastT)/1000);lastT=now;for(var k in S)S[k].step(dt);
+   m.style.transform='translate('+S.x.x.toFixed(2)+'px,'+S.y.x.toFixed(2)+'px)';m.style.width=Math.max(10,S.w.x).toFixed(2)+'px';m.style.height=Math.max(10,S.h.x).toFixed(2)+'px';
+   var p=S.ic.x,ix=lerp(icFrom.x,icTo.x,p),iy=lerp(icFrom.y,icTo.y,p),is=lerp(icFrom.s,icTo.s,p);ic.style.transform='translate('+ix.toFixed(2)+'px,'+iy.toFixed(2)+'px) scale('+is.toFixed(3)+')';
+   var dn=true;for(k in S)if(!S[k].done())dn=false;if(dn||RM()){done(m);return}anim=requestAnimationFrame(f)})(lastT)}
+ var OV='position:absolute;left:16px;right:16px;top:16px';
+ function hdr(o){Array.prototype.forEach.call(home.children,function(c){if(c!==grid){c.style.transition='opacity .25s';c.style.opacity=o}})}
+ function open(i){if(cur>=0)return;cur=i;cancelAnimationFrame(anim);play('tryck',.22);haptic(8);var t=tiles[i],from=rel(t);
+  home.style.cssText=OV+';pointer-events:none';t.style.opacity=0;hdr(0);
+  tiles.forEach(function(b,k){if(k!==i){b.style.opacity=0;b.style.transform='scale(.92)'}});
+  det.hidden=false;det.style.cssText='';hero.style.background='transparent';hero.innerHTML='';var to=rel(hero);
+  fillRows(i);back.style.transition='opacity .4s';back.style.opacity=0;requestAnimationFrame(function(){back.style.opacity=1});
+  hero.innerHTML='<div style="padding:16px;font-weight:800;font-size:22px;color:#fff;position:relative;z-index:6;max-width:60%;opacity:0;transition:opacity .4s .2s" id="s9ht">'+T[i][1]+'</div>';
+  requestAnimationFrame(function(){requestAnimationFrame(function(){var h=$('s9ht');if(h)h.style.opacity=1})});
+  runMorph(from,to,{x:12,y:12,s:1},{x:to.w-108,y:13,s:1.8},function(m){m.remove();morphEl=null;home.style.visibility='hidden';hero.style.background=T[i][2];
+   hero.innerHTML='<div style="position:relative;height:100%;padding:16px;color:#fff"><div style="font-weight:800;font-size:22px;max-width:60%">'+T[i][1]+'</div><div style="position:absolute;right:14px;top:14px;width:94px;height:94px">'+IC[T[i][0]]+'</div></div>'})}
+ function close(){if(cur<0||det.hidden)return;cancelAnimationFrame(anim);play('tryck',.2);haptic(8);var i=cur,from=rel(hero);
+  det.style.cssText=OV+';pointer-events:none;transition:opacity .35s;opacity:0';
+  home.style.cssText='';hdr(1);var to=rel(tiles[i]);tiles[i].style.opacity=0;hero.innerHTML='';hero.style.background='transparent';
+  setTimeout(function(){tiles.forEach(function(b,k){if(k!==i){b.style.opacity=1;b.style.transform='none'}})},100);
+  runMorph(from,to,{x:from.w-108,y:13,s:1.8},{x:12,y:12,s:1},function(m){tiles[i].style.opacity=1;m.remove();morphEl=null;det.hidden=true;det.style.cssText='';cur=-1})}
+ back.addEventListener('click',close);
+ Scene(9,{dur:3.0,particles:false,render:function(){},cues:[[0,function(){if(!det.hidden){close()}}],[.4,function(){open(1)}],[2.2,function(){close()}]],
+  reset:function(){}});
+ window.__s9={open:open,close:close};
+})();
+/* ================= 10. Dag och natt ================= */
+(function(){
+ var stars=$('s10stars'),R=rnd(5),ST=[];for(var i=0;i<40;i++)ST.push(el('circle',{cx:(R()*360).toFixed(1),cy:(R()*170).toFixed(1),r:(R()*1+.35).toFixed(2),fill:'#fff'},stars));
+ var rays=$('s10rays');for(i=0;i<10;i++){var a=i/10*360;el('rect',{x:-2.5,y:-52,width:5,height:12,rx:2.5,fill:'#FFD27A',transform:'rotate('+a+')'},rays)}
+ var A=$('s10a'),B=$('s10b'),orb=$('s10orb'),cut=$('s10cut'),glow=$('s10glow'),cl=$('s10clouds'),h1=$('s10h1'),h2=$('s10h2');
+ function mix(a,b,p){return 'rgb('+a.map(function(v,i){return Math.round(lerp(v,b[i],p))}).join(',')+')'}
+ var dag=new Spring(0,'tung'),cur=0,live=false;
+ function render(p){var q=clamp(p,0,1);A.setAttribute('stop-color',mix([8,12,32],[110,175,250],q));B.setAttribute('stop-color',mix([30,44,92],[220,236,255],q));
+  stars.setAttribute('opacity',(1-q).toFixed(3));orb.setAttribute('fill',mix([236,240,255],[255,200,90],q));orb.setAttribute('r',(28+q*4).toFixed(2));
+  cut.setAttribute('cx',(192+p*60).toFixed(2));cut.setAttribute('cy',(80-p*40).toFixed(2));
+  glow.setAttribute('opacity',(q*.9).toFixed(3));rays.setAttribute('transform','translate(180 90) rotate('+(p*60).toFixed(1)+') scale('+Math.max(0,p).toFixed(3)+')');rays.setAttribute('opacity',q.toFixed(3));
+  cl.setAttribute('opacity',q.toFixed(3));cl.setAttribute('transform','translate('+((1-q)*-30).toFixed(1)+' 0)');
+  h1.setAttribute('fill',mix([21,32,72],[90,160,110],q));h2.setAttribute('fill',mix([12,20,48],[60,128,84],q))}
+ function loop(){if(!live)return;dag.step(1/60);render(dag.x);if(dag.done()){live=false;render(dag.to);return}requestAnimationFrame(loop)}
+ function set(d,anim){cur=d?1:0;dag.to=cur;document.documentElement.classList.toggle('ljus',!!d);
+  var mc=document.querySelector('meta[name=theme-color]');if(mc)mc.setAttribute('content',d?'#EEF3FB':'#0A1128');
+  try{localStorage.setItem('stil_ljus',d?'1':'0')}catch(e){}
+  if(!anim||RM()){dag.snap(cur);render(cur);return}if(!live){live=true;requestAnimationFrame(loop)}}
+ var sv=null;try{sv=localStorage.getItem('stil_ljus')}catch(e){}
+ set(sv==='1',false);
+ $('s10natt').addEventListener('click',function(){set(false,true);play('tryck',.2);haptic(8)});
+ $('s10dag').addEventListener('click',function(){set(true,true);play('tryck',.2);haptic(8)});
+ window.__dag=set;
+})();
+/* ================= UI: spela-knappar, ljud, ✅ Bra, kopiera ================= */
+Object.keys(SC).forEach(function(k){io.observe(SC[k].stage)});
+Array.prototype.forEach.call(document.querySelectorAll('[data-play]'),function(b){var s=SC[b.dataset.play];
+ b.addEventListener('click',function(){ac();haptic(8);startScene(s)})});
+Array.prototype.forEach.call(document.querySelectorAll('[data-rm]'),function(b){b.addEventListener('click',function(){var s=SC[b.dataset.rm];startScene(s);skipScene(s)})});
+/* tryck-fjäder på alla stora knappar (egen fjäder, inte CSS) */
+Array.prototype.forEach.call(document.querySelectorAll('.btn,.bra,.kop,.play,.ikonknapp'),function(b){var sp=new Spring(1,'tryck'),live=false,hold=false;
+ function loop(){sp.step(1/60);b.style.transform=Math.abs(sp.x-1)<1e-3&&!hold?'':'scale('+sp.x.toFixed(4)+')';if(sp.done()&&!hold){live=false;b.style.transform='';return}requestAnimationFrame(loop)}
+ function go(){if(!live){live=true;requestAnimationFrame(loop)}}
+ b.addEventListener('pointerdown',function(){if(RM())return;hold=true;sp.set('tryck').to=.95;go()});
+ function rel(){if(!hold)return;hold=false;sp.set('studs').to=1;go()}
+ b.addEventListener('pointerup',rel);b.addEventListener('pointerleave',rel);b.addEventListener('pointercancel',rel)});
+/* ljudknapp */
+var IK_PA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h3l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12"/></svg>',
+    IK_AV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h3l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6"/></svg>';
+var lk=$('ljudknapp');
+function lkPaint(){lk.innerHTML=ljudPa?IK_PA:IK_AV;lk.setAttribute('aria-pressed',ljudPa?'true':'false');lk.setAttribute('aria-label',ljudPa?'Ljud på. Tryck för att stänga av':'Ljud av. Tryck för att sätta på')}
+lk.addEventListener('click',function(){ljudPa=!ljudPa;try{localStorage.setItem('stil_ljud',ljudPa?'1':'0')}catch(e){}lkPaint();ac();if(!ljudPa){ambToggle(false);paintAmb(false)}else play('tryck',.2);haptic(8)});lkPaint();
+/* minskad rörelse-test */
+$('rmTest').addEventListener('change',function(){rmTest=this.checked;Object.keys(SC).forEach(function(k){var s=SC[k];if(s.P)s.P.p.length=0;startScene(s);skipScene(s)});if(!rmTest)kick()});
+/* ljudlista */
+var PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>',
+    STOP='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2.5"/></svg>';
+var LJ=[['oppna','Appen öppnas','Varm pling-plong'],['sparat','Sparat','Lugn trämelodi'],['skickat','Skickat','Luftigt sus'],['notis','Notis','Två glastoner'],['klart','Klart','Ljus melodi uppåt'],['tryck','Tryck','Mjukt klick'],['hem','Hemknappen','Två små pop'],['terminal','Bakgrund: terminalen','Dovt brus som loopar – tryck igen för att stänga av']];
+var sl=$('sl'),ambBtn=null;
+function paintAmb(on){if(ambBtn){ambBtn.innerHTML=on?STOP:PLAY;ambBtn.classList.toggle('on',on);ambBtn.setAttribute('aria-label',on?'Stoppa bakgrund':'Spela bakgrund')}}
+LJ.forEach(function(l){var r=document.createElement('div');r.className='snd';
+ r.innerHTML='<button type="button" class="play" aria-label="Spela">'+PLAY+'</button><div class="t"><b></b><small></small><span class="meter"><i></i></span></div><div data-bra="s-l-'+l[0]+'"></div>';
+ r.querySelector('b').textContent=l[1];r.querySelector('small').textContent=l[2];r.lastChild.dataset.n='Ljud: '+l[1];
+ var pb=r.querySelector('.play'),mi=r.querySelector('.meter i');
+ if(l[0]==='terminal'){ambBtn=pb;pb.addEventListener('click',function(){ac();var on=!amb;if(on&&!ljudPa){ljudPa=true;try{localStorage.setItem('stil_ljud','1')}catch(e){}lkPaint()}ambToggle(on);paintAmb(on);haptic(8)})}
+ else pb.addEventListener('click',function(){ac();var was=ljudPa;if(!ljudPa){ljudPa=true;lkPaint();try{localStorage.setItem('stil_ljud','1')}catch(e){}}lastSnd=0;play(l[0],.3);haptic(8);
+  if(!RM()){mi.style.transition='none';mi.style.width='0';requestAnimationFrame(function(){requestAnimationFrame(function(){mi.style.transition='width 1.1s cubic-bezier(.16,1,.3,1)';mi.style.width='100%';setTimeout(function(){mi.style.transition='width .5s';mi.style.width='0'},1300)})})}});
+ sl.appendChild(r)});
+/* ✅ Bra – samma lagring som testsidan (testsida_val_v1) */
+var KEY='testsida_val_v1',SV={};
+try{SV=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){SV={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(SV))}catch(e){}}
+var ITEMS=[];
+Array.prototype.forEach.call(document.querySelectorAll('[data-bra]'),function(h){var id=h.dataset.bra,n=h.dataset.n;ITEMS.push({id:id,name:n});
+ var b=document.createElement('button');b.type='button';b.className='bra';b.dataset.v=id;b.setAttribute('aria-label','Bra: '+n);b.innerHTML='<span class="bx" aria-hidden="true">✓</span><span>✅ Bra</span>';h.parentNode.replaceChild(b,h);
+ var sp=new Spring(1,'studs'),live=false;b.addEventListener('pointerdown',function(){if(RM())return;sp.set('tryck');sp.to=.94;if(!live){live=true;(function f(){sp.step(1/60);b.style.transform='scale('+sp.x.toFixed(4)+')';if(sp.done()){live=false;b.style.transform='';return}requestAnimationFrame(f)})()}});
+ b.addEventListener('pointerup',function(){sp.set('studs');sp.to=1;sp.v+=1.2})});
+function paint(){var n=0;Array.prototype.forEach.call(document.querySelectorAll('.bra'),function(b){var on=!!SV[b.dataset.v];b.setAttribute('aria-pressed',on?'true':'false');b.lastChild.textContent=on?'✅ Bra – vald':'✅ Bra'});
+ ITEMS.forEach(function(it){if(SV[it.id])n++});$('valn').textContent=n;$('valn2').textContent=n+' av '+ITEMS.length}
+document.addEventListener('click',function(e){var b=e.target.closest('.bra');if(!b)return;var id=b.dataset.v;if(SV[id])delete SV[id];else SV[id]=1;save();paint();haptic(8);ac();play(SV[id]?'tryck':'tryck',.18)});
+function text(){var l=ITEMS.filter(function(it){return SV[it.id]}).map(function(it){return it.name});return 'Mina val (egen stil):\nBra: '+(l.length?l.join(', '):'inga')}
+var msg=$('kmsg'),ta=$('valtxt');
+function ok(){msg.textContent='Kopierat! Klistra in i chatten med fack-botten';msg.classList.add('on');play('klart',.2);var k=$('kop');k.textContent='✅ Kopierat!';setTimeout(function(){k.textContent='📋 Kopiera mina val'},2500)}
+function fail(t){ta.value=t;ta.classList.add('on');msg.textContent='Kunde inte kopiera automatiskt. Håll fingret på texten nedan, välj Markera alla och Kopiera.';msg.classList.add('on');$('val').scrollIntoView({block:'start'});try{ta.focus();ta.select();ta.setSelectionRange(0,t.length)}catch(e){}}
+function legacy(t){try{ta.value=t;ta.classList.add('on');ta.focus();ta.select();ta.setSelectionRange(0,t.length);return document.execCommand('copy')}catch(e){return false}}
+function copy(){ac();var t=text();ta.value=t;if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,function(){if(legacy(t))ok();else fail(t)})}else{if(legacy(t))ok();else fail(t)}}
+$('kop').addEventListener('click',copy);$('kop2').addEventListener('click',copy);
+window.__valText=text;paint();
+/* ljud kräver ett första tryck (iPhone) – förladda då */
+document.addEventListener('pointerdown',function f(){ac();Object.keys(SND).forEach(function(k){if(k!=='terminal')load(k)});document.removeEventListener('pointerdown',f)},{once:true});
+/* appstarten spelas en gång när sidan öppnas (kan hoppas över) */
+if(!RM())setTimeout(function(){startScene(SC[1])},350);else{startScene(SC[1])}
+kick();
+})();
+</script></body></html>
