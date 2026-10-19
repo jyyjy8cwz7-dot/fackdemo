@@ -297,7 +297,7 @@ textarea.valtxt{display:none;width:100%;min-height:120px;margin-top:10px;font:in
 
 <section class="card" id="c12">
 <h2><span class="nr">🗣️</span>Röster</h2>
-<p class="why">Sofie är den du valt tidigare. Under <b>Kaptensröst</b> finns tre nya utrop (ren röst och med kabin-PA). Lyssna och bocka ✅ Bra.</p>
+<p class="why">Sofie och <b>Kaptensröst</b> med kabinhögtalare (PA) – de du har valt. Lyssna och bocka ✅ Bra.</p>
 <div id="vl"></div>
 </section>
 
@@ -371,7 +371,7 @@ Particles.prototype.step=function(dt){var x=this.x;x.setTransform(1,0,0,1,0,0);x
  x.globalAlpha=1;x.globalCompositeOperation='source-over';return true};
 /* ---- ljud (Web Audio, volym max 0,3) ---- */
 var VOL=0.3,ljudPa=true;try{ljudPa=localStorage.getItem('stil_ljud')!=='0'}catch(e){}
-var SND={sparat:'stil-sparat.mp3',skickat:'stil-skickat.mp3',notis:'stil-notis.mp3',klart:'stil-klart.mp3',hem:'stil-hem.mp3',oppna:'stil-oppna-a.mp3',tryck:'stil-tryck-a.mp3',terminal:'stil-terminal-a.mp3','oppna-a':'stil-oppna-a.mp3','oppna-b':'stil-oppna-b.mp3','oppna-c':'stil-oppna-c.mp3','tryck-a':'stil-tryck-a.mp3','tryck-b':'stil-tryck-b.mp3','tryck-c':'stil-tryck-c.mp3','terminal-a':'stil-terminal-a.mp3','terminal-b':'stil-terminal-b.mp3','terminal-c':'stil-terminal-c.mp3','sofie-1':'sofie-1.mp3','sofie-2':'sofie-2.mp3','sofie-3':'sofie-3.mp3','sofie-skickat':'sofie-skickat.mp3','piper-lisa-1':'piper-lisa-1.mp3','piper-lisa-2':'piper-lisa-2.mp3','piper-lisa-3':'piper-lisa-3.mp3','mms-1':'mms-1.mp3','mms-2':'mms-2.mp3','mms-3':'mms-3.mp3','piper-alma-1':'piper-alma-1.mp3','piper-alma-2':'piper-alma-2.mp3','piper-alma-3':'piper-alma-3.mp3','male-mattias-1':'male-mattias-1.mp3','male-william-1':'male-william-1.mp3','male-supertonic9-1':'male-supertonic9-1.mp3','kapten-skickat':'kapten-skickat.mp3','kapten-sparat':'kapten-sparat.mp3','kapten-valkommen':'kapten-valkommen.mp3','kapten-skickat-pa':'kapten-skickat-pa.mp3','kapten-sparat-pa':'kapten-sparat-pa.mp3','kapten-valkommen-pa':'kapten-valkommen-pa.mp3'};
+var SND={sparat:'stil-sparat.mp3',skickat:'stil-skickat.mp3',notis:'stil-notis.mp3',klart:'stil-klart.mp3',hem:'stil-hem.mp3',oppna:'stil-oppna-a.mp3',tryck:'stil-tryck-a.mp3','oppna-a':'stil-oppna-a.mp3','oppna-b':'stil-oppna-b.mp3','oppna-c':'stil-oppna-c.mp3','tryck-a':'stil-tryck-a.mp3','tryck-b':'stil-tryck-b.mp3','tryck-c':'stil-tryck-c.mp3','sofie-1':'sofie-1.mp3','sofie-2':'sofie-2.mp3','sofie-3':'sofie-3.mp3','sofie-skickat':'sofie-skickat.mp3','kapten-skickat-pa':'kapten-skickat-pa.mp3','kapten-sparat-pa':'kapten-sparat-pa.mp3','kapten-valkommen-pa':'kapten-valkommen-pa.mp3'};
 var AC=null,BUF={},amb=null;
 function ac(){if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(C)AC=new C()}if(AC&&AC.state==='suspended')AC.resume().catch(function(){});return AC}
 function load(k){if(BUF[k])return BUF[k];BUF[k]=fetch(SND[k]).then(function(r){return r.arrayBuffer()}).then(function(a){return new Promise(function(res,rej){ac().decodeAudioData(a,res,rej)})});BUF[k].catch(function(){});return BUF[k]}
@@ -750,10 +750,7 @@ var LJ=[
  ['oppna-c','Öppna C','Luftigt sus + två toner'],
  ['tryck-a','Tryck A','Glas-tick'],
  ['tryck-b','Tryck B','Trä-tick'],
- ['tryck-c','Tryck C','Mjukt pop'],
- ['terminal-a','Terminal A','Ventilation, mjuk hum'],
- ['terminal-b','Terminal B','Avlägsen ramp'],
- ['terminal-c','Terminal C','Mjuk tonal pad']
+ ['tryck-c','Tryck C','Mjukt pop']
 ];
 var sl=$('sl'),ambBtns={};
 function paintAmb(){Object.keys(ambBtns).forEach(function(k){var on=!!(amb&&amb.key===k);var pb=ambBtns[k];pb.innerHTML=on?STOP:PLAY;pb.classList.toggle('on',on);pb.setAttribute('aria-label',on?'Stoppa bakgrund':'Spela bakgrund')})}
@@ -767,28 +764,13 @@ LJ.forEach(function(l){var r=document.createElement('div');r.className='snd';
  sl.appendChild(r)});
 /* röster – Sofie m.fl. + ny grupp Kaptensröst */
 var VG=[
- {g:'Sofie och andra',items:[
+ {g:'Sofie',items:[
   ['sofie-1','Sofie – Välkommen','Microsoft edge-tts'],
   ['sofie-2','Sofie – Sparad','Microsoft edge-tts'],
   ['sofie-3','Sofie – Skickat','Microsoft edge-tts'],
-  ['sofie-skickat','Sofie – Skickat (kort)','Används i scenen Skickat'],
-  ['piper-lisa-1','Lisa – Välkommen','Piper offline'],
-  ['piper-lisa-2','Lisa – Sparad','Piper offline'],
-  ['piper-lisa-3','Lisa – Skickat','Piper offline'],
-  ['mms-1','MMS – Välkommen','Meta offline'],
-  ['mms-2','MMS – Sparad','Meta offline'],
-  ['mms-3','MMS – Skickat','Meta offline'],
-  ['piper-alma-1','Alma – Välkommen','Piper offline'],
-  ['piper-alma-2','Alma – Sparad','Piper offline'],
-  ['piper-alma-3','Alma – Skickat','Piper offline'],
-  ['male-mattias-1','Mattias – Välkommen','Tidigare test'],
-  ['male-william-1','William – Välkommen','Tidigare test'],
-  ['male-supertonic9-1','Supertonic – Välkommen','Tidigare test']
+  ['sofie-skickat','Sofie – Skickat (kort)','Används i scenen Skickat']
  ]},
  {g:'Kaptensröst',items:[
-  ['kapten-valkommen','Kapten – Välkommen','Mattias, ren röst'],
-  ['kapten-sparat','Kapten – Sparat','Mattias, ren röst'],
-  ['kapten-skickat','Kapten – Skickat','Mattias, ren röst'],
   ['kapten-valkommen-pa','Kapten – Välkommen (PA)','Mattias + kabin-PA och ding'],
   ['kapten-sparat-pa','Kapten – Sparat (PA)','Mattias + kabin-PA och ding'],
   ['kapten-skickat-pa','Kapten – Skickat (PA)','Mattias + kabin-PA och ding']
