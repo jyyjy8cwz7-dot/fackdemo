@@ -1,0 +1,72 @@
+LICENSER – proffs.html (proffsdemo)
+Hämtat 2026-10-19. Allt ligger lokalt i samma mapp; inget hämtas från externa servrar när sidan körs.
+
+=== Animationer (Lottie JSON) ===
+Noto Animated Emoji – Google. Licens: CC BY 4.0 (kräver erkännande – se "Erkännande" nedan).
+Licens: https://creativecommons.org/licenses/by/4.0/
+Info: https://googlefonts.github.io/noto-emoji-animation/
+  noto-flygplan.json   ✈️ U+2708   https://fonts.gstatic.com/s/e/notoemoji/latest/2708_fe0f/lottie.json
+  noto-bock.json       ✅ U+2705   https://fonts.gstatic.com/s/e/notoemoji/latest/2705/lottie.json
+  noto-fest.json       🎉 U+1F389  https://fonts.gstatic.com/s/e/notoemoji/latest/1f389/lottie.json
+  noto-klocka.json     🔔 U+1F514  https://fonts.gstatic.com/s/e/notoemoji/latest/1f514/lottie.json
+  noto-timglas.json    ⏳ U+23F3   https://fonts.gstatic.com/s/e/notoemoji/latest/23f3/lottie.json
+  noto-handslag.json   🤝 U+1F91D  https://fonts.gstatic.com/s/e/notoemoji/latest/1f91d/lottie.json
+  Ändringar: inga (filerna omdöpta).
+
+=== Lottie-spelare ===
+lottie-light-5.12.2.min.js – lottie-web 5.12.2 (light-build), Airbnb/Bodymovin. Licens: MIT.
+  https://unpkg.com/lottie-web@5.12.2/build/player/lottie_light.min.js
+  https://github.com/airbnb/lottie-web/blob/master/LICENSE.md
+  Copyright (c) 2015 Bodymovin
+
+=== 3D-ikoner ===
+Fluent Emoji (3D) – Microsoft. Licens: MIT. Copyright (c) Microsoft Corporation.
+  https://github.com/microsoft/fluentui-emoji  (LICENSE: https://github.com/microsoft/fluentui-emoji/blob/main/LICENSE)
+  Ändring: nedskalade från 256 till 192 px och konverterade PNG -> WebP.
+  fluent-airplane.webp                 assets/Airplane/3D/airplane_3d.png
+  fluent-books.webp                    assets/Books/3D/books_3d.png
+  fluent-busts-in-silhouette.webp      assets/Busts in silhouette/3D/busts_in_silhouette_3d.png
+  fluent-clipboard.webp                assets/Clipboard/3D/clipboard_3d.png
+  fluent-envelope-with-arrow.webp      assets/Envelope with arrow/3D/envelope_with_arrow_3d.png
+  fluent-handshake.webp                assets/Handshake/3D/handshake_3d.png
+  fluent-house.webp                    assets/House/3D/house_3d.png
+  fluent-megaphone.webp                assets/Megaphone/3D/megaphone_3d.png
+  fluent-rescue-workers-helmet.webp    assets/Rescue workers helmet/3D/rescue_workers_helmet_3d.png
+  fluent-shield.webp                   assets/Shield/3D/shield_3d.png
+  fluent-spiral-calendar.webp          assets/Spiral calendar/3D/spiral_calendar_3d.png
+  fluent-warning.webp                  assets/Warning/3D/warning_3d.png
+  (bas-URL: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/)
+
+=== Linjeikoner (inbäddade som SVG i proffs.html) ===
+Phosphor Icons 2.1.1 (@phosphor-icons/core). Licens: MIT. Copyright (c) 2023 Phosphor Icons.
+  house-fill, arrow-left-bold, speaker-high-fill, speaker-slash-fill
+  https://github.com/phosphor-icons/core  /  https://unpkg.com/@phosphor-icons/core@2.1.1/assets/
+
+=== Ljud ===
+Kenney "Interface Sounds" 1.0 – Kenney (www.kenney.nl). Licens: CC0 1.0 (public domain, inget erkännande krävs).
+  https://kenney.nl/assets/interface-sounds
+  https://creativecommons.org/publicdomain/zero/1.0/
+  Ändring: OGG -> MP3 (mono, 96 kbit/s), ljudnivå sänkt/normaliserad (loudnorm -20 LUFS). Spelas med max volym 0,3.
+  kenney-click-002.mp3        (click_002.ogg)
+  kenney-select-002.mp3       (select_002.ogg)
+  kenney-confirmation-002.mp3 (confirmation_002.ogg)
+  kenney-glass-002.mp3        (glass_002.ogg)
+  kenney-bong-001.mp3         (bong_001.ogg)
+  kenney-back-002.mp3         (back_002.ogg)
+  kenney-error-004.mp3        (error_004.ogg)
+  kenney-maximize-006.mp3     (maximize_006.ogg)
+  kenney-drop-002.mp3         (drop_002.ogg)
+
+=== Röst ===
+sofie-skickat.mp3 – "Klart! Din begäran är skickad." Syntetiserad med Microsoft Edge TTS, röst sv-SE-SofieNeural (verktyget edge-tts, GPL-3.0 – gäller verktyget, inte ljudfilen).
+  OBS: Microsofts villkor för Edge-läsupplevelsens röster är inte en öppen licens. Samma förbehåll som för övriga Sofie-filer i appen.
+
+=== Typsnitt ===
+Atkinson Hyperlegible Next – Braille Institute / The Atkinson Hyperlegible Next Project Authors. Licens: SIL Open Font License 1.1.
+  https://github.com/googlefonts/atkinson-hyperlegible-next
+  Hämtat via Fontsource 5.3.0: https://cdn.jsdelivr.net/npm/@fontsource/atkinson-hyperlegible-next@latest/files/
+  atkinson-next-400.woff2, atkinson-next-700.woff2, atkinson-next-800.woff2 (latin-delmängd, innehåller å ä ö)
+  OFL: https://openfontlicense.org/
+
+=== Erkännande (måste synas i appen, t.ex. under "Om appen") ===
+"Animerade emoji: Noto Animated Emoji av Google, CC BY 4.0. Ikoner: Fluent Emoji av Microsoft (MIT) och Phosphor Icons (MIT). Ljud: Kenney.nl (CC0). Typsnitt: Atkinson Hyperlegible Next (OFL)."

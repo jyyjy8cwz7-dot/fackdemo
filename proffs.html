@@ -1,0 +1,325 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,"><title>Proffsdemo – bild, ljud och rörelse</title>
+<style>
+@font-face{font-family:"AHN";src:url(atkinson-next-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"AHN";src:url(atkinson-next-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"AHN";src:url(atkinson-next-800.woff2) format("woff2");font-weight:800 900;font-display:swap}
+:root{--b:#8E1F35;--b2:#B02A43;--navy:#14213D;--bg:#F6F4F2;--card:#fff;--tx:#1E1B1C;--mu:#5F5A5C;--ok:#1b7f4a;--red:#c62828;--line:#E7E1E2;
+--sh:0 1px 2px rgba(20,20,40,.06),0 8px 24px rgba(20,20,40,.08);--r:22px;
+--spring:linear(0,.096,.307,.545,.754,.913,1.015,1.068,1.086,1.08,1.063,1.043,1.024,1.01,1,.995,.993,.993,.994,.996,.998,.999,1)}
+html.dark{--bg:#0F1218;--card:#1A1F29;--tx:#F2F0EE;--mu:#B4ADB0;--line:#2A303C;--sh:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:"AHN",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx);font-size:18px;line-height:1.45;transition:background .3s,color .3s}
+main{max-width:640px;margin:0 auto;padding:10px 14px 120px}
+.skiss{background:#FFF3C4;color:#3a2c00;border:2px dashed #C9A227;border-radius:14px;padding:8px 12px;font-weight:700;font-size:15px;text-align:center}
+.topp{display:flex;gap:10px;align-items:center;margin:10px 0}
+.tillbaka{flex:1;display:flex;align-items:center;gap:10px;min-height:60px;padding:0 16px;border-radius:18px;background:var(--card);color:var(--tx);text-decoration:none;font-weight:800;box-shadow:var(--sh)}
+.tillbaka svg{width:28px;height:28px}
+.ikonknapp{width:60px;height:60px;border-radius:18px;border:0;background:var(--card);color:var(--tx);box-shadow:var(--sh);display:grid;place-items:center;cursor:pointer}
+.ikonknapp svg{width:30px;height:30px}
+h1{font-size:28px;margin:14px 0 4px;letter-spacing:-.01em}
+h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.nr{flex:none;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--b);color:#fff;font-size:17px}
+.lead{color:var(--mu);margin:0 0 10px;font-size:16px}
+.card{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin:0 0 18px}
+.why{font-size:15px;color:var(--mu);margin:4px 0 12px}
+.lic{font-size:13px;color:var(--mu);margin-top:8px}
+/* knappar med fjäder */
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:64px;border:0;border-radius:18px;background:var(--b);color:#fff;font:inherit;font-weight:800;font-size:20px;padding:12px 16px;cursor:pointer;
+ box-shadow:0 2px 0 rgba(0,0,0,.12),0 8px 18px rgba(142,31,53,.28);transition:transform .55s var(--spring),box-shadow .3s ease;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.btn:active,.btn.down{transform:scale(.94);transition-duration:.08s;transition-timing-function:ease-out;box-shadow:0 1px 0 rgba(0,0,0,.1),0 3px 8px rgba(142,31,53,.22)}
+.btn.sek{background:var(--navy);box-shadow:0 2px 0 rgba(0,0,0,.12),0 8px 18px rgba(20,33,61,.28)}
+.btn.lj{background:transparent;color:var(--tx);border:3px solid var(--line);box-shadow:none}
+.btn.fara{background:var(--red)}
+.btn:focus-visible,.tile:focus-visible,.bra:focus-visible{outline:4px solid #2B6CB0;outline-offset:3px}
+.rad{display:grid;gap:10px}
+.r2{grid-template-columns:1fr 1fr}
+/* telefon-mock */
+.phone{position:relative;border-radius:34px;background:linear-gradient(160deg,#FCEEF1 0%,#F1F4FA 60%,#E9EEF7 100%);padding:14px;min-height:560px;overflow:hidden;border:1px solid var(--line)}
+html.dark .phone{background:linear-gradient(160deg,#2A1A20 0%,#141A26 60%,#101521 100%)}
+.ph-head{display:flex;align-items:center;gap:12px;padding:6px 4px 14px}
+.ph-head .hej{flex:1}
+.ph-head small{display:block;color:var(--mu);font-size:15px}
+.ph-head b{font-size:24px}
+.glas{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);border:1px solid rgba(255,255,255,.7)}
+html.dark .glas{background:rgba(30,36,48,.62);border-color:rgba(255,255,255,.08)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:150px;border-radius:24px;border:0;font:inherit;color:var(--tx);font-weight:800;font-size:18px;line-height:1.15;text-align:center;padding:12px 8px;cursor:pointer;
+ box-shadow:0 6px 18px rgba(20,20,40,.08);transition:transform .55s var(--spring);touch-action:manipulation}
+.tile:active{transform:scale(.95);transition-duration:.08s}
+.tile img{width:72px;height:72px}
+.akut{grid-column:1/-1;flex-direction:row;min-height:84px;background:linear-gradient(135deg,#C62828,#9E1C1C);color:#fff;border:0}
+.akut img{width:52px;height:52px}
+.hemknapp{display:flex;align-items:center;gap:10px;min-height:60px;padding:0 18px;border-radius:18px;border:0;font:inherit;font-weight:800;font-size:19px;color:#fff;background:var(--b);cursor:pointer;transition:transform .55s var(--spring)}
+.hemknapp:active{transform:scale(.94);transition-duration:.08s}
+.hemknapp svg{width:28px;height:28px}
+.det-hero{display:flex;align-items:center;gap:14px;margin:14px 0}
+.det-hero img{width:96px;height:96px}
+.det-hero h3{margin:0;font-size:26px}
+.lista{display:grid;gap:10px}
+.rad-kort{border-radius:18px;padding:14px;min-height:72px;display:flex;align-items:center;gap:12px;font-weight:700}
+.rad-kort span.p{margin-left:auto;font-size:26px;color:var(--mu)}
+.skel{border-radius:18px;min-height:72px;background:linear-gradient(90deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.11) 40%,rgba(0,0,0,.06) 80%);background-size:300% 100%;animation:shim 1.3s linear infinite}
+html.dark .skel{background:linear-gradient(90deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.12) 40%,rgba(255,255,255,.05) 80%);background-size:300% 100%}
+@keyframes shim{from{background-position:100% 0}to{background-position:-50% 0}}
+.fadein{animation:fin .45s cubic-bezier(.2,.8,.2,1) both}
+.fadein:nth-child(2){animation-delay:.06s}.fadein:nth-child(3){animation-delay:.12s}
+@keyframes fin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+[hidden]{display:none!important}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.38s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-group(*){animation-duration:.45s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+/* lottie-scener */
+.scen{position:relative;height:190px;border-radius:20px;background:radial-gradient(120% 90% at 50% 100%,#FDE7EC 0%,#F6F8FC 70%);display:grid;place-items:center;overflow:hidden;margin-bottom:12px}
+html.dark .scen{background:radial-gradient(120% 90% at 50% 100%,#3A1D26 0%,#151B27 70%)}
+.lot{width:150px;height:150px}
+.scen.duo{grid-template-columns:1fr 1fr}
+.status{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-weight:800;font-size:18px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .5s var(--spring)}
+.status.on{opacity:1;transform:none}
+/* toast */
+.toast{position:fixed;left:50%;top:max(12px,env(safe-area-inset-top));z-index:200;width:min(92vw,560px);display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:22px;box-shadow:0 12px 40px rgba(0,0,0,.22);
+ transform:translate(-50%,-140%);transition:transform .6s var(--spring);font-weight:800}
+.toast.on{transform:translate(-50%,0)}
+.toast .lot{width:56px;height:56px;flex:none}
+.toast small{display:block;font-weight:400;color:var(--mu)}
+/* ljudlista */
+.snd{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.snd:last-child{border:0}
+.snd .play{width:64px;height:64px;border-radius:50%;border:0;background:var(--navy);color:#fff;font-size:26px;cursor:pointer;transition:transform .5s var(--spring)}
+.snd .play:active{transform:scale(.9);transition-duration:.08s}
+.snd .t b{display:block}.snd .t small{color:var(--mu);font-size:14px}
+.snd .bra{grid-column:1/-1}
+/* switch */
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;font-weight:800}
+.sw input{appearance:none;-webkit-appearance:none;width:72px;height:42px;border-radius:999px;background:#C9C3C5;position:relative;cursor:pointer;transition:background .25s;flex:none}
+.sw input::after{content:"";position:absolute;top:4px;left:4px;width:34px;height:34px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:transform .5s var(--spring)}
+.sw input:checked{background:var(--ok)}.sw input:checked::after{transform:translateX(30px)}
+.jmf{display:grid;gap:10px}
+.jmf div{border-radius:16px;padding:12px;border:2px solid var(--line)}
+.jmf .sys{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.jmf small{display:block;color:var(--mu);font-size:13px;font-family:"AHN",system-ui}
+/* bra-knapp (samma som testsidan) */
+.bra{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:56px;margin-top:12px;border:3px solid #9AA3AF;border-radius:16px;background:var(--card);color:var(--mu);font:inherit;font-weight:800;font-size:19px;padding:8px 10px;cursor:pointer;user-select:none;-webkit-user-select:none;transition:transform .5s var(--spring)}
+.bra:active{transform:scale(.96);transition-duration:.08s}
+.bra .bx{display:inline-grid;place-items:center;width:28px;height:28px;border:3px solid #9AA3AF;border-radius:8px;background:#fff;font-size:18px;line-height:1;color:transparent}
+.bra[aria-pressed="true"]{background:var(--ok);border-color:#14653a;color:#fff;box-shadow:0 0 0 4px rgba(27,127,74,.22)}
+.bra[aria-pressed="true"] .bx{background:#fff;border-color:#fff;color:var(--ok)}
+.vbar{position:fixed;left:12px;right:92px;bottom:max(16px,env(safe-area-inset-bottom));z-index:98;display:flex;align-items:center;gap:8px;background:var(--card);border-radius:18px;box-shadow:0 4px 16px rgba(0,0,0,.25);padding:6px}
+.vbar .cnt{flex:none;min-width:48px;height:52px;display:grid;place-items:center;border-radius:14px;background:#E8F5EE;color:#14653a;font-weight:900;font-size:20px;padding:0 8px}
+.kop{flex:1;min-height:52px;border:0;border-radius:14px;background:var(--ok);color:#fff;font:inherit;font-weight:900;font-size:19px;cursor:pointer}
+#hem{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:99;width:64px;height:64px;border-radius:50%;background:var(--b2);color:#fff;display:grid;place-items:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);transition:transform .55s var(--spring)}
+#hem:active{transform:scale(.9);transition-duration:.08s}
+#hem svg{width:32px;height:32px}
+#valtxt{width:100%;min-height:120px;font:inherit;font-size:15px;border-radius:12px;padding:8px;display:none}#valtxt.on{display:block}
+#kmsg{display:none;font-weight:700;color:var(--ok)}#kmsg.on{display:block}
+.ios-haptic{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media (prefers-reduced-motion:reduce){*,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style></head><body id="top">
+<label class="ios-haptic" aria-hidden="true"><input type="checkbox" switch id="hapsw" tabindex="-1">h</label>
+<a href="#top" id="hem" aria-label="Till toppen"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"/></svg></a>
+<div class="toast glas" id="toast" role="status" aria-live="polite"><div class="lot" id="lotToast"></div><div><span id="toastT">Ny notis från klubben</span><small id="toastS">Medlemsmöte torsdag 18.00</small></div></div>
+<main>
+<div class="skiss">🧪 Proffsdemo – bara för test. Inte den riktiga appen.</div>
+<div class="topp">
+ <a class="tillbaka" href="index.html"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"/></svg>Till testsidan</a>
+ <button type="button" class="ikonknapp" id="ljudknapp" aria-pressed="true" aria-label="Ljud på eller av"></button>
+</div>
+<h1>Proffsigare bild, ljud och rörelse</h1>
+<p class="lead">Riktiga, fria bilder, animationer och ljud. Tryck på knapparna och bocka i ✅ Bra för det du gillar. Ljudet är lågt.</p>
+
+<section class="card" id="d1">
+<h2><span class="nr">1</span>Ny startsida</h2>
+<p class="why">Stora 3D-ikoner (Microsoft Fluent Emoji), lättläst typsnitt och en lugn bakgrund. Tryck på en ruta – sidan glider mjukt över och ikonen följer med.</p>
+<div class="phone" id="phone">
+ <div id="scrHome">
+  <div class="ph-head"><div class="hej"><small id="halsning">God morgon</small><b>Seko-klubben</b></div><img src="fluent-airplane.webp" width="56" height="56" alt=""></div>
+  <div class="grid">
+   <button type="button" class="tile glas" data-go="rattigheter" data-img="fluent-books.webp" data-t="Mina rättigheter"><img src="fluent-books.webp" alt="" width="72" height="72">Mina rättigheter</button>
+   <button type="button" class="tile glas" data-go="begar" data-img="fluent-envelope-with-arrow.webp" data-t="Begär uppgifter"><img src="fluent-envelope-with-arrow.webp" alt="" width="72" height="72">Begär uppgifter</button>
+   <button type="button" class="tile glas" data-go="skydd" data-img="fluent-rescue-workers-helmet.webp" data-t="Skydd och arbetsmiljö"><img src="fluent-rescue-workers-helmet.webp" alt="" width="72" height="72">Skydd</button>
+   <button type="button" class="tile glas" data-go="schema" data-img="fluent-spiral-calendar.webp" data-t="Schema och övertid"><img src="fluent-spiral-calendar.webp" alt="" width="72" height="72">Schema</button>
+   <button type="button" class="tile glas" data-go="ombud" data-img="fluent-busts-in-silhouette.webp" data-t="Ombud och klubb"><img src="fluent-busts-in-silhouette.webp" alt="" width="72" height="72">Ombud</button>
+   <button type="button" class="tile glas" data-go="ga-med" data-img="fluent-handshake.webp" data-t="Gå med i facket"><img src="fluent-handshake.webp" alt="" width="72" height="72">Gå med</button>
+   <button type="button" class="tile akut" data-go="hot" data-img="fluent-warning.webp" data-t="Hotad eller utsatt för våld?"><img src="fluent-warning.webp" alt="" width="52" height="52">Hotad eller utsatt för våld?</button>
+  </div>
+ </div>
+ <div id="scrDet" hidden>
+  <button type="button" class="hemknapp" id="tillHem"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"/></svg>Hem</button>
+  <div class="det-hero"><img id="detImg" src="fluent-books.webp" alt="" width="96" height="96"><h3 id="detT">Mina rättigheter</h3></div>
+  <div class="lista" id="detLista"></div>
+ </div>
+</div>
+<div class="lic">Ikoner: Fluent Emoji 3D (MIT). Mönsteridé: stora rutor + 🏠 Hem högst upp på varje sida.</div>
+<div data-bra="p-startsida" data-n="Ny startsida med 3D-ikoner"></div>
+<div data-bra="p-overgang" data-n="Mjuk sidövergång (View Transitions)"></div>
+<div data-bra="p-skelett" data-n="Laddning med skelett-rutor"></div>
+</section>
+
+<section class="card" id="d2">
+<h2><span class="nr">2</span>Knappar med fjäder</h2>
+<p class="why">Knappen trycks in och fjädrar tillbaka, som i en riktig app. Android-telefoner vibrerar lätt. Nyare iPhones ger ett litet "klick" i telefonen.</p>
+<div class="rad">
+ <button type="button" class="btn" data-snd="tap">📨 Begär min övertid</button>
+ <div class="rad r2"><button type="button" class="btn sek" data-snd="tap">📚 Läs mer</button><button type="button" class="btn lj" data-snd="back">↩️ Tillbaka</button></div>
+ <button type="button" class="btn fara" data-snd="error">🚨 Omedelbar fara</button>
+</div>
+<label class="sw card" style="margin:12px 0 0;box-shadow:none;border:2px solid var(--line)">📳 Vibration vid tryck<input type="checkbox" id="vibb" checked></label>
+<div data-bra="p-fjader" data-n="Knappar med fjäder"></div>
+<div data-bra="p-vibration" data-n="Vibration vid tryck"></div>
+</section>
+
+<section class="card" id="d3">
+<h2><span class="nr">3</span>Brevet skickas</h2>
+<p class="why">Ett riktigt animerat flygplan (Lottie) lyfter när man skickar en begäran, med ett mjukt sus.</p>
+<div class="scen"><div class="lot" id="lotFlyg" aria-hidden="true"></div><div class="status" id="stFlyg">✈️ Skickat!</div></div>
+<button type="button" class="btn" id="goFlyg">✉️ Skicka brevet</button>
+<div class="lic">Animation: Noto Animated Emoji (Google, CC BY 4.0).</div>
+<div data-bra="p-lot-flyg" data-n="Lottie: flygplan som lyfter"></div>
+</section>
+
+<section class="card" id="d4">
+<h2><span class="nr">4</span>Klart!</h2>
+<p class="why">En bock och lite fest när något är klart. Sofie kan läsa upp beskedet om man vill.</p>
+<div class="scen duo"><div class="lot" id="lotBock" aria-hidden="true"></div><div class="lot" id="lotFest" aria-hidden="true"></div><div class="status" id="stKlar">Din begäran är skickad</div></div>
+<div class="rad r2"><button type="button" class="btn" id="goKlar">✅ Visa klart</button><button type="button" class="btn sek" id="goSofie">🗣️ Sofie läser</button></div>
+<div data-bra="p-lot-bock" data-n="Lottie: bock"></div>
+<div data-bra="p-lot-fest" data-n="Lottie: fest"></div>
+<div data-bra="p-sofie" data-n="Sofie läser upp beskedet"></div>
+</section>
+
+<section class="card" id="d5">
+<h2><span class="nr">5</span>Notis och laddning</h2>
+<p class="why">En notis glider in uppifrån med en ringande klocka. Medan appen letar visas ett timglas.</p>
+<div class="scen duo"><div class="lot" id="lotKlocka" aria-hidden="true"></div><div class="lot" id="lotTim" aria-hidden="true"></div></div>
+<div class="rad r2"><button type="button" class="btn" id="goNotis">🔔 Visa notis</button><button type="button" class="btn sek" id="goTim">⏳ Söker…</button></div>
+<div data-bra="p-notis" data-n="Notis som glider in"></div>
+<div data-bra="p-lot-timglas" data-n="Lottie: timglas"></div>
+</section>
+
+<section class="card" id="d6">
+<h2><span class="nr">6</span>Gå med</h2>
+<p class="why">Ett handslag när man går med i gruppen.</p>
+<div class="scen"><div class="lot" id="lotHand" aria-hidden="true"></div><div class="status" id="stHand">Välkommen! 🤝</div></div>
+<button type="button" class="btn" id="goHand">🤝 Gå med</button>
+<div data-bra="p-lot-hand" data-n="Lottie: handslag"></div>
+</section>
+
+<section class="card" id="d7">
+<h2><span class="nr">7</span>Proffsigt ljudpaket</h2>
+<p class="why">Korta, rena ljud från Kenney (CC0, fritt). Alla spelas lågt.</p>
+<div id="sl"></div>
+</section>
+
+<section class="card" id="d8">
+<h2><span class="nr">8</span>Mörkt läge</h2>
+<p class="why">Skönt för ögonen på nattpasset. Telefonens inställning följs automatiskt.</p>
+<label class="sw">🌙 Mörkt läge<input type="checkbox" id="mork"></label>
+<div data-bra="p-mork" data-n="Mörkt läge"></div>
+</section>
+
+<section class="card" id="d9">
+<h2><span class="nr">9</span>Lättläst typsnitt</h2>
+<p class="why">Atkinson Hyperlegible Next är gjort för att vara lätt att läsa, även för den som ser dåligt. Bokstäver som I, l och 1 ser olika ut.</p>
+<div class="jmf"><div><small>Nytt typsnitt</small>Il1 O0 – Övertid 225 h per år</div><div class="sys"><small>Telefonens vanliga</small>Il1 O0 – Övertid 225 h per år</div></div>
+<div data-bra="p-typsnitt" data-n="Typsnitt Atkinson Hyperlegible Next"></div>
+</section>
+
+<section class="card" id="val">
+<h2>📋 Mina val</h2>
+<p class="why">Du har valt <b id="valn2">0</b>. Tryck Kopiera och klistra in i chatten med fack-botten.</p>
+<button type="button" class="btn" id="kop2">📋 Kopiera mina val</button>
+<p id="kmsg"></p><textarea id="valtxt" readonly aria-label="Dina val"></textarea>
+<p class="lic">Animerade emoji: Noto Animated Emoji av Google (CC BY 4.0). Ikoner: Fluent Emoji av Microsoft (MIT) och Phosphor Icons (MIT). Ljud: Kenney.nl (CC0). Typsnitt: Atkinson Hyperlegible Next (OFL).</p>
+<p class="lic">Licenser för alla bilder, ljud och animationer: <a href="LICENSER.txt">LICENSER.txt</a></p>
+</section>
+</main>
+<div class="vbar"><span class="cnt" id="valn" aria-label="Antal valda">0</span><button type="button" class="kop" id="kop">📋 Kopiera mina val</button></div>
+<script src="lottie-light-5.12.2.min.js"></script>
+<script>
+(function(){
+'use strict';
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var VOL=0.3,ljudPa=true;
+try{ljudPa=localStorage.getItem('proffs_ljud')!=='0'}catch(e){}
+/* ---------- ljud via Web Audio (volym fungerar även på iPhone) ---------- */
+var SND={tap:'kenney-click-002.mp3',select:'kenney-select-002.mp3',ok:'kenney-confirmation-002.mp3',notis:'kenney-glass-002.mp3',gong:'kenney-bong-001.mp3',back:'kenney-back-002.mp3',error:'kenney-error-004.mp3',open:'kenney-maximize-006.mp3',drop:'kenney-drop-002.mp3',sofie:'sofie-skickat.mp3'};
+var AC=null,BUF={};
+function ac(){if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(C)AC=new C()}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function load(k){if(BUF[k])return BUF[k];BUF[k]=fetch(SND[k]).then(function(r){return r.arrayBuffer()}).then(function(a){return new Promise(function(res,rej){ac().decodeAudioData(a,res,rej)})});return BUF[k]}
+function play(k,v){if(!ljudPa||!SND[k])return;var c=ac();v=Math.min(v||VOL,VOL);
+ if(!c){var a=new Audio(SND[k]);a.volume=v;a.play().catch(function(){});return}
+ load(k).then(function(b){var s=c.createBufferSource(),g=c.createGain();g.gain.value=v;s.buffer=b;s.connect(g);g.connect(c.destination);s.start()}).catch(function(){})}
+/* ---------- haptik ---------- */
+var hapsw=document.getElementById('hapsw'),vibb=document.getElementById('vibb');
+function haptic(ms){if(!vibb.checked)return;if(navigator.vibrate){try{navigator.vibrate(ms||10)}catch(e){}}else if(hapsw){hapsw.parentNode.click()}}
+/* ---------- ljudknapp ---------- */
+var IK_PA='<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M160,32.25V223.69a8.29,8.29,0,0,1-3.91,7.18,8,8,0,0,1-9-.56l-65.57-51A4,4,0,0,1,80,176.16V79.84a4,4,0,0,1,1.55-3.15l65.57-51a8,8,0,0,1,10,.16A8.27,8.27,0,0,1,160,32.25ZM60,80H32A16,16,0,0,0,16,96v64a16,16,0,0,0,16,16H60a4,4,0,0,0,4-4V84A4,4,0,0,0,60,80Zm126.77,20.84a8,8,0,0,0-.72,11.3,24,24,0,0,1,0,31.72,8,8,0,1,0,12,10.58,40,40,0,0,0,0-52.88A8,8,0,0,0,186.74,100.84Zm40.89-26.17a8,8,0,1,0-11.92,10.66,64,64,0,0,1,0,85.34,8,8,0,1,0,11.92,10.66,80,80,0,0,0,0-106.66Z"/></svg>';
+var IK_AV='<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.92,210.62a8,8,0,1,1-11.84,10.76L160,175.09v48.6a8.29,8.29,0,0,1-3.91,7.18,8,8,0,0,1-9-.56l-65.55-51A4,4,0,0,1,80,176.18V87.09L42.08,45.38A8,8,0,1,1,53.92,34.62Zm-27.21-55.46a8,8,0,0,0,11.29-.7,40,40,0,0,0,0-52.88,8,8,0,1,0-12,10.57,24,24,0,0,1,0,31.72A8,8,0,0,0,186.71,155.16Zm40.92-80.49a8,8,0,1,0-11.92,10.66,64,64,0,0,1,0,85.34,8,8,0,1,0,11.92,10.66,80,80,0,0,0,0-106.66ZM153,119.87a4,4,0,0,0,7-2.7V32.25a8.27,8.27,0,0,0-2.88-6.4,8,8,0,0,0-10-.16L103.83,59.33a4,4,0,0,0-.5,5.85ZM60,80H32A16,16,0,0,0,16,96v64a16,16,0,0,0,16,16H60a4,4,0,0,0,4-4V84A4,4,0,0,0,60,80Z"/></svg>';
+var lk=document.getElementById('ljudknapp');
+function lkPaint(){lk.innerHTML=ljudPa?IK_PA:IK_AV;lk.setAttribute('aria-pressed',ljudPa?'true':'false');lk.setAttribute('aria-label',ljudPa?'Ljud på. Tryck för att stänga av':'Ljud av. Tryck för att sätta på')}
+lk.addEventListener('click',function(){ljudPa=!ljudPa;try{localStorage.setItem('proffs_ljud',ljudPa?'1':'0')}catch(e){}lkPaint();play('select');haptic()});lkPaint();
+/* ---------- Lottie ---------- */
+var L={};
+function lot(id,file,loop){if(L[id])return L[id];var el=document.getElementById(id);if(!el||!window.lottie)return null;
+ L[id]=lottie.loadAnimation({container:el,renderer:'svg',loop:!!loop,autoplay:false,path:file,rendererSettings:{preserveAspectRatio:'xMidYMid meet'}});
+ L[id].addEventListener('DOMLoaded',function(){L[id].goToAndStop(0,true)});return L[id]}
+function spela(id,times){var a=L[id];if(!a)return;if(RM){a.goToAndStop(Math.floor(a.totalFrames/2),true);return}
+ a.loop=times>1?times-1:false;a.goToAndPlay(0,true)}
+lot('lotFlyg','noto-flygplan.json');lot('lotBock','noto-bock.json');lot('lotFest','noto-fest.json');lot('lotKlocka','noto-klocka.json');lot('lotTim','noto-timglas.json');lot('lotHand','noto-handslag.json');lot('lotToast','noto-klocka.json');
+function status(id,on){var s=document.getElementById(id);if(s)s.classList.toggle('on',on)}
+var tmr={};function later(k,f,ms){clearTimeout(tmr[k]);tmr[k]=setTimeout(f,ms)}
+document.getElementById('goFlyg').addEventListener('click',function(){haptic();play('open',.25);spela('lotFlyg',1);status('stFlyg',false);later('flyg',function(){status('stFlyg',true);play('ok',.22)},1300);later('flyg2',function(){status('stFlyg',false)},4200)});
+document.getElementById('goKlar').addEventListener('click',function(){haptic();spela('lotBock',1);later('fest',function(){spela('lotFest',1)},250);play('ok',.25);status('stKlar',true);later('klar',function(){status('stKlar',false)},3500)});
+document.getElementById('goSofie').addEventListener('click',function(){haptic();spela('lotBock',1);play('sofie',.3)});
+document.getElementById('goHand').addEventListener('click',function(){haptic();spela('lotHand',1);play('gong',.2);status('stHand',true);later('hand',function(){status('stHand',false)},3500)});
+var tst=document.getElementById('toast');
+function toast(t,s){document.getElementById('toastT').textContent=t;document.getElementById('toastS').textContent=s;tst.classList.add('on');spela('lotToast',2);play('notis',.22);later('toast',function(){tst.classList.remove('on')},3600)}
+document.getElementById('goNotis').addEventListener('click',function(){haptic();spela('lotKlocka',2);toast('Ny notis från klubben','Medlemsmöte torsdag 18.00')});
+document.getElementById('goTim').addEventListener('click',function(){var b=this;haptic();play('tap');spela('lotTim',3);b.disabled=true;b.textContent='⏳ Söker i biblioteket…';later('tim',function(){b.disabled=false;b.textContent='⏳ Söker…';play('drop',.2)},2600)});
+/* ---------- fjäderknappar ---------- */
+Array.prototype.forEach.call(document.querySelectorAll('#d2 .btn'),function(b){b.addEventListener('click',function(){haptic(b.classList.contains('fara')?[30,40,30]:10);play(b.dataset.snd)})});
+/* ---------- startsida + View Transitions ---------- */
+var hour=new Date().getHours();document.getElementById('halsning').textContent=hour<5?'God natt':hour<10?'God morgon':hour<17?'Hej':'God kväll';
+var INNEH={rattigheter:['📖 Kollektivavtalet','⏰ Arbetstid och övertid','🏖️ Semester'],begar:['📨 Begär min övertid','🗂️ Mina uppgifter (GDPR)','📄 Mina anställningsvillkor'],skydd:['🦺 Anmäl en brist','🛑 Omedelbar fara','📋 Skyddsronder'],schema:['📅 Mitt schema','➕ Min övertid','😴 Vila och raster'],ombud:['📨 Begär uppgifter som klubb','🤝 Förhandling','🗓️ Möten'],'ga-med':['💬 Signal-gruppen','✍️ Bli medlem','❓ Vanliga frågor'],hot:['1️⃣ Gå i säkerhet – ring 112','2️⃣ Säg till chefen och skyddsombudet','3️⃣ Rapportera händelsen']};
+var home=document.getElementById('scrHome'),det=document.getElementById('scrDet'),detImg=document.getElementById('detImg'),detT=document.getElementById('detT'),lista=document.getElementById('detLista'),senast=null;
+function vt(fn){if(document.startViewTransition&&!RM&&!document.hidden){try{var t=document.startViewTransition(fn);[t.ready,t.finished,t.updateCallbackDone].forEach(function(q){if(q&&q.catch)q.catch(function(){})});return}catch(e){}}fn()}
+function visaLista(k){lista.innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div>';
+ later('skel',function(){lista.innerHTML='';(INNEH[k]||[]).forEach(function(t){var d=document.createElement('div');d.className='rad-kort glas fadein';d.innerHTML='<span></span><span class="p" aria-hidden="true">›</span>';d.firstChild.textContent=t;lista.appendChild(d)})},900)}
+Array.prototype.forEach.call(document.querySelectorAll('.tile'),function(t){t.addEventListener('click',function(){haptic();play('open',.2);senast=t;var img=t.querySelector('img');
+ img.style.viewTransitionName='hjalte';
+ vt(function(){img.style.viewTransitionName='';detImg.style.viewTransitionName='hjalte';detImg.src=t.dataset.img;detT.textContent=t.dataset.t;home.hidden=true;det.hidden=false;visaLista(t.dataset.go)})})});
+document.getElementById('tillHem').addEventListener('click',function(){haptic();play('back');
+ vt(function(){detImg.style.viewTransitionName='';if(senast)senast.querySelector('img').style.viewTransitionName='hjalte';det.hidden=true;home.hidden=false});
+ setTimeout(function(){if(senast)senast.querySelector('img').style.viewTransitionName=''},700)});
+/* ---------- ljudlista ---------- */
+var LJ=[['tap','Tryck','Vanlig knapp'],['select','Välj','Kryssa i en ruta'],['ok','Klart','Något är skickat eller sparat'],['notis','Notis','Ny notis från klubben'],['gong','Gong','Före ett viktigt besked'],['open','Öppna','Ny sida öppnas'],['back','Tillbaka','Gå tillbaka'],['drop','Hittat','Sökningen är klar'],['error','Varning','Något är fel']];
+var sl=document.getElementById('sl');
+LJ.forEach(function(l){var r=document.createElement('div');r.className='snd';r.innerHTML='<button type="button" class="play" aria-label="Spela">▶</button><div class="t"><b></b><small></small></div><div data-bra="p-l-'+l[0]+'"></div>';
+ r.querySelector('b').textContent=l[1];r.querySelector('small').textContent=l[2]+' · '+SND[l[0]];r.lastChild.dataset.n='Ljud: '+l[1];
+ r.querySelector('.play').addEventListener('click',function(){haptic();play(l[0])});sl.appendChild(r)});
+/* ---------- mörkt läge ---------- */
+var mork=document.getElementById('mork'),mv=null;try{mv=localStorage.getItem('proffs_mork')}catch(e){}
+var isDark=mv===null?matchMedia('(prefers-color-scheme: dark)').matches:mv==='1';
+function setDark(d){document.documentElement.classList.toggle('dark',d);mork.checked=d}setDark(isDark);
+mork.addEventListener('change',function(){haptic();play('select');var d=mork.checked;vt(function(){setDark(d)});try{localStorage.setItem('proffs_mork',d?'1':'0')}catch(e){}});
+/* ---------- ✅ Bra (samma lagring som testsidan: testsida_val_v1) ---------- */
+var KEY='testsida_val_v1',S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){S={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+var ITEMS=[];
+Array.prototype.forEach.call(document.querySelectorAll('[data-bra]'),function(h){var id=h.dataset.bra,n=h.dataset.n;ITEMS.push({id:id,name:n});
+ var b=document.createElement('button');b.type='button';b.className='bra';b.dataset.v=id;b.setAttribute('aria-label','Bra: '+n);b.innerHTML='<span class="bx" aria-hidden="true">✓</span><span>✅ Bra</span>';h.parentNode.replaceChild(b,h)});
+function paint(){var n=0;Array.prototype.forEach.call(document.querySelectorAll('.bra'),function(b){var on=!!S[b.dataset.v];b.setAttribute('aria-pressed',on?'true':'false');b.lastChild.textContent=on?'✅ Bra – vald':'✅ Bra'});
+ ITEMS.forEach(function(it){if(S[it.id])n++});document.getElementById('valn').textContent=n;document.getElementById('valn2').textContent=n+' av '+ITEMS.length}
+document.addEventListener('click',function(e){var b=e.target.closest('.bra');if(!b)return;var id=b.dataset.v;if(S[id])delete S[id];else S[id]=1;save();paint();haptic();play(S[id]?'select':'back',.2)});
+function text(){var l=ITEMS.filter(function(it){return S[it.id]}).map(function(it){return it.name});return 'Mina val (proffsdemo):\nBra: '+(l.length?l.join(', '):'inga')}
+var msg=document.getElementById('kmsg'),ta=document.getElementById('valtxt');
+function ok(){msg.textContent='Kopierat! Klistra in i chatten med fack-botten';msg.classList.add('on');play('ok',.2);var k=document.getElementById('kop');k.textContent='✅ Kopierat!';setTimeout(function(){k.textContent='📋 Kopiera mina val'},2500)}
+function fail(t){ta.value=t;ta.classList.add('on');msg.textContent='Kunde inte kopiera automatiskt. Håll fingret på texten nedan, välj Markera alla och Kopiera.';msg.classList.add('on');document.getElementById('val').scrollIntoView({block:'start'});try{ta.focus();ta.select();ta.setSelectionRange(0,t.length)}catch(e){}}
+function legacy(t){try{ta.value=t;ta.classList.add('on');ta.focus();ta.select();ta.setSelectionRange(0,t.length);return document.execCommand('copy')}catch(e){return false}}
+function copy(){var t=text();ta.value=t;if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,function(){if(legacy(t))ok();else fail(t)})}else{if(legacy(t))ok();else fail(t)}}
+document.getElementById('kop').addEventListener('click',copy);document.getElementById('kop2').addEventListener('click',copy);
+window.__valText=text;paint();
+/* förladda ljud efter första trycket (iPhone kräver tryck innan ljud) */
+document.addEventListener('pointerdown',function f(){ac();Object.keys(SND).forEach(load);document.removeEventListener('pointerdown',f)},{once:true});
+})();
+</script></body></html>
