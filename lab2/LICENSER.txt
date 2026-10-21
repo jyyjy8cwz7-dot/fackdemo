@@ -1,0 +1,4 @@
+Lab 2 – testmaterial (inga personuppgifter, inte den riktiga appen)
+ljud/*.mp3  Egensyntes (Python: FM-klockor, filtrerat brus, syntpads, faltningsreverb). CC0.
+rost/*.mp3  Piper TTS. Röster sv_SE-alma-medium och sv_SE-axel-medium, CC BY 4.0 (NST-data). Effekter med ffmpeg.
+three.js r160 (MIT) och GSAP 3.13 (GSAP Standard License) laddas från jsDelivr.

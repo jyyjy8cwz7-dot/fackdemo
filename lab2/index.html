@@ -1,0 +1,183 @@
+<!doctype html><html lang=sv><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lab 2 – Effektlabb (testmaterial)</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#000;color:#fff;font-family:system-ui,-apple-system,sans-serif}
+canvas#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+#ui{position:fixed;inset:0;display:flex;flex-direction:column;pointer-events:none;padding:max(14px,env(safe-area-inset-top)) 14px 18px}
+#tabs{display:flex;gap:8px;overflow-x:auto;pointer-events:auto;padding-bottom:4px}
+#tabs button{flex:none;border:1px solid #ffffff40;background:#ffffff14;backdrop-filter:blur(10px);color:#fff;border-radius:999px;padding:10px 16px;font:600 14px system-ui;cursor:pointer}
+#tabs button.on{background:#fff;color:#000}
+#card{margin-top:auto;pointer-events:auto;border-radius:28px;padding:20px;backdrop-filter:blur(18px) saturate(170%);-webkit-backdrop-filter:blur(18px) saturate(170%);transition:all .6s cubic-bezier(.2,.8,.2,1)}
+#card h1{margin:0 0 4px;font-size:26px;letter-spacing:-.02em}#card p{margin:0 0 14px;opacity:.8}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{min-height:56px;border:0;border-radius:18px;font:700 16px system-ui;cursor:pointer;color:inherit;transition:transform .15s}
+.act:active{transform:scale(.96)}
+#snd{position:fixed;right:14px;top:62px;pointer-events:auto;border:0;border-radius:50%;width:44px;height:44px;background:#ffffff22;color:#fff;font-size:18px;backdrop-filter:blur(10px)}
+#start{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#1b1036,#000);text-align:center;padding:24px}
+#start button{margin-top:18px;padding:16px 28px;border-radius:999px;border:0;font:800 18px system-ui;background:linear-gradient(90deg,#00f0ff,#ff2bd6);color:#000;cursor:pointer}
+#toast{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.6);opacity:0;font:900 40px system-ui;pointer-events:none;text-align:center;white-space:nowrap}
+/* themes */
+.neon #card{background:#0a0018aa;border:1px solid #ff2bd666;box-shadow:0 0 40px #ff2bd655,inset 0 0 30px #00f0ff22}
+.neon #card h1{color:#00f0ff;text-shadow:0 0 12px #00f0ff,0 0 30px #00f0ff88}.neon .act{background:linear-gradient(135deg,#ff2bd6,#7a2bff);box-shadow:0 0 24px #ff2bd699}.neon .act.b{background:#00f0ff;color:#000;box-shadow:0 0 24px #00f0ff99}
+.aurora #card{background:linear-gradient(135deg,#ffffff30,#ffffff10);border:1px solid #ffffff55;box-shadow:0 20px 60px #0006}
+.aurora .act{background:#ffffffd0;color:#08203a}.aurora .act.b{background:linear-gradient(135deg,#5effc8,#5ab8ff);color:#04172a}
+.runway #card{background:#0b0f1acc;border:1px solid #ffb34766}.runway #card h1{color:#ffc56b}
+.runway .act{background:#ffb347;color:#1a0f00}.runway .act.b{background:#1d2a44;color:#ffd79a;border:1px solid #ffb34788}
+.arcade #card{background:#000c;border:4px solid #fff;border-radius:0;box-shadow:8px 8px 0 #ff004d;font-family:ui-monospace,monospace}
+.arcade #card h1{font-family:ui-monospace,monospace;color:#ffec27;text-transform:uppercase}.arcade .act{border-radius:0;background:#ff004d;color:#fff;font-family:ui-monospace,monospace;box-shadow:4px 4px 0 #fff}.arcade .act.b{background:#29adff}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<canvas id=c></canvas>
+<div id=start><div><div style="font-size:13px;letter-spacing:.3em;opacity:.6">TESTMATERIAL · EFFEKTLABB 2</div><h1 style="font-size:36px;margin:10px 0">Fyra världar.<br>Tryck och känn.</h1><p style="opacity:.7;max-width:320px;margin:auto">3D, shaders, ljuddesign och svenska röster. Använd hörlurar.</p><button id=go>Starta ▶</button></div></div>
+<div id=ui><div id=tabs></div><div id=card><h1 id=h></h1><p id=s></p><div class=row><button class=act id=a1></button><button class="act b" id=a2></button></div></div></div>
+<button id=snd>🔊</button><div id=toast></div>
+<script type=importmap>{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/","gsap":"https://cdn.jsdelivr.net/npm/gsap@3.13.0/index.js"}}</script>
+<script type=module>
+import * as THREE from 'three';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+import {gsap} from 'gsap';
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// ---------- audio (Web Audio, layered) ----------
+let AC,master,on=true,pad=null;const buf={};
+const files=['bekrafta','whoosh','impact','zap','coin','levelup','pad_neon','pad_aurora','pad_runway'];
+const voices=['neon','aurora','runway','arcade','sparat','skickat'];
+async function load(p){const r=await fetch(p);return AC.decodeAudioData(await r.arrayBuffer())}
+async function initAudio(){AC=new AudioContext();master=AC.createGain();master.gain.value=.9;master.connect(AC.destination);
+ await Promise.all([...files.map(async f=>buf[f]=await load('ljud/'+f+'.mp3')),...voices.map(async v=>buf['v_'+v]=await load('rost/'+v+'.mp3'))])}
+function play(n,{v=1,delay=0,rate=1,pan=0}={}){if(!on||!buf[n])return;const s=AC.createBufferSource();s.buffer=buf[n];s.playbackRate.value=rate;const g=AC.createGain();g.gain.value=v;const p=AC.createStereoPanner();p.pan.value=pan;s.connect(g).connect(p).connect(master);s.start(AC.currentTime+delay);return s}
+function voice(n,delay=0){if(!on||!buf['v_'+n])return;const s=AC.createBufferSource();s.buffer=buf['v_'+n];
+ const duck=pad&&pad.g;if(duck){duck.gain.setTargetAtTime(.08,AC.currentTime+delay,.1);duck.gain.setTargetAtTime(.35,AC.currentTime+delay+s.buffer.duration,.4)}
+ const g=AC.createGain();g.gain.value=1.1;s.connect(g).connect(master);s.start(AC.currentTime+delay)}
+function setPad(n){if(pad){const o=pad;o.g.gain.setTargetAtTime(0,AC.currentTime,.5);setTimeout(()=>o.s.stop(),2500);pad=null}
+ if(!n||!buf[n])return;const s=AC.createBufferSource();s.buffer=buf[n];s.loop=true;s.loopStart=1.5;s.loopEnd=6.5;const g=AC.createGain();g.gain.value=0;s.connect(g).connect(master);s.start();g.gain.setTargetAtTime(on?.35:0,AC.currentTime,1);pad={s,g}}
+const buzz=p=>navigator.vibrate&&navigator.vibrate(p);
+// ---------- renderer ----------
+const cv=document.getElementById('c');const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,powerPreference:'high-performance'});
+const gl=R.getContext(),dbg=gl.getExtension('WEBGL_debug_renderer_info'),GPU=dbg?gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL):'';const NOBLOOM=location.search.includes('nobloom')||/swiftshader|llvmpipe|software/i.test(GPU);
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=.8;
+let W=innerWidth,H=innerHeight;let scene,cam,comp,tick=()=>{},cur;
+function size(){W=innerWidth;H=innerHeight;R.setSize(W,H,false);if(cam){cam.aspect=W/H;cam.updateProjectionMatrix()}comp&&comp.setSize(W,H)}
+addEventListener('resize',size);
+function mkComp(bloom=1.2,rad=.6,th=.1){if(NOBLOOM){comp=null;return}comp=new EffectComposer(R);comp.addPass(new RenderPass(scene,cam));if(bloom)comp.addPass(new UnrealBloomPass(new THREE.Vector2(W,H),bloom,rad,th));comp.addPass(new OutputPass());comp.setSize(W,H)}
+const toast=(t,c)=>{const e=document.getElementById('toast');e.textContent=t;e.style.color=c;e.style.textShadow=`0 0 20px ${c},0 0 60px ${c}`;gsap.fromTo(e,{opacity:0,scale:.5,y:0},{opacity:1,scale:1,duration:.5,ease:'back.out(2)'});gsap.to(e,{opacity:0,y:-40,delay:1.2,duration:.6})};
+function particles(n,colors,spread=3){const g=new THREE.BufferGeometry(),p=new Float32Array(n*3),v=[],c=new Float32Array(n*3);
+ for(let i=0;i<n;i++){v.push(new THREE.Vector3((Math.random()-.5),Math.random()*.8+.2,(Math.random()-.5)).normalize().multiplyScalar(Math.random()*spread+1));const col=new THREE.Color(colors[i%colors.length]);c.set([col.r,col.g,col.b],i*3)}
+ g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(c,3));
+ const m=new THREE.Points(g,new THREE.PointsMaterial({size:.07,vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));m.userData={v,t:0};return m}
+function stepParticles(m,dt,grav=-2.5){m.userData.t+=dt;const a=m.geometry.attributes.position.array;m.userData.v.forEach((v,i)=>{v.y+=grav*dt;a[i*3]+=v.x*dt;a[i*3+1]+=v.y*dt;a[i*3+2]+=v.z*dt});m.geometry.attributes.position.needsUpdate=true;m.material.opacity=Math.max(0,1-m.userData.t/2.2);return m.userData.t<2.4}
+let bursts=[];
+function burst(pos,colors,n=600,spread=4){const p=particles(n,colors,spread);p.position.copy(pos);scene.add(p);bursts.push(p)}
+// ---------- THEME 1: NEON CYBER ----------
+const T={};
+T.neon={h:'NEON//FACKET',s:'Synthwave-motorväg mot framtiden. Bloom, rutnät i shader och laserljud.',l1:'⚡ Spara',l2:'🚀 Skicka',pad:'pad_neon',v:'neon',
+ build(){scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x0a0018,.035);cam=new THREE.PerspectiveCamera(70,W/H,.1,200);cam.position.set(0,1.6,6);
+  const gm=new THREE.ShaderMaterial({uniforms:{t:{value:0}},transparent:true,vertexShader:'varying vec2 u;void main(){u=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+   fragmentShader:'uniform float t;varying vec2 u;void main(){vec2 g=u*vec2(40.,80.);g.y+=t*4.;vec2 f=abs(fract(g)-.5);float l=smoothstep(.46,.5,max(f.x,f.y));float fade=smoothstep(0.,.6,u.y)*(1.-smoothstep(.85,1.,u.y));vec3 c=mix(vec3(1.,.17,.84),vec3(0.,.94,1.),u.y);gl_FragColor=vec4(c*l*1.3,l*fade);}'});
+  const fl=new THREE.Mesh(new THREE.PlaneGeometry(80,160),gm);fl.rotation.x=-Math.PI/2;fl.position.z=-60;scene.add(fl);
+  const sun=new THREE.Mesh(new THREE.CircleGeometry(14,64),new THREE.ShaderMaterial({transparent:true,uniforms:{t:{value:0}},vertexShader:'varying vec2 u;void main(){u=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+   fragmentShader:'uniform float t;varying vec2 u;void main(){float s=step(.5,fract(u.y*18.-t*.5))+step(.55,u.y);vec3 c=mix(vec3(1.,.1,.5),vec3(1.,.85,.2),u.y);gl_FragColor=vec4(c*1.05,min(1.,s));}'}));sun.position.set(0,6,-90);scene.add(sun);
+  const stars=new THREE.Points(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(Array.from({length:3000},()=> (Math.random()-.5)*200).map((x,i)=>i%3==1?Math.abs(x)*.5+5:i%3==2?-Math.abs(x)-20:x),3)),new THREE.PointsMaterial({size:.12,color:0x99eeff}));scene.add(stars);
+  const shipG=new THREE.Group();const body=new THREE.Mesh(new THREE.ConeGeometry(.35,1.8,4),new THREE.MeshBasicMaterial({color:0x00f0ff,wireframe:true}));body.rotation.x=-Math.PI/2;shipG.add(body);
+  const wing=new THREE.Mesh(new THREE.BoxGeometry(2.4,.04,.6),new THREE.MeshBasicMaterial({color:0xff2bd6}));wing.position.z=.3;shipG.add(wing);shipG.position.set(0,.6,0);scene.add(shipG);
+  const trail=[];for(let i=0;i<2;i++){const tr=new THREE.Mesh(new THREE.PlaneGeometry(.08,6),new THREE.MeshBasicMaterial({color:i?0xff2bd6:0x00f0ff,transparent:true,opacity:.8}));tr.rotation.x=-Math.PI/2;tr.position.set(i?1.1:-1.1,0,3.5);shipG.add(tr);trail.push(tr)}
+  mkComp(.85,.4,.3);let tt=0;
+  tick=dt=>{tt+=dt;gm.uniforms.t.value=tt;sun.material.uniforms.t.value=tt;shipG.position.x=Math.sin(tt*.8)*1.2;shipG.rotation.z=-Math.cos(tt*.8)*.4;shipG.position.y=.8+Math.sin(tt*2)*.1;cam.position.x=shipG.position.x*.3;cam.lookAt(0,1,-10)};
+  this.ship=shipG},
+ a1(){play('zap');play('bekrafta',{delay:.12,v:.8});voice('sparat',.3);buzz([20,30,20]);burst(this.ship.position.clone(),[0x00f0ff,0xff2bd6,0xffffff],700,5);toast('SPARAT','#00f0ff');gsap.fromTo(cam,{fov:70},{fov:85,duration:.15,yoyo:true,repeat:1,onUpdate:()=>cam.updateProjectionMatrix()})},
+ a2(){play('whoosh');play('zap',{delay:.5,rate:.7});voice('skickat',.8);buzz([10,20,40,20,80]);const s=this.ship;gsap.to(s.position,{z:-60,y:4,duration:1.2,ease:'power3.in',onComplete:()=>{burst(new THREE.Vector3(0,5,-40),[0xff2bd6,0x00f0ff,0xffec27],1200,12);play('impact',{v:.7});gsap.fromTo(s.position,{z:12,y:.6},{z:0,duration:1,ease:'power3.out'})}});toast('SKICKAT ↗','#ff2bd6')}};
+// ---------- THEME 2: AURORA GLASS ----------
+T.aurora={h:'Norrsken',s:'Lugn, levande himmel i en realtids-shader. Kort av frostat glas. Mjuka klockor.',l1:'✨ Spara',l2:'🕊️ Skicka',pad:'pad_aurora',v:'aurora',
+ build(){scene=new THREE.Scene();cam=new THREE.PerspectiveCamera(60,W/H,.1,100);cam.position.z=5;
+  const m=new THREE.ShaderMaterial({uniforms:{t:{value:0},k:{value:0}},vertexShader:'varying vec2 u;void main(){u=uv;gl_Position=vec4(position.xy*2.,0.,1.);}',
+   fragmentShader:`uniform float t;uniform float k;varying vec2 u;
+   float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+   float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+   float fbm(vec2 p){float s=0.,a=.5;for(int i=0;i<6;i++){s+=a*n(p);p*=2.03;a*=.5;}return s;}
+   void main(){vec2 p=u;vec3 sky=mix(vec3(.01,.02,.08),vec3(.02,.06,.18),p.y);
+    float a=0.;for(int i=0;i<3;i++){float fi=float(i);float y=.55+.12*fi+.08*sin(p.x*3.+t*.3+fi)+.1*fbm(vec2(p.x*2.+t*.05,fi));float b=exp(-abs(p.y-y)*(18.-fi*3.))*fbm(vec2(p.x*6.-t*.2,p.y*20.+fi));a+=b;}
+    vec3 col=sky+a*mix(vec3(.2,1.,.7),vec3(.6,.3,1.),p.y)*(.55+k*1.2);
+    float st=step(.998,h(floor(p*vec2(900.,1600.))))*p.y;col+=st*(.6+.4*sin(t*3.+p.x*50.));
+    col+=vec3(.02,.04,.06)*(1.-p.y);gl_FragColor=vec4(col,1.);}`});
+  const q=new THREE.Mesh(new THREE.PlaneGeometry(1,1),m);q.frustumCulled=false;scene.add(q);
+  const orbs=new THREE.Group();for(let i=0;i<5;i++){const o=new THREE.Mesh(new THREE.SphereGeometry(.4+Math.random()*.4,48,48),new THREE.MeshPhysicalMaterial({color:0xffffff,transmission:1,roughness:.05,thickness:1.2,ior:1.4,iridescence:1,iridescenceIOR:1.3,clearcoat:1}));o.position.set((Math.random()-.5)*4,(Math.random()-.2)*3,-Math.random()*2);o.userData.s=Math.random()*10;orbs.add(o)}
+  scene.add(orbs);scene.add(new THREE.AmbientLight(0x88ffdd,.15));const dl=new THREE.DirectionalLight(0xaa88ff,.8);dl.position.set(2,3,4);scene.add(dl);
+  const pm=new THREE.PMREMGenerator(R);const es=new THREE.Scene();es.add(new THREE.Mesh(new THREE.SphereGeometry(10,32,16),new THREE.MeshBasicMaterial({side:THREE.BackSide,color:0x2a6f8f})));const l1=new THREE.Mesh(new THREE.PlaneGeometry(6,2),new THREE.MeshBasicMaterial({color:0x5effc8}));l1.position.set(0,5,0);l1.rotation.x=Math.PI/2;es.add(l1);scene.environment=pm.fromScene(es).texture;
+  mkComp(.35,.5,.7);let tt=0;this.m=m;this.orbs=orbs;
+  tick=dt=>{tt+=dt;m.uniforms.t.value=tt;orbs.children.forEach(o=>{o.position.y+=Math.sin(tt+o.userData.s)*.003;o.rotation.y+=dt*.2})}},
+ a1(){play('bekrafta');voice('sparat',.25);buzz(25);gsap.fromTo(this.m.uniforms.k,{value:1},{value:0,duration:2.5,ease:'power2.out'});this.orbs.children.forEach((o,i)=>gsap.fromTo(o.scale,{x:1,y:1,z:1},{x:1.3,y:1.3,z:1.3,duration:.4,yoyo:true,repeat:1,delay:i*.06,ease:'sine.inOut'}));toast('Sparat','#5effc8')},
+ a2(){play('whoosh',{v:.6});play('bekrafta',{delay:.6,rate:1.25});voice('skickat',.9);buzz([15,40,15]);this.orbs.children.forEach((o,i)=>gsap.to(o.position,{y:'+=6',duration:1.6,delay:i*.08,ease:'power2.in',onComplete:()=>gsap.fromTo(o.position,{y:-4},{y:(Math.random()-.2)*3,duration:1.4,ease:'power2.out'})}));gsap.fromTo(this.m.uniforms.k,{value:.8},{value:0,duration:3});toast('Skickat','#a98bff')}};
+// ---------- THEME 3: RUNWAY AT NIGHT ----------
+T.runway={h:'Bana 01L · Natt',s:'3D-landningsbana i dimma med blinkande ljus. Planet lyfter på riktigt.',l1:'🛬 Spara',l2:'🛫 Skicka',pad:'pad_runway',v:'runway',
+ build(){scene=new THREE.Scene();scene.background=new THREE.Color(0x05070d);scene.fog=new THREE.Fog(0x05070d,10,90);cam=new THREE.PerspectiveCamera(55,W/H,.1,300);cam.position.set(-4,2.2,10);
+  const rw=new THREE.Mesh(new THREE.PlaneGeometry(10,300),new THREE.MeshStandardMaterial({color:0x14171f,roughness:.9}));rw.rotation.x=-Math.PI/2;rw.position.z=-120;scene.add(rw);
+  const gnd=new THREE.Mesh(new THREE.PlaneGeometry(400,400),new THREE.MeshStandardMaterial({color:0x070a10}));gnd.rotation.x=-Math.PI/2;gnd.position.y=-.01;scene.add(gnd);
+  const cm=new THREE.MeshBasicMaterial({color:0xffffff});for(let z=0;z>-280;z-=8){const d=new THREE.Mesh(new THREE.PlaneGeometry(.25,3),cm);d.rotation.x=-Math.PI/2;d.position.set(0,.01,z);scene.add(d)}
+  const N=80,lg=new THREE.SphereGeometry(.09,8,8),edge=new THREE.InstancedMesh(lg,new THREE.MeshBasicMaterial({color:0xffd9a0}),N*2);const mt=new THREE.Matrix4();
+  for(let i=0;i<N;i++){mt.setPosition(-5.2,.1,-i*3.5);edge.setMatrixAt(i*2,mt);mt.setPosition(5.2,.1,-i*3.5);edge.setMatrixAt(i*2+1,mt)}scene.add(edge);
+  const app=new THREE.InstancedMesh(lg,new THREE.MeshBasicMaterial({color:0xffffff}),20);for(let i=0;i<20;i++){mt.setPosition(0,.15,6+i*2);app.setMatrixAt(i,mt)}scene.add(app);
+  const twr=new THREE.Mesh(new THREE.BoxGeometry(.6,.6,.6),new THREE.MeshBasicMaterial({color:0xff2020}));twr.position.set(14,9,-30);scene.add(twr);
+  const tw2=new THREE.Mesh(new THREE.CylinderGeometry(.8,1.2,9,12),new THREE.MeshStandardMaterial({color:0x1b2230}));tw2.position.set(14,4.5,-30);scene.add(tw2);
+  scene.add(new THREE.HemisphereLight(0x405080,0x000000,.6));
+  // plane
+  const P=new THREE.Group(),wm=new THREE.MeshStandardMaterial({color:0xe9edf5,metalness:.4,roughness:.35}),am=new THREE.MeshStandardMaterial({color:0xb02a43,metalness:.3,roughness:.4});
+  const fus=new THREE.Mesh(new THREE.CapsuleGeometry(.45,4.2,8,24),wm);fus.rotation.x=Math.PI/2;P.add(fus);
+  const wg=new THREE.Mesh(new THREE.BoxGeometry(6,.08,1.1),wm);wg.position.set(0,-.1,.2);P.add(wg);
+  const ts=new THREE.Mesh(new THREE.BoxGeometry(.08,1.2,.9),am);ts.position.set(0,.7,2.2);P.add(ts);const hs=new THREE.Mesh(new THREE.BoxGeometry(2,.06,.6),wm);hs.position.set(0,.1,2.3);P.add(hs);
+  for(const x of[-1.4,1.4]){const en=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.9,16),am);en.rotation.x=Math.PI/2;en.position.set(x,-.35,-.1);P.add(en)}
+  const nav=[[-3,0xff2020],[3,0x20ff40]].map(([x,c])=>{const l=new THREE.Mesh(new THREE.SphereGeometry(.07),new THREE.MeshBasicMaterial({color:c}));l.position.set(x,-.1,.2);P.add(l);return l});
+  const strobe=new THREE.Mesh(new THREE.SphereGeometry(.1),new THREE.MeshBasicMaterial({color:0xffffff}));strobe.position.set(0,.5,-.5);P.add(strobe);
+  const ll=new THREE.SpotLight(0xfff2d0,60,60,.35,.5);ll.position.set(0,-.3,-2.4);ll.target.position.set(0,-1,-20);P.add(ll,ll.target);
+  P.position.set(0,.8,0);scene.add(P);this.P=P;
+  mkComp(.9,.4,.35);let tt=0;
+  tick=dt=>{tt+=dt;const b=(Math.sin(tt*6)>.85);twr.visible=Math.sin(tt*2)>0;strobe.visible=b;
+   for(let i=0;i<20;i++){const on=Math.floor(tt*12)%20==19-i;mt.setPosition(0,.15,6+i*2);mt.scale(new THREE.Vector3(on?3:1,on?3:1,on?3:1));app.setMatrixAt(i,mt);mt.identity()}app.instanceMatrix.needsUpdate=true;
+   cam.position.x=-4+Math.sin(tt*.15)*1.5;cam.lookAt(P.position.x,P.position.y,P.position.z-4)}},
+ a1(){play('impact');play('bekrafta',{delay:.3,v:.7});voice('sparat',.6);buzz([60,40,20]);const P=this.P;
+  gsap.fromTo(P.position,{y:8,z:-40},{y:.8,z:0,duration:2,ease:'power2.out',onComplete:()=>{burst(new THREE.Vector3(0,.1,0),[0xffd9a0,0xffffff],300,2)}});gsap.fromTo(P.rotation,{x:.15},{x:0,duration:2});toast('Landat · Sparat','#ffc56b')},
+ a2(){play('whoosh',{v:.9,rate:.8});play('pad_runway',{v:.5,rate:1.6});voice('runway',.2);buzz([30,30,30,30,200]);const P=this.P;
+  const tl=gsap.timeline();tl.to(P.position,{z:-25,duration:1.6,ease:'power2.in'}).to(P.rotation,{x:.25,duration:.6},'-=.4').to(P.position,{y:18,z:-90,duration:2.5,ease:'power1.in'},'-=.3')
+   .add(()=>{P.position.set(0,.8,0);P.rotation.set(0,0,0);gsap.from(P.scale,{x:.01,y:.01,z:.01,duration:.6,ease:'back.out(2)'})});toast('Klar för start','#ffc56b')}};
+// ---------- THEME 4: RETRO ARCADE ----------
+T.arcade={h:'Insert coin',s:'8-bit med CRT-shader: scanlines, krökt skärm, kromatisk glöd. Chiptune-ljud.',l1:'💾 Spara',l2:'👾 Skicka',v:'arcade',
+ build(){scene=new THREE.Scene();cam=new THREE.PerspectiveCamera(50,W/H,.1,100);cam.position.z=8;
+  const cvs=document.createElement('canvas');cvs.width=256;cvs.height=256;const x=cvs.getContext('2d');x.imageSmoothingEnabled=false;const tex=new THREE.CanvasTexture(cvs);tex.magFilter=THREE.NearestFilter;tex.minFilter=THREE.NearestFilter;
+  const m=new THREE.ShaderMaterial({uniforms:{tx:{value:tex},t:{value:0},g:{value:0}},vertexShader:'varying vec2 u;void main(){u=uv;gl_Position=vec4(position.xy*2.,0.,1.);}',
+   fragmentShader:`uniform sampler2D tx;uniform float t;uniform float g;varying vec2 u;
+   vec2 crv(vec2 p){p=p*2.-1.;p*=1.+pow(abs(p.yx)/vec2(4.2,3.6),vec2(2.));return p*.5+.5;}
+   void main(){vec2 p=crv(u);if(p.x<0.||p.x>1.||p.y<0.||p.y>1.){gl_FragColor=vec4(0,0,0,1);return;}
+    float off=.002+g*.012*sin(t*60.);vec3 c=vec3(texture2D(tx,p+vec2(off,0)).r,texture2D(tx,p).g,texture2D(tx,p-vec2(off,0)).b);
+    if(g>.01&&fract(p.y*20.+t*7.)<g*.3)c=texture2D(tx,p+vec2(.03*g,0)).rgb;
+    c*=.75+.25*sin(p.y*800.);c*=1.-.35*length(p-.5);c+=.04*fract(sin(dot(p*t,vec2(12.9,78.2)))*43758.);gl_FragColor=vec4(c*1.25,1.);}`});
+  const q=new THREE.Mesh(new THREE.PlaneGeometry(1,1),m);q.frustumCulled=false;scene.add(q);
+  const inv=['00100000100','00010001000','00111111100','01101110110','11111111111','10111111101','10100000101','00011011000'];
+  const st=Array.from({length:60},()=>[Math.random()*256,Math.random()*256,Math.random()*2+.5]);let score=0,bits=[];this.st={score:0};
+  const draw=tt=>{x.fillStyle='#0b0020';x.fillRect(0,0,256,256);st.forEach(s=>{s[1]=(s[1]+s[2])%256;x.fillStyle='#fff';x.fillRect(s[0]|0,s[1]|0,1,1)});
+   for(let r=0;r<3;r++)for(let k=0;k<5;k++){const ox=30+k*40+Math.sin(tt*2)*12,oy=40+r*24;x.fillStyle=['#ff004d','#ffec27','#29adff'][r];inv.forEach((row,yy)=>[...row].forEach((b,xx)=>{if(b=='1'&&((tt*2|0)%2||yy<6))x.fillRect(ox+xx*2,oy+yy*2,2,2)}))}
+   bits=bits.filter(b=>{b.y+=b.vy;b.x+=b.vx;b.vy+=.15;b.l--;x.fillStyle=b.c;x.fillRect(b.x|0,b.y|0,3,3);return b.l>0});
+   x.fillStyle='#00e436';x.fillRect(118,220,20,6);x.fillRect(126,214,4,6);x.font='bold 12px monospace';x.fillStyle='#fff';x.fillText('SCORE '+String(this.st.score).padStart(6,'0'),8,14);x.fillText('1UP',220,14);tex.needsUpdate=true};
+  this.bits=n=>{for(let i=0;i<n;i++)bits.push({x:128,y:200,vx:(Math.random()-.5)*6,vy:-Math.random()*6-2,l:60,c:['#ff004d','#ffec27','#29adff','#00e436','#fff'][i%5]})};
+  this.m=m;comp=null;let tt=0;tick=dt=>{tt+=dt;m.uniforms.t.value=tt;draw(tt)}},
+ a1(){play('coin');voice('sparat',.35);buzz([10,10,10]);this.bits(120);gsap.to(this.st,{score:'+=1000',duration:.8,roundProps:'score'});gsap.fromTo(this.m.uniforms.g,{value:.6},{value:0,duration:.5});toast('+1000 SPARAT','#ffec27')},
+ a2(){play('levelup');voice('arcade',.8);buzz([20,20,20,20,20,20,100]);this.bits(300);gsap.to(this.st,{score:'+=5000',duration:1.2,roundProps:'score'});gsap.fromTo(this.m.uniforms.g,{value:1},{value:0,duration:1.2});toast('LEVEL UP!','#29adff')}};
+// ---------- switching ----------
+const order=['neon','aurora','runway','arcade'],names={neon:'⚡ Neon',aurora:'🌌 Norrsken',runway:'🛫 Bana natt',arcade:'👾 Arkad'};
+const tabs=document.getElementById('tabs');order.forEach(k=>{const b=document.createElement('button');b.textContent=names[k];b.onclick=()=>go(k);b.id='t_'+k;tabs.appendChild(b)});
+function dispose(){if(!scene)return;scene.traverse(o=>{o.geometry&&o.geometry.dispose();o.material&&(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose())});bursts=[]}
+function go(k){cur=T[k];document.body.className=k;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.id=='t_'+k));
+ const card=document.getElementById('card');gsap.fromTo(card,{y:40,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'});
+ h.textContent=cur.h;s.textContent=cur.s;a1.textContent=cur.l1;a2.textContent=cur.l2;
+ gsap.fromTo(cv,{opacity:0},{opacity:1,duration:.8});dispose();comp=null;cur.build();size();
+ if(AC){setPad(cur.pad);play('whoosh',{v:.35,rate:1.4});voice(cur.v,.5)}}
+a1.onclick=()=>cur.a1();a2.onclick=()=>cur.a2();
+document.getElementById('snd').onclick=e=>{on=!on;e.target.textContent=on?'🔊':'🔇';if(pad)pad.g.gain.setTargetAtTime(on?.35:0,AC.currentTime,.3)};
+const clk=new THREE.Clock();
+R.setAnimationLoop(()=>{const dt=Math.min(clk.getDelta(),.05)*(RM?.3:1);tick(dt);bursts=bursts.filter(b=>{const a=stepParticles(b,dt);if(!a){scene.remove(b);b.geometry.dispose()}return a});comp?comp.render():R.render(scene,cam)});
+go('neon');
+document.getElementById('go').onclick=async()=>{const st=document.getElementById('start');try{await initAudio()}catch(e){console.warn(e)}gsap.to(st,{opacity:0,duration:.6,onComplete:()=>st.remove()});setPad(cur.pad);voice(cur.v,.4)};
+window.__go=go;window.__T=T;
+</script>
+<div style="position:fixed;left:0;right:0;bottom:2px;text-align:center;font-size:10px;opacity:.45;pointer-events:none">Testmaterial. Ljud: egensyntes (CC0). Röster: Piper sv_SE alma & axel (CC BY 4.0). three.js MIT · GSAP Standard License.</div>
+</html>
