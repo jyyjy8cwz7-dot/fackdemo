@@ -87,7 +87,7 @@ function play(){clear();home.classList.remove('on');ign=0;runway=1;intro.classLi
 const bar=document.getElementById('bar'),info=document.getElementById('info');
 function ui(){bar.innerHTML=Object.keys(C).map(k=>`<button class="${k==cur?'on':''}" data-k="${k}">${k}</button>`).join('')+`<button data-s>${snow?'❄️ på':'❄️ av'}</button><button class="p" data-p>▶ Spela</button>`;info.textContent=cur+') '+C[cur]}
 bar.onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();if(b.dataset.k){cur=b.dataset.k;if(cur=='E')snow=true;ui();play()}else if('s' in b.dataset){snow=!snow;ui()}else play()};
-import('./norrsken3d.js?v=202610220110').then(m=>{try{S3=m.startSky(document.getElementById('sky3d'),{dark:true})}catch(e){throw e}}).catch(e=>{console.warn('3D av, 2D-reserv',e);FB=true;document.getElementById('sky3d').style.display='none';cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;z-index:0'});
+import('./norrsken3d.js?v=202610220130').then(m=>{try{S3=m.startSky(document.getElementById('sky3d'),{dark:true})}catch(e){throw e}}).catch(e=>{console.warn('3D av, 2D-reserv',e);FB=true;document.getElementById('sky3d').style.display='none';cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;z-index:0'});
 const q=new URLSearchParams(location.search).get('k');if(q&&C[q])cur=q;if(cur=='E')snow=true;
 ui();play()
 </script></body></html>
