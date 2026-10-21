@@ -2,7 +2,7 @@
    p56: Egen kod, inga CDN. Ljud AV som standard (samma knapp 🔇/🔊, nyckel fack_snd).
    Allvarliga sidor laddar inte denna fil alls. Element inom [data-nofx] får inga effekter. */
 (function(){
-var P=(location.pathname.replace(/^\/fackdemo\/demo/,"").replace(/\.html$/,"").replace(/\/index$/,"/"))||"/",RM0=matchMedia("(prefers-reduced-motion: reduce)").matches,RM=false,BASE=(document.currentScript&&document.currentScript.src?document.currentScript.src.replace(/fx\.js.*$/,""):"/fackdemo/demo/static/v41/fx/"),C={};
+var P=(location.pathname.replace(/^\/fackdemo\/demo/,"").replace(/\.html$/,"").replace(/\/index$/,"/"))||"/",RM0=false,RM=false,BASE=(document.currentScript&&document.currentScript.src?document.currentScript.src.replace(/fx\.js.*$/,""):"/fackdemo/demo/static/v41/fx/"),C={};
 if(RM0)document.documentElement.classList.add("fx-lugn");
 function on(){try{return localStorage.getItem("fack_snd")==="1"}catch(e){return false}}
 function snd(n,v,voice){if(!on())return null;try{var a=C[n]||(C[n]=new Audio(BASE+(voice?"rost/":"ljud/")+n+".mp3"));a=a.paused?a:a.cloneNode();a.volume=v==null?.5:v;a.currentTime=0;a.play().catch(function(){});return a}catch(e){return null}}
@@ -10,7 +10,7 @@ function layer(ms){var d=document.createElement("div");d.className="fxl";documen
 function tmp(el,ms){el.classList.add("fx-in");document.body.appendChild(el);setTimeout(function(){el.classList.add("fx-out")},ms-400);setTimeout(function(){el.remove()},ms);return el}
 function nofx(t){return t&&t.closest&&t.closest("[data-nofx]")}
 /* p58: VISUELLA effekter = exakt Lab 3 Effektkarta (lab3/karta) – GSAP lokalt (vendor), inga CDN. Ljuden oförändrade. */
-var G=null,Q=[];function gs(f){if(window.gsap){G=window.gsap;f();return}Q.push(f);if(Q.length>1)return;var sc=document.createElement("script");sc.src=BASE.replace(/v41\/fx\/$/,"vendor/")+"gsap.min.js?v=202610220100";sc.onload=function(){G=window.gsap;var q=Q;Q=[];q.forEach(function(x){try{x()}catch(e){}})};document.head.appendChild(sc)}
+var G=null,Q=[];function gs(f){if(window.gsap){G=window.gsap;f();return}Q.push(f);if(Q.length>1)return;var sc=document.createElement("script");sc.src=BASE.replace(/v41\/fx\/$/,"vendor/")+"gsap.min.js?v=202610220110";sc.onload=function(){G=window.gsap;var q=Q;Q=[];q.forEach(function(x){try{x()}catch(e){}})};document.head.appendChild(sc)}
 var NS="http://www.w3.org/2000/svg";
 function lay(t,pad,z){pad=pad||0;var r=t.getBoundingClientRect();var d=document.createElement("div");d.style.cssText="position:fixed;left:"+(r.left-pad)+"px;top:"+(r.top-pad)+"px;width:"+(r.width+pad*2)+"px;height:"+(r.height+pad*2)+"px;pointer-events:none;z-index:"+(z||9000)+";overflow:visible";document.body.appendChild(d);d.r=r;return d}
 function svg(w,h,inner,css){return '<svg xmlns="'+NS+'" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" style="overflow:visible;'+(css||"")+'">'+inner+'</svg>'}

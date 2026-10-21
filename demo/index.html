@@ -29,7 +29,7 @@ html,body{height:100%;overflow:hidden;background:#020817!important;color:#eef4ff
 <div id="vk" aria-hidden="true"><div><img src="/fackdemo/demo/static/seko-logo.svg" alt=""><div class="t1">Välkommen ombord</div><div class="t2">Tillsammans är vi starka</div></div><small>Tryck var som helst för att hoppa över</small></div>
 <script>window.R={};</script>
 <script>(function(){var ns=document.getElementById('ns'),vk=document.getElementById('vk'),S3=null,tm=0,mode;
-var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var RM=false;
 try{mode=localStorage.getItem('nsk_sett')?(sessionStorage.getItem('nsk_ses')?'none':'glimt'):'forsta';localStorage.setItem('nsk_sett','1');sessionStorage.setItem('nsk_ses','1')}catch(e){mode='none'}
 if(RM)mode='none';
 function land(){clearTimeout(tm);vk.classList.remove('on','go');ns.classList.add('on');S3&&S3.ignite(1)}
@@ -37,6 +37,6 @@ vk.onclick=land;
 function start(){if(mode=='forsta'){vk.classList.add('on');requestAnimationFrame(function(){requestAnimationFrame(function(){vk.classList.add('go')})});S3&&S3.ignite(1);tm=setTimeout(land,3300)}
  else if(mode=='glimt'){vk.querySelector('.t1').textContent='';vk.querySelector('.t2').textContent='';vk.classList.add('on','go');tm=setTimeout(land,1000)}else land()}
 var done=false;function go(){if(done)return;done=true;start()}
-import('/fackdemo/demo/static/norrsken3d.js?v=202610220100').then(function(m){S3=m.startSky(document.getElementById('sky3d'),{dark:mode=='forsta'});go()}).catch(function(e){console.warn('3D av, 2D-reserv',e);document.getElementById('sky3d').style.display='none';document.getElementById('sky2d').style.display='block';go()});
+import('/fackdemo/demo/static/norrsken3d.js?v=202610220110').then(function(m){S3=m.startSky(document.getElementById('sky3d'),{dark:mode=='forsta'});go()}).catch(function(e){console.warn('3D av, 2D-reserv',e);document.getElementById('sky3d').style.display='none';document.getElementById('sky2d').style.display='block';go()});
 setTimeout(go,2500);
-})();</script><link rel="stylesheet" href="/fackdemo/demo/static/v41/fx/fx.css?v=202610220030"><script src="/fackdemo/demo/static/v41/fx/fx.js?v=202610220100" defer></script><div id="testband" style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#FFF3C4;color:#5a4300;font:700 12px/1.2 system-ui,sans-serif;text-align:center;padding:3px 6px;opacity:.95;pointer-events:none">🧪 Testsida – inget sparas · inga riktiga uppgifter</div><script src="/fackdemo/demo/demo.js?v=202610220030"></script></body></html>
+})();</script><link rel="stylesheet" href="/fackdemo/demo/static/v41/fx/fx.css?v=202610220030"><script src="/fackdemo/demo/static/v41/fx/fx.js?v=202610220110" defer></script><div id="testband" style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#FFF3C4;color:#5a4300;font:700 12px/1.2 system-ui,sans-serif;text-align:center;padding:3px 6px;opacity:.95;pointer-events:none">🧪 Testsida – inget sparas · inga riktiga uppgifter</div><script src="/fackdemo/demo/demo.js?v=202610220110"></script></body></html>
