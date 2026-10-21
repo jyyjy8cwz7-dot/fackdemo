@@ -1,0 +1,20 @@
+{
+ "name": "Fackappen – testsida",
+ "short_name": "Fackappen",
+ "start_url": "/fackdemo/demo/index.html",
+ "display": "standalone",
+ "background_color": "#ffffff",
+ "theme_color": "#b0121b",
+ "icons": [
+  {
+   "src": "/fackdemo/demo/apple-touch-icon.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  },
+  {
+   "src": "/fackdemo/demo/static/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}

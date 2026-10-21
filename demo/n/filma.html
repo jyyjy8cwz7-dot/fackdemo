@@ -1,0 +1,25 @@
+<!doctype html><html lang="sv"><head><meta name="robots" content="noindex,nofollow"><script>var __P=(location.pathname.replace(/^\/fackdemo\/demo/,"").replace(/\.html$/,"").replace(/\/index$/,"/"))||"/";</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="icon" href="data:,"><title>Filma – Fackappen</title>
+<link rel="stylesheet" href="/fackdemo/demo/static/v40/app.css?v=202610220010"><style>
+html,body{height:100%;margin:0}body{display:flex;flex-direction:column;font-family:system-ui,sans-serif;background:#FFF8F6;color:#2B1418}
+main{flex:1;display:flex;flex-direction:column;gap:10px;max-width:640px;width:100%;margin:0 auto;padding:12px 14px 28px;box-sizing:border-box;min-height:0}
+h1{margin:0;font-size:26px}.n{background:#FFF3C4;border-radius:12px;padding:8px 10px;font-weight:700;font-size:15px}
+.v{flex:1;min-height:0;background:#000;border-radius:16px;overflow:hidden;display:grid;place-items:center;color:#fff}
+.v video{width:100%;height:100%;object-fit:contain}
+.r{display:flex;gap:8px}.b{flex:1;border:0;border-radius:16px;background:#8E1F35;color:#fff;font:inherit;font-weight:800;font-size:20px;padding:16px 8px;text-align:center;text-decoration:none;cursor:pointer}
+.b.g{background:#fff;color:#8E1F35;border:2px solid #8E1F35}.b.on{background:#c62828}
+</style></head><body><main>
+<div class="r"><a class="b g" href="/fackdemo/demo/n/rapportera.html" style="flex:0 0 auto;padding:12px 16px">←</a><h1 style="align-self:center">🎥 Filma</h1></div>
+<div class="n">🔒 Testsida – inget sparas. Filmen stannar i din telefon och laddas aldrig upp.</div>
+<div class="v" id="v"><span>Tryck på en knapp nedan</span></div>
+<div class="r"><button class="b" id="rec">⏺ Spela in här</button><label class="b g">📱 Kamera-appen<input id="cap" type="file" accept="video/*" capture="environment" hidden></label></div>
+<div class="r"><a class="b g" id="sv" style="display:none" download="film.webm">💾 Spara i telefonen</a><a class="b g" href="/fackdemo/demo/n/rapportera.html">✓ Klar</a></div>
+</main><script>
+(function(){var V=document.getElementById("v"),R=document.getElementById("rec"),S=document.getElementById("sv"),mr=null,st=null,ch=[];
+function show(u,live){V.innerHTML="";var e=document.createElement("video");e.playsInline=true;e.controls=!live;e.muted=!!live;if(live){e.srcObject=u;e.autoplay=true}else e.src=u;V.appendChild(e);if(live)e.play().catch(function(){})}
+document.getElementById("cap").onchange=function(){var f=this.files[0];if(!f)return;var u=URL.createObjectURL(f);show(u);S.href=u;S.download=f.name||"film.mp4";S.style.display=""};
+R.onclick=function(){if(mr&&mr.state==="recording"){mr.stop();return}
+ if(!navigator.mediaDevices||!window.MediaRecorder){V.innerHTML="<span>Din webbläsare kan inte spela in här. Använd Kamera-appen.</span>";return}
+ navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:true}).then(function(s){st=s;ch=[];show(s,1);mr=new MediaRecorder(s);mr.ondataavailable=function(e){if(e.data.size)ch.push(e.data)};
+ mr.onstop=function(){st.getTracks().forEach(function(t){t.stop()});var b=new Blob(ch,{type:mr.mimeType||"video/webm"}),u=URL.createObjectURL(b);show(u);S.href=u;S.download=/mp4/.test(b.type)?"film.mp4":"film.webm";S.style.display="";R.textContent="⏺ Spela in igen";R.classList.remove("on")};
+ mr.start();R.textContent="⏹ Stoppa";R.classList.add("on")}).catch(function(){V.innerHTML="<span>Ingen kamera-åtkomst. Använd Kamera-appen.</span>"})};
+})();</script><div id="testband" style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#FFF3C4;color:#5a4300;font:700 12px/1.2 system-ui,sans-serif;text-align:center;padding:3px 6px;opacity:.95;pointer-events:none">🧪 Testsida – inget sparas · inga riktiga uppgifter</div><script src="/fackdemo/demo/demo.js?v=202610220010"></script></body></html>

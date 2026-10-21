@@ -1,0 +1,26 @@
+Fackappen v41 – effektmodul p56 (fx.js, fx.css): egen kod, inga externa bibliotek, ingen CDN.
+
+ljud/ – CC0 1.0 (Kenney / Freesound), se /workspace/ljudbibliotek/LISTA.md för källa per fil:
+  backpip.mp3: backing up beep.wav by C-V | https://freesound.org/people/C-V/sounds/523413/ | CC0 1.0 
+  bekrafta-2.mp3: Kenney Interface Sounds: confirmation_004.ogg | https://kenney.nl/assets/interface-sounds | CC0 1.0 
+  bekrafta.mp3: Kenney Interface Sounds: confirmation_002.ogg | https://kenney.nl/assets/interface-sounds | CC0 1.0 
+  blad.mp3: Kenney RPG Audio: bookFlip2.ogg | https://kenney.nl/assets/rpg-audio | CC0 1.0 
+  drakvral.mp3: Dragon roar 1.wav by AMWD_Mortsel-Edegem-Kontich | https://freesound.org/people/AMWD_Mortsel-Edegem-Kontich/sounds/651817/ | CC0 1.0 
+  fanfar-trumpet.mp3: Success Fanfare Trumpets.mp3 by FunWithSound | https://freesound.org/people/FunWithSound/sounds/456966/ | CC0 1.0 
+  fel-2.mp3: Kenney Interface Sounds: error_008.ogg | https://kenney.nl/assets/interface-sounds | CC0 1.0 
+  gate-ambiens.mp3: Amsterdam Airport Schiphol Ambience at the Gates by Nielsvdb | https://freesound.org/people/Nielsvdb/sounds/268799/ | CC0 1.0 
+  impact.mp3: egensyntes i Python (lab3/ljud), CC0
+  klocka.mp3: Kenney Impact Sounds: impactBell_heavy_000.ogg | https://kenney.nl/assets/impact-sounds | CC0 1.0 
+  mungiga.mp3: Jaw Harp by James.Keeble | https://freesound.org/people/James.Keeble/sounds/431985/ | CC0 1.0 
+  notis-glas.mp3: Kenney Interface Sounds: glass_002.ogg | https://kenney.nl/assets/interface-sounds | CC0 1.0 
+  radioprat.mp3: Police Chatter by -Andreas | https://freesound.org/people/-Andreas/sounds/648463/ | CC0 1.0 
+  rymdpip.mp3: egensyntes i Python (lab3/ljud), CC0
+  skicka-svep.mp3: Kenney Interface Sounds: maximize_006.ogg | https://kenney.nl/assets/interface-sounds | CC0 1.0 
+  spray.mp3: egensyntes i Python (lab3/ljud), CC0
+  svardsklang-1.mp3: SwordClash.wav by Amaiguri | https://freesound.org/people/Amaiguri/sounds/518992/ | CC0 1.0 
+  vaxla.mp3: Kenney Interface Sounds: toggle_001.ogg | https://kenney.nl/assets/interface-sounds | CC0 1.0 
+
+rost/ (sparat, varning, fler, tills) – ENDAST TEST:
+  Microsoft sv-SE-SofieNeural / sv-SE-MattiasNeural via edge-tts (inofficiellt verktyg, LGPL-3.0).
+  Microsoft ger ingen uttrycklig licens att sprida ljudet. Får INTE publiceras i en riktig app.
+  Byt till egen inspelning eller röst med avtal (t.ex. Azure) innan publicering.
