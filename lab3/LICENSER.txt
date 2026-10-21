@@ -4,6 +4,11 @@ seko-logo.svg  Seko:s logotyp, hämtad oförändrad 2026-10-21 från www.seko.se
                Visas med originalfärger på vit platta med friyta. Används på begäran av klubbens ombud.
                Inga Swedavia- eller Menzies-logotyper används. Flygplatsmiljöerna är generiska.
 ljud/*.mp3     Egensyntes i Python (FM-klockor, filtrerat brus, syntpads, faltningsreverb). CC0.
-rost/*.mp3     Piper TTS, röster sv_SE-alma-medium och sv_SE-axel-medium. CC BY 4.0 (NST-data).
+rost/*.mp3     Microsoft sv-SE-SofieNeural och sv-SE-MattiasNeural, genererade med edge-tts 2026-10-21 (gratis, ingen betaltjänst).
+               edge-tts (github.com/rany2/edge-tts, LGPL-3.0) är ett inofficiellt verktyg mot Microsoft Edges uppläsningstjänst.
+               Microsoft ger ingen uttrycklig licens att sprida eller använda ljudet kommersiellt. Därför bara för test och demo här.
+               Till en riktig app behövs en röst med tydlig licens, till exempel en egen inspelning eller Azure med avtal.
+               (sv-SE-HilleviNeural finns inte i edge-tts.)
+rostprov/      Tre röstprov med samma källa och villkor som ovan.
 three.js r160 (MIT) och GSAP 3.13 (GSAP Standard License) laddas från jsDelivr.
 Drakarna är symboler för problem på jobbet (schema, lön, stress, övertid). De föreställer inte personer.
