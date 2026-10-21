@@ -3,8 +3,14 @@ seko-logo.svg  Seko:s logotyp, hämtad oförändrad 2026-10-21 från www.seko.se
                (https://www.seko.se/_next/static/media/logo-seko.1-zs_3-s8gnqq.svg). Varumärke tillhör Seko.
                Visas med originalfärger på vit platta med friyta. Används på begäran av klubbens ombud.
                Inga Swedavia- eller Menzies-logotyper används. Flygplatsmiljöerna är generiska.
+bibl/          Ljudbibliotek med 45 filer: Kenney-paket (Interface, Sci-Fi, Impact, RPG Audio, Digital Audio) och Freesound.
+               Alla CC0 1.0. Källa per fil står i bibl/LISTA.md och bibl/lista.json.
+               I världarna ersätter de riktiga ljuden: drakvrål, svärdsklang, fanfar, backpip, radio, smäll, boing, gate-ding och klick.
+modeller/      dragon.glb "Dragon" av Quaternius, CC0 (https://poly.pizza/m/VBvzjFIYws)
+               dragon_evolved.glb "Dragon Evolved" av Quaternius, CC0 (https://poly.pizza/m/LlwD0QNUPj)
+               hjalte.glb "Adventurer" av Quaternius, CC0 (https://poly.pizza/m/5EGWBMpuXq). Ryggsäcken är dold, och sköld och mantel är tillagda.
 ljud/*.mp3     Egensyntes i Python (FM-klockor, filtrerat brus, syntpads, faltningsreverb). CC0.
-rost/*.mp3     Microsoft sv-SE-SofieNeural och sv-SE-MattiasNeural, genererade med edge-tts 2026-10-21 (gratis, ingen betaltjänst).
+rost_sm/*.mp3  Microsoft sv-SE-SofieNeural och sv-SE-MattiasNeural, genererade med edge-tts 2026-10-21 (gratis, ingen betaltjänst).
                edge-tts (github.com/rany2/edge-tts, LGPL-3.0) är ett inofficiellt verktyg mot Microsoft Edges uppläsningstjänst.
                Microsoft ger ingen uttrycklig licens att sprida eller använda ljudet kommersiellt. Därför bara för test och demo här.
                Till en riktig app behövs en röst med tydlig licens, till exempel en egen inspelning eller Azure med avtal.
