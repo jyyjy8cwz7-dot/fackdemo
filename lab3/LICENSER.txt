@@ -1,0 +1,9 @@
+Lab 3 – Arlanda-världar (testmaterial, inga personuppgifter, inte den riktiga appen)
+seko-logo.svg  Seko:s logotyp, hämtad oförändrad 2026-10-21 från www.seko.se
+               (https://www.seko.se/_next/static/media/logo-seko.1-zs_3-s8gnqq.svg). Varumärke tillhör Seko.
+               Visas med originalfärger på vit platta med friyta. Används på begäran av klubbens ombud.
+               Inga Swedavia- eller Menzies-logotyper används. Flygplatsmiljöerna är generiska.
+ljud/*.mp3     Egensyntes i Python (FM-klockor, filtrerat brus, syntpads, faltningsreverb). CC0.
+rost/*.mp3     Piper TTS, röster sv_SE-alma-medium och sv_SE-axel-medium. CC BY 4.0 (NST-data).
+three.js r160 (MIT) och GSAP 3.13 (GSAP Standard License) laddas från jsDelivr.
+Drakarna är symboler för problem på jobbet (schema, lön, stress, övertid). De föreställer inte personer.
