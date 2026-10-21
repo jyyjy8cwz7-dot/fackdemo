@@ -7,7 +7,6 @@ bibl/          Ljudbibliotek med 45 filer: Kenney-paket (Interface, Sci-Fi, Impa
                Alla CC0 1.0. Källa per fil står i bibl/LISTA.md och bibl/lista.json.
                I världarna ersätter de riktiga ljuden: drakvrål, svärdsklang, fanfar, backpip, radio, smäll, boing, gate-ding och klick.
 modeller/      dragon.glb "Dragon" av Quaternius, CC0 (https://poly.pizza/m/VBvzjFIYws)
-               dragon_evolved.glb "Dragon Evolved" av Quaternius, CC0 (https://poly.pizza/m/LlwD0QNUPj)
                hjalte.glb "Adventurer" av Quaternius, CC0 (https://poly.pizza/m/5EGWBMpuXq). Ryggsäcken är dold, och sköld och mantel är tillagda.
 ljud/*.mp3     Egensyntes i Python (FM-klockor, filtrerat brus, syntpads, faltningsreverb). CC0.
 rost_sm/*.mp3  Microsoft sv-SE-SofieNeural och sv-SE-MattiasNeural, genererade med edge-tts 2026-10-21 (gratis, ingen betaltjänst).
