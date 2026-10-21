@@ -46,9 +46,9 @@ canvas#c{position:fixed;inset:0;width:100%;height:100%;display:block}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <canvas id=c></canvas><script>window.addEventListener("error",function(e){var d=document.getElementById("err");if(d){d.style.display="block";d.textContent="Fel: "+(e.message||"okänt")+" – prova att ladda om sidan."}});setTimeout(function(){if(!window.__go){var d=document.getElementById("err");d.style.display="block";d.textContent="3D-motorn laddades inte. Din webbläsare kan vara för gammal (iOS 16.4+ behövs) eller nätet långsamt. Ladda om sidan.";}},12000);</script>
-<div id=start><div><div class=logo style="display:inline-block"><img src="seko-logo.svg?v=202610212335" alt="Seko" height=40></div><div style="font-size:13px;letter-spacing:.3em;opacity:.6;margin-top:18px">TESTMATERIAL · LAB 3</div><h1 style="font-size:34px;margin:10px 0">Sex världar på flygplatsen.<br>Plus drakar.</h1><p style="opacity:.7;max-width:320px;margin:auto">Torn, ramp, avisning, gryning, norrsken – och hjältar mot drakarna. Använd hörlurar.</p><button id=go>Starta ▶</button></div></div>
-<div id=ui><div id=top><div class=logo id=logo><img src="seko-logo.svg?v=202610212335" alt="Seko"></div><span id=load></span></div><div id=tabs></div><div id=card><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><h1 id=h></h1><span id=rw></span></div><p id=s></p><div class=row><button class=act id=a1></button><button class="act b" id=a2></button></div><div class=row style="margin-top:10px;grid-template-columns:1fr 1fr 1.3fr"><button class="act b" id=tVa style="min-height:48px;font-size:14px">⚠️ Varning</button><button class="act b" id=tLa style="min-height:48px;font-size:14px">⏳ Laddar</button><button class="act b" id=menu2 style="min-height:48px;font-size:14px">☰ Fler val</button></div></div></div>
-<button id=snd>🔊</button><button id=menu>☰ Val &amp; betyg</button><div id=fx></div><div id=worlds><div class=wh><img src="seko-logo.svg?v=202610212335" alt="Seko"><div style="flex:1"><b>Välj en värld</b><small>Tryck på ett kort för att flyga in</small></div></div><div class=g></div></div><button id=back>← Tillbaka</button><div id=err></div><div id=panel></div><div id=toast></div>
+<div id=start><div><div class=logo style="display:inline-block"><img src="seko-logo.svg?v=202610212350" alt="Seko" height=40></div><div style="font-size:13px;letter-spacing:.3em;opacity:.6;margin-top:18px">TESTMATERIAL · LAB 3</div><h1 style="font-size:34px;margin:10px 0">Sex världar på flygplatsen.<br>Plus drakar.</h1><p style="opacity:.7;max-width:320px;margin:auto">Torn, ramp, avisning, gryning, norrsken – och hjältar mot drakarna. Använd hörlurar.</p><button id=go>Starta ▶</button></div></div>
+<div id=ui><div id=top><div class=logo id=logo><img src="seko-logo.svg?v=202610212350" alt="Seko"></div><span id=load></span></div><div id=tabs></div><div id=card><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><h1 id=h></h1><span id=rw></span></div><p id=s></p><div class=row><button class=act id=a1></button><button class="act b" id=a2></button></div><div class=row style="margin-top:10px;grid-template-columns:1fr 1fr 1.3fr"><button class="act b" id=tVa style="min-height:48px;font-size:14px">⚠️ Varning</button><button class="act b" id=tLa style="min-height:48px;font-size:14px">⏳ Laddar</button><button class="act b" id=menu2 style="min-height:48px;font-size:14px">☰ Fler val</button></div></div></div>
+<button id=snd>🔊</button><button id=menu>☰ Val &amp; betyg</button><div id=fx></div><div id=worlds><div class=wh><img src="seko-logo.svg?v=202610212350" alt="Seko"><div style="flex:1"><b>Välj en värld</b><small>Tryck på ett kort för att flyga in</small></div></div><div class=g></div></div><button id=back>← Tillbaka</button><div id=err></div><div id=panel></div><div id=toast></div>
 
 <script type=module>
 import * as THREE from 'https://esm.sh/three@0.160.0';
@@ -66,7 +66,7 @@ const files=['backbeep', 'bekrafta', 'boing', 'bubbel', 'clang', 'coin', 'epic',
 const voices=['ns_valkommen','ns_varning','ns_onska','avisning', 'bagage', 'favorit', 'fler', 'gate', 'hav', 'hjalte', 'kaffe', 'laddar', 'norrsken', 'ramp', 'rymd', 'seger', 'serie', 'skickat', 'skickat_b', 'sparat', 'sparat_b', 'terminal', 'tills', 'torn', 'varning'];
 async function load(p){const r=await fetch(p);return AC.decodeAudioData(await r.arrayBuffer())}
 async function initAudio(){AC=new AudioContext();master=AC.createGain();master.gain.value=.9;master.connect(AC.destination);
- await Promise.all([...files.map(async f=>buf[f]=await load('ljud/'+f+'.mp3?v=202610212335')),...voices.map(async v=>buf['v_'+v]=await load('rost_sm/'+v+'.mp3?v=202610212335'))])}
+ await Promise.all([...files.map(async f=>buf[f]=await load('ljud/'+f+'.mp3?v=202610212350')),...voices.map(async v=>buf['v_'+v]=await load('rost_sm/'+v+'.mp3?v=202610212350'))])}
 function play(n,{v=1,delay=0,rate=1,pan=0}={}){if(!on||!buf[n])return;const s=AC.createBufferSource();s.buffer=buf[n];s.playbackRate.value=rate;const g=AC.createGain();g.gain.value=v;const p=AC.createStereoPanner();p.pan.value=pan;s.connect(g).connect(p).connect(master);s.start(AC.currentTime+delay);return s}
 function voice(n,delay=0){if(!on||!buf['v_'+n])return;const s=AC.createBufferSource();s.buffer=buf['v_'+n];
  const duck=pad&&pad.g;if(duck){duck.gain.setTargetAtTime(.08,AC.currentTime+delay,.1);duck.gain.setTargetAtTime(.35,AC.currentTime+delay+s.buffer.duration,.4)}
@@ -213,10 +213,10 @@ function nsMusic(){const g=AC.createGain();g.gain.value=0;const lp=AC.createBiqu
  const chord=()=>{if(!alive)return;const now=AC.currentTime;CH[ci++%4].forEach((f,j)=>{[0,4].forEach(dt=>{const o=AC.createOscillator();o.type=j?'sine':'triangle';o.frequency.value=f/(j?1:2);o.detune.value=dt*(j%2?1:-1);const e=AC.createGain();e.gain.setValueAtTime(0,now);e.gain.linearRampToValueAtTime(.045,now+3);e.gain.linearRampToValueAtTime(0,now+9.5);o.connect(e).connect(lp);o.start(now);o.stop(now+10);oscs.push(o)})});ts.push(setTimeout(chord,8000))};
  const PEN=[523.3,587.3,659.3,784,880,1046.5];const bell=()=>{if(!alive)return;const now=AC.currentTime,o=AC.createOscillator(),e=AC.createGain();o.frequency.value=PEN[Math.floor(Math.random()*6)];e.gain.setValueAtTime(0,now);e.gain.linearRampToValueAtTime(.03,now+.02);e.gain.exponentialRampToValueAtTime(.0001,now+3);o.connect(e).connect(lp);o.start(now);o.stop(now+3.1);ts.push(setTimeout(bell,1800+Math.random()*2600))};
  chord();ts.push(setTimeout(bell,2500));let amb=null;const ab=()=>{if(!alive||!buf['b:miljo/gate-ambiens'])return;amb=AC.createBufferSource();amb.buffer=buf['b:miljo/gate-ambiens'];amb.loop=true;const ag=AC.createGain();ag.gain.value=.16;amb.connect(ag).connect(g);amb.start()};
- if(buf['b:miljo/gate-ambiens'])ab();else load('bibl/miljo/gate-ambiens.mp3?v=202610212335').then(x=>{buf['b:miljo/gate-ambiens']=x;ab()}).catch(()=>{});
+ if(buf['b:miljo/gate-ambiens'])ab();else load('bibl/miljo/gate-ambiens.mp3?v=202610212350').then(x=>{buf['b:miljo/gate-ambiens']=x;ab()}).catch(()=>{});
  g.gain.setTargetAtTime(on?.35:0,AC.currentTime,1.5);return {g,s:{stop(){alive=false;ts.forEach(clearTimeout);try{amb&&amb.stop()}catch(e){}}}}}
 ['klart/bekrafta','skicka/skicka-svep','notis/notis-glas','fanfar/fanfar-trumpet'].forEach(f=>{});
-T.norrsken={h:'Norrsken över Arlanda',s:'Polarnatt över en frusen sjö. Tryck på himlen så dansar norrskenet. Dubbeltryck för ett stjärnfall.',l1:'🎫 Spara',l2:'🛫 Skicka',pad:'__ns',v:'ns_valkommen',own:true,
+T.norrsken={h:'Norrsken över Arlanda',s:'Polarnatt över en frusen sjö. Tryck på himlen så dansar norrskenet. Dubbeltryck för ett stjärnfall.',l1:'🎫 Spara',l2:'🛫 Skicka',pad:'__ns',v:null,own:true,
  build(){R.setPixelRatio(Math.min(devicePixelRatio,1.5));scene=new THREE.Scene();cam=new THREE.PerspectiveCamera(58,W/H,.1,600);cam.position.set(0,2.2,16);cam.setViewOffset(W,H,0,H*.16,W,H);
   const u={t:{value:0},k:{value:0},tt:{value:9},tp:{value:new THREE.Vector3(0,.5,-1)}};this.u=u;
   const dome=new THREE.Mesh(new THREE.SphereGeometry(400,48,32),new THREE.ShaderMaterial({uniforms:u,side:THREE.BackSide,depthWrite:false,vertexShader:'varying vec3 d;void main(){d=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:NSKY}));dome.frustumCulled=false;scene.add(dome);
@@ -256,15 +256,56 @@ T.norrsken={h:'Norrsken över Arlanda',s:'Polarnatt över en frusen sjö. Tryck 
  star(big){const s=this.sf;const a=(Math.random()-.5)*1.6;s.position.set(-30+Math.random()*60,60+Math.random()*40,-140);s.rotation.set(0,0,-.5+a*.2);s.lookAt(cam.position);s.rotateZ(-.45);
   gsap.killTweensOf(s.position);gsap.fromTo(s.material,{opacity:0},{opacity:big?1:.8,duration:.15,yoyo:true,repeat:1,repeatDelay:big?.6:.3});gsap.to(s.position,{x:s.position.x+(big?40:26),y:s.position.y-(big?22:14),duration:big?1:.7,ease:'power1.in'})},
  tap(e,dbl){const v=new THREE.Vector3((e.clientX/W)*2-1,-(e.clientY/H)*2+1,.5).unproject(cam).sub(cam.position).normalize();this.u.tp.value.copy(v);this.u.tt.value=0;gsap.to(this.u.k,{value:Math.min(this.u.k.value+.6,1.6),duration:.4});
-  bp('notis/notis-glas',{v:.25,rate:.8+Math.random()*.5});if(dbl){this.star(true);bp('fanfar/fanfar-trumpet',{v:.45});voice('ns_onska',.9);toast('⭐ Önska något fint','#c9b6ff')}},
+  bp('notis/notis-glas',{v:.25,rate:.8+Math.random()*.5});if(dbl){this.star(true);bp('fanfar/fanfar-trumpet',{v:.45});toast('⭐ Önska något fint','#c9b6ff')}},
  a1(){SP['Boardingkort']&&SP['Boardingkort']();bp('klart/bekrafta',{v:.8});voice('sparat',.5);buzz(30);gsap.to(this.u.k,{value:2,duration:.6})},
  a2(){SK['Avgångstavla']&&SK['Avgångstavla']();bp('skicka/skicka-svep',{v:.8});voice('skickat_b',.6);buzz([20,60,20]);this.fast=true;gsap.to(this.u.k,{value:1.4,duration:1})},
- va(){const d=el('inset:8px;border:6px solid #ff3a1f;border-radius:30px;box-shadow:0 0 30px #ff3a1f,inset 0 0 30px #ff3a1f');gsap.fromTo(d,{opacity:0},{opacity:1,duration:.2,repeat:9,yoyo:true,onComplete:()=>d.remove()});bp('notis/notis-glas',{v:.9});voice('ns_varning',.3);buzz([60,40,60])},
+ va(){const d=el('inset:8px;border:6px solid #ff3a1f;border-radius:30px;box-shadow:0 0 30px #ff3a1f,inset 0 0 30px #ff3a1f');gsap.fromTo(d,{opacity:0},{opacity:1,duration:.2,repeat:9,yoyo:true,onComplete:()=>d.remove()});bp('notis/notis-glas',{v:.9});buzz([60,40,60])},
  la(){runMK('Snöflingor (laddar)',document.getElementById('card'));voice('laddar',.4)}};
+
+// ---------- 5c NORRSKEN KLASSISK LYX ----------
+const AURL=`uniform float t;uniform float k;varying vec2 u;float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+ float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+ float fbm(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*n(p);p*=2.03;a*=.5;}return s;}
+ void main(){vec2 p=u;vec3 sky=mix(vec3(.0,.012,.045),vec3(.012,.035,.13),p.y);sky+=vec3(.02,.06,.07)*exp(-p.y*9.);float a=0.,halo=0.;
+ for(int i=0;i<3;i++){float fi=float(i);float y=.55+.1*fi+.07*sin(p.x*3.+t*.2+fi)+.1*fbm(vec2(p.x*2.+t*.032,fi));float dd=abs(p.y-y);
+  float rays=.75+.25*n(vec2(p.x*90.+fi*7.,t*.6));a+=exp(-dd*(16.-fi*3.))*fbm(vec2(p.x*7.-t*.16,p.y*18.+fi))*rays;halo+=exp(-dd*5.)*.08;}
+ vec3 c1=vec3(.08,1.,.62),c2=vec3(.35,1.,.5),c3=vec3(.62,.26,1.),c4=vec3(1.,.35,.75);
+ vec3 ac=mix(c1,c2,smoothstep(.4,.6,p.y));ac=mix(ac,c3,smoothstep(.6,.85,p.y));ac=mix(ac,c4,smoothstep(.88,1.,p.y)*.35);
+ vec3 col=sky+(a*1.05+halo)*ac*(.6+k*1.4);
+ vec2 sp=floor(p*vec2(800.,1400.));float s=h(sp);float tw=.55+.45*sin(t*(1.5+s*3.)+s*60.);col+=step(.9978,s)*p.y*.95*tw*vec3(.92,.96,1.);
+ col+=step(.9996,h(floor(p*vec2(400.,700.))))*p.y*1.4*(.6+.4*sin(t*2.3+s*9.))*vec3(1.,.95,.85);
+ gl_FragColor=vec4(col,1.);}`;
+T.norrsken_lyx={h:'Norrsken klassisk lyx',s:'Polarnatt, banljus och ett levande norrsken. Planen passerar under himlen.',l1:'🎫 Spara',l2:'🛫 Skicka',pad:'pad_aurora',v:null,own:true,
+ build(){scene=new THREE.Scene();scene.fog=new THREE.Fog(0x030817,34,160);cam=new THREE.PerspectiveCamera(60,W/H,.1,400);cam.position.set(0,2.5,14);
+  const au={t:{value:0},k:{value:0}};scene.add(skyDome(AURL,au));this.au=au;
+  const md=skyDome(AURL,au);md.geometry.dispose();md.geometry=new THREE.SphereGeometry(99,64,16,0,Math.PI*2,0,Math.PI/2);md.material.side=THREE.DoubleSide;md.scale.y=-1;md.position.y=-.05;scene.add(md);
+  const gr=ground(scene,0x0b1426,{roughness:.15,metalness:.6});gr.material.transparent=true;gr.material.opacity=.8;
+  const rw=new THREE.Mesh(new THREE.PlaneGeometry(10,300),M(0x141a24,{roughness:.25,metalness:.45,transparent:true,opacity:.88}));rw.rotation.x=-Math.PI/2;rw.position.set(0,.01,-120);scene.add(rw);
+  this.rl=runwayLights(scene,80);const cm=B(0xffffff);for(let z=0;z>-280;z-=8){const d=new THREE.Mesh(new THREE.PlaneGeometry(.25,3),cm);d.rotation.x=-Math.PI/2;d.position.set(0,.02,z);scene.add(d)}
+  const glw=new THREE.Mesh(new THREE.PlaneGeometry(.9,.9),new THREE.MeshBasicMaterial({color:0xffc880,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false}));const GI=new THREE.InstancedMesh(glw.geometry,glw.material,160),mt=new THREE.Matrix4();let gi=0;
+  for(let i=0;i<80;i++)for(const x of[-5.2,5.2]){mt.makeRotationX(-Math.PI/2);mt.setPosition(x,.03,-i*3.5);GI.setMatrixAt(gi++,mt)}scene.add(GI);
+  const sn=snowPts(1500,60,15);sn.material.size=.05;sn.material.opacity=.8;scene.add(sn);this.sn=sn;
+  const N=700,gp=new Float32Array(N*3),ph=new Float32Array(N);for(let i=0;i<N;i++){gp[i*3]=(Math.random()-.5)*50;gp[i*3+1]=.03;gp[i*3+2]=8-Math.random()*70;ph[i]=Math.random()*6.28}
+  const gg=new THREE.BufferGeometry();gg.setAttribute('position',new THREE.BufferAttribute(gp,3));gg.setAttribute('ph',new THREE.BufferAttribute(ph,1));
+  const gu={t:{value:0}};const gm=new THREE.ShaderMaterial({uniforms:gu,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,vertexShader:'attribute float ph;uniform float t;varying float a;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);a=pow(max(0.,sin(t*1.7+ph*7.)),12.);gl_PointSize=(2.+a*3.)*(30./-mv.z);gl_Position=projectionMatrix*mv;}',fragmentShader:'varying float a;void main(){float d=length(gl_PointCoord-.5);gl_FragColor=vec4(vec3(.8,1.,.95),a*smoothstep(.5,0.,d));}'});
+  const gl=new THREE.Points(gg,gm);gl.frustumCulled=false;scene.add(gl);
+  scene.add(new THREE.HemisphereLight(0x60ffc0,0x050810,.32));const rim=new THREE.DirectionalLight(0x9a7cff,.35);rim.position.set(-10,20,-40);scene.add(rim);
+  const P=plane();P.position.set(0,10,-80);scene.add(P);this.P=P;const PM=plane();PM.scale.y=-1;scene.add(PM);this.PM=PM;
+  const nl=(c,x,y,z)=>{const s=new THREE.Mesh(new THREE.SphereGeometry(.09,8,8),B(c));s.position.set(x,y,z);P.add(s);return s};this.navs=[nl(0xff3030,-3,-.1,.2),nl(0x30ff70,3,-.1,.2)];this.strobe=nl(0xffffff,0,.9,2.6);
+  mkComp(1.0,.85,.32);let tt=0,px=0;
+  tick=dt=>{tt+=dt;au.t.value=tt;gu.t.value=tt;sn.userData.step(dt*.28);
+   if(!this.fly){P.position.set(Math.sin(tt*.06)*2.5,10+Math.sin(tt*.3)*.25,-80);P.rotation.set(0,0,Math.sin(tt*.06+1.57)*.05)}
+   PM.position.set(P.position.x,-P.position.y,P.position.z);PM.rotation.copy(P.rotation);PM.rotation.z*=-1;
+   this.strobe.visible=(tt%1.2)<.08;GI.material.opacity=.18+Math.sin(tt*2)*.04;
+   cam.position.x=Math.sin(tt*.07)*.8;cam.position.y=2.5+Math.sin(tt*.11)*.15;cam.lookAt(0,6,-30)}},
+ tap(){gsap.to(this.au.k,{value:Math.min(this.au.k.value+.5,1.4),duration:.5,ease:'sine.out'});gsap.to(this.au.k,{value:0,duration:3,delay:.6,ease:'sine.inOut',overwrite:false});bp('notis/notis-glas',{v:.2,rate:.9+Math.random()*.3})},
+ a1(){SP['Boardingkort']();bp('klart/bekrafta',{v:.8});voice('sparat',.5);buzz(30);gsap.fromTo(this.au.k,{value:1.2},{value:0,duration:3.5,ease:'sine.out'})},
+ a2(){SK['Avgångstavla']();bp('skicka/skicka-svep',{v:.8});voice('skickat_b',.6);buzz([20,60,20]);this.fly=true;const P=this.P;gsap.fromTo(P.position,{x:0,z:-80,y:10},{z:30,y:4,duration:4.5,ease:'power1.inOut',onUpdate:()=>{P.rotation.set(0,0,0)},onComplete:()=>{this.fly=false}});gsap.fromTo(this.au.k,{value:0},{value:.9,duration:2.2,yoyo:true,repeat:1,ease:'sine.inOut'})},
+ va(){T.norrsken.va.call(this)},la(){runMK('Snöflingor (laddar)',document.getElementById('card'))}};
 
 // ---------- 6 HJÄLTAR MOT DRAKARNA (glTF, Quaternius CC0) ----------
 const DR=[['Schemadraken',0x7a3bff],['Lönedraken',0x2fbf71],['Stressdraken',0xff4a2a],['Övertidsdraken',0x2f8bff]];
-const GL=new GLTFLoader();const GC={};const glb=u=>GC[u]||(GC[u]=new Promise((r,j)=>GL.load(u+'?v=202610212335',r,undefined,j)));
+const GL=new GLTFLoader();const GC={};const glb=u=>GC[u]||(GC[u]=new Promise((r,j)=>GL.load(u+'?v=202610212350',r,undefined,j)));
 const clip=(g,n)=>g.animations.find(a=>a.name.endsWith('|'+n));
 T.drakar={h:'Hjältar mot drakarna',s:'Ombuden står längst fram. Varje medlem som kliver in gör sköldmuren starkare. Tillsammans är vi starka.',l1:'🛡️ Gå med i linjen',l2:'⚔️ Vinn ärendet',pad:'pad_neon',v:'hjalte',
  build(){scene=new THREE.Scene();scene.fog=new THREE.Fog(0x2a0f12,18,60);cam=new THREE.PerspectiveCamera(40,W/H,.1,300);cam.position.set(0,3.2,21);cam.setViewOffset(W,H,0,H*.24,W,H);
@@ -417,7 +458,7 @@ const TR={
 let TRSEL=localStorage.getItem('lab3_tr')||'Planvisch';
 
 // ---------- switching ----------
-const order=['torn','ramp','avisning','terminal','norrsken','norrsken_k','drakar','hav','rymd','serie'],names={torn:'🗼 Tornet',ramp:'🧳 Rampen',avisning:'❄️ Avisning',terminal:'🌅 Gryning',norrsken:'🌌 Norrsken ✨',norrsken_k:'🌠 Norrsken klassisk',drakar:'🐉 Hjältar',hav:'🐠 Havet',rymd:'🛰️ Rymden',serie:'💥 Serie'};
+const order=['torn','ramp','avisning','terminal','norrsken','norrsken_k','norrsken_lyx','drakar','hav','rymd','serie'],names={torn:'🗼 Tornet',ramp:'🧳 Rampen',avisning:'❄️ Avisning',terminal:'🌅 Gryning',norrsken:'🌌 Norrsken ✨',norrsken_k:'🌠 Norrsken klassisk',norrsken_lyx:'💎 Norrsken klassisk lyx',drakar:'🐉 Hjältar',hav:'🐠 Havet',rymd:'🛰️ Rymden',serie:'💥 Serie'};
 const LOAD=['Väntar på push-back…','Avisar pixlarna…','Letar efter försvunnet bagage… hittat!','Tornet hämtar kaffe…','Räknar paragrafer…','Lastar 3D-moln i lastrummet…','Spänner fast sköldarna…','Värmer upp motorerna…'];
 const tabs=document.getElementById('tabs');order.forEach(k=>{const b=document.createElement('button');b.textContent=names[k];b.onclick=()=>go(k);b.id='t_'+k;tabs.appendChild(b)});
 function dispose(){if(!scene)return;scene.traverse(o=>{o.geometry&&o.geometry.dispose();o.material&&(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose())});bursts=[];gsap.globalTimeline.clear()}
@@ -426,7 +467,7 @@ function go2(k){cur=T[k];R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowM
  const ld=document.getElementById('load');ld.textContent=LOAD[Math.floor(Math.random()*LOAD.length)];setTimeout(()=>{if(ld.textContent)ld.textContent=''},2200);
  const card=document.getElementById('card');dispose();comp=null;cur.build();size();gsap.fromTo(card,{y:40,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'});
  h.textContent=cur.h;s.textContent=cur.s;a1.textContent=cur.l1;a2.textContent=cur.l2;const rb=document.getElementById('rw');rb.innerHTML='';rb.appendChild(rateUI('world:'+k,'Värld: '+names[k],'Världar'));gsap.fromTo(cv,{opacity:0},{opacity:1,duration:.8});
- if(AC){setPad(cur.pad);play('whoosh',{v:.35,rate:1.4});voice(cur.v,.5)}}
+ if(AC){setPad(cur.pad);play('whoosh',{v:.35,rate:1.4});if(cur.v)voice(cur.v,.5)}}
 a1.onclick=()=>{cur.a1();if(cur!==T.drakar&&!cur.own)runSel('spara',()=>SP[CH.spara]&&SP[CH.spara]())};a2.onclick=()=>{cur.a2();if(cur!==T.drakar&&!cur.own)runSel('skicka',()=>SK[CH.skicka]&&SK[CH.skicka]())};
 document.getElementById('snd').onclick=e=>{on=!on;e.target.textContent=on?'🔊':'🔇';if(pad)pad.g.gain.setTargetAtTime(on?.35:0,AC.currentTime,.3)};
 // easter eggs
@@ -439,12 +480,12 @@ document.getElementById('go').onclick=()=>{const st=document.getElementById('sta
  try{AC=new (window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.gain.value=.9;master.connect(AC.destination);AC.resume&&AC.resume();
   const b=AC.createBuffer(1,1,22050),q=AC.createBufferSource();q.buffer=b;q.connect(AC.destination);q.start(0)}catch(e){console.warn(e)}
  gsap.to(st,{opacity:0,duration:.5,onComplete:()=>st.remove()});showWorlds();
- Promise.all([...files.map(f=>load('ljud/'+f+'.mp3?v=202610212335').then(x=>buf[f]=x).catch(()=>{})),...voices.map(v=>load('rost_sm/'+v+'.mp3?v=202610212335').then(x=>buf['v_'+v]=x).catch(()=>{}))]).then(()=>Promise.all(Object.entries(ALIAS).map(([k,f])=>load('bibl/'+f+'.mp3?v=202610212335').then(x=>buf[k]=x).catch(()=>{})))).then(()=>{if(cur&&!wv)setPad(cur.pad)})};
+ Promise.all([...files.map(f=>load('ljud/'+f+'.mp3?v=202610212350').then(x=>buf[f]=x).catch(()=>{})),...voices.map(v=>load('rost_sm/'+v+'.mp3?v=202610212350').then(x=>buf['v_'+v]=x).catch(()=>{}))]).then(()=>Promise.all(Object.entries(ALIAS).map(([k,f])=>load('bibl/'+f+'.mp3?v=202610212350').then(x=>buf[k]=x).catch(()=>{})))).then(()=>{if(cur&&!wv)setPad(cur.pad)})};
 const ALIAS={'roar': 'drake/drakvral', 'clang': 'hjalte/svardsklang-1', 'epic': 'fanfar/fanfar-trumpet', 'backbeep': 'ramp/backpip', 'radio': 'radio/walkie', 'impact': 'hjalte/metallklang', 'boing': 'humor/boing', 'gatechime': 'notis/notis-bong', 'tick': 'ui/klick'};
 Promise.resolve().then(()=>{});
 addEventListener('touchend',()=>{AC&&AC.state!=='running'&&AC.resume()},{passive:true});addEventListener('click',()=>{AC&&AC.state!=='running'&&AC.resume()});
 // ---------- WORLD PICKER (immersive entry) ----------
-const DESC={torn:'Flygledartornet i skymning',ramp:'Pushback och bagagetåg i natt',avisning:'Snöstorm och avisningsbil',terminal:'Glasterminal i gryning',norrsken:'Premium: norrsken, frusen sjö och stjärnfall',norrsken_k:'Första versionen, för jämförelse',drakar:'Hjältar mot drakarna',hav:'Fiskstim och ljusstrålar',rymd:'Rymdstation över jorden',serie:'PANG! Serietidning'};
+const DESC={torn:'Flygledartornet i skymning',ramp:'Pushback och bagagetåg i natt',avisning:'Snöstorm och avisningsbil',terminal:'Glasterminal i gryning',norrsken:'Premium: norrsken, frusen sjö och stjärnfall',norrsken_k:'Första versionen, för jämförelse',norrsken_lyx:'Klassisk med lyxputs: glans, glitter och spegling',drakar:'Hjältar mot drakarna',hav:'Fiskstim och ljusstrålar',rymd:'Rymdstation över jorden',serie:'PANG! Serietidning'};
 const wl=document.getElementById('worlds');let wv=false;
 order.forEach((k,i)=>{const c=document.createElement('button');c.className='wc';c.innerHTML=`<span class=e>${names[k].split(' ')[0]}</span><b>${names[k].split(' ').slice(1).join(' ')}</b><small>${DESC[k]}</small>`;c.onclick=()=>enter(k,c);wl.querySelector('.g').appendChild(c)});
 function showWorlds(){wv=true;setPad(null);wl.style.display='flex';gsap.fromTo(wl.querySelectorAll('.wc'),{y:40,opacity:0,scale:.9},{y:0,opacity:1,scale:1,duration:.5,stagger:.04,ease:'power3.out'});gsap.to('#ui',{opacity:0,duration:.3});document.getElementById('back').style.display='none'}
@@ -455,7 +496,7 @@ function enter(k,c){wv=false;play('whoosh',{v:.6});const r=c.getBoundingClientRe
   gsap.to(z,{opacity:0,duration:.6,onComplete:()=>z.remove()});gsap.fromTo('#ui',{opacity:0},{opacity:1,duration:.6,delay:.6});document.getElementById('back').style.display='block';if(AC)setPad(cur.pad)}})}
 document.getElementById('back').onclick=()=>{play('swish');showWorlds()};
 // ---------- MIKRO-ANIMATIONER (rollbaserade) ----------
-const BB={};const bp=(f,o={})=>{if(!AC||!on)return;const k='b:'+f;if(buf[k])return play(k,o);load('bibl/'+f+'.mp3?v=202610212335').then(x=>{buf[k]=x;play(k,o)}).catch(()=>{})};
+const BB={};const bp=(f,o={})=>{if(!AC||!on)return;const k='b:'+f;if(buf[k])return play(k,o);load('bibl/'+f+'.mp3?v=202610212350').then(x=>{buf[k]=x;play(k,o)}).catch(()=>{})};
 const NS='http://www.w3.org/2000/svg';
 function lay(t,pad=0,z=60){const r=t.getBoundingClientRect();const d=document.createElement('div');d.style.cssText=`position:fixed;left:${r.left-pad}px;top:${r.top-pad}px;width:${r.width+pad*2}px;height:${r.height+pad*2}px;pointer-events:none;z-index:${z};overflow:visible`;document.body.appendChild(d);d.r=r;return d}
 const svg=(w,h,inner,css='')=>`<svg xmlns="${NS}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible;${css}">${inner}</svg>`;
