@@ -1,0 +1,92 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Skiss: Välkommen – Norrsken klassisk lyx</title><meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0}html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:#eef4ff;background:#020817}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.22);box-shadow:0 8px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px}
+.gold{border-color:rgba(255,215,140,.55)}
+.red{background:linear-gradient(135deg,#e3263a,#a50f1f);border:1px solid #ff8a95;box-shadow:0 6px 24px rgba(227,38,58,.55),inset 0 1px 0 rgba(255,255,255,.45)}
+/* landning */
+#home{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;padding:14px 16px 70px;max-width:980px;margin:auto;opacity:0;transform:scale(.97);transition:opacity .6s,transform .6s}
+#home.on{opacity:1;transform:none}
+.top{display:flex;align-items:center;gap:10px}.top img{height:30px;background:#fff;border-radius:7px;padding:3px 6px}.top h1{font-size:17px;flex:1}
+.hi{font-size:26px;font-weight:800;margin:14px 2px;text-shadow:0 0 14px rgba(120,255,200,.55)}
+.acts{flex:1;display:grid;gap:16px;grid-template-rows:1fr 1fr}
+@media(min-width:760px){.acts{grid-template-rows:none;grid-template-columns:1fr 1fr;max-height:420px}.hi{text-align:center;font-size:34px;margin:30px 0}.top h1{font-size:22px}}
+.a{display:flex;flex-direction:column;justify-content:center;padding:22px;border-radius:26px;color:#fff}.a b{font-size:30px}.a p{opacity:.9;margin-top:6px}
+.chips{display:flex;gap:8px;margin-top:14px}.chips span{flex:1;text-align:center;padding:10px 0;border-radius:14px;background:rgba(255,255,255,.18);font-size:22px}
+.mer{align-self:center;margin-top:14px;padding:10px 26px;font-weight:700;border-radius:30px}
+/* intro */
+#intro{position:fixed;inset:0;z-index:5;display:none;place-items:center;text-align:center;cursor:pointer}
+#intro.on{display:grid}
+#logo{height:56px;background:#fff;border-radius:12px;padding:8px 14px;opacity:0;transform:translateY(30px)}
+#t1{font-size:clamp(24px,6vw,44px);font-weight:800;margin-top:22px;opacity:0;text-shadow:0 0 20px rgba(120,255,200,.7)}
+#t2{font-size:clamp(14px,3.6vw,20px);color:#ffd98a;letter-spacing:2px;text-transform:uppercase;margin-top:10px;opacity:0}
+#skip{position:fixed;bottom:22px;left:0;right:0;font-size:13px;opacity:.55}
+.fx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.go #logo{animation:up .9s .5s forwards cubic-bezier(.2,.8,.2,1)}.go #t1{animation:fade .8s 1.1s forwards}.go #t2{animation:fade .8s 1.6s forwards}
+@keyframes up{to{opacity:1;transform:none}}@keyframes fade{to{opacity:1}}
+/* G boardingkort */
+.bp{width:min(340px,86vw);padding:18px;border-radius:18px;text-align:left;color:#0d1730;background:linear-gradient(#fff,#e9eef7);box-shadow:0 20px 50px rgba(0,0,0,.6);animation:bp 1s cubic-bezier(.2,.9,.2,1) forwards;transform:translateY(110vh)}
+.bp .r{display:flex;justify-content:space-between;font-size:12px;color:#5b6680;margin-top:10px}.bp .r b{display:block;font-size:20px;color:#0d1730}.bp .h{display:flex;justify-content:space-between;align-items:center;border-bottom:2px dashed #c4cbe0;padding-bottom:10px}
+.bp .h img{height:28px}.bp .stamp{margin-top:12px;text-align:center;font-weight:900;color:#c3162a;border:3px solid #c3162a;border-radius:8px;padding:4px;transform:rotate(-6deg) scale(2);opacity:0;animation:st .35s 1.4s forwards}
+@keyframes bp{to{transform:none}}@keyframes st{to{transform:rotate(-6deg) scale(1);opacity:1}}
+/* H avgångstavla */
+.fl{display:flex;gap:4px;justify-content:center;flex-wrap:wrap}.fl span{width:clamp(22px,7vw,40px);height:clamp(34px,10vw,58px);display:grid;place-items:center;background:#111a2c;border-radius:5px;font:800 clamp(18px,6vw,34px) ui-monospace,monospace;color:#ffd98a;box-shadow:inset 0 -1px 0 #000,inset 0 50% 0 rgba(255,255,255,.04)}
+.board{padding:18px;border-radius:16px;background:rgba(5,10,22,.85);border:1px solid #2a3550}.board small{display:block;color:#8fa0c4;letter-spacing:3px;margin-bottom:10px;font-size:12px}
+/* panel */
+#bar{position:fixed;left:8px;right:8px;bottom:8px;z-index:9;display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;padding:6px;border-radius:16px;font-size:13px}
+#bar button{font:inherit;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:7px 9px;min-width:34px}
+#bar button.on{background:#c3162a;border-color:#ff8a95}#bar .p{background:#1e7a55}
+#info{position:fixed;left:0;right:0;bottom:62px;z-index:9;text-align:center;font-size:13px;color:#cfe;text-shadow:0 1px 4px #000;padding:0 10px}
+</style></head><body>
+<canvas id="sky"></canvas>
+<main id="home"><div class="top"><img src="seko-logo.svg" alt="Seko"><h1>Seko klubb Menzies Arlanda</h1></div>
+<div class="hi" id="greet">Vad vill du göra?</div>
+<div class="acts"><div class="a red"><b>📝 Dokumentera</b><p>Skriv ner det direkt. Sparas bara i din telefon.</p><div class="chips"><span>📷</span><span>🎙️</span><span>🎥</span><span>✏️</span></div></div>
+<div class="a glass gold"><b>📣 Anmäl till facket</b><p>Enkelt, tre tryck.</p></div></div>
+<div class="mer glass">☰ Mer</div></main>
+<div id="intro"><div id="box"></div><div id="skip">Tryck var som helst för att hoppa över</div></div>
+<div id="info"></div>
+<div id="bar" class="glass"></div>
+<script>
+const C={A:'Första gången (3 s): norrskenet tänds, loggan glider in',B:'Återkommande: kort glimt (1 s), sen direkt in',C:'Tryck var som helst för att hoppa över',D:'Hälsning efter tid på dygnet',E:'Vintersnö över himlen',F:'Banljusen tänds en efter en, inflygning mot loggan',G:'Boardingkort: "Gate Tillsammans", stämpeln KLAR',H:'Avgångstavlan fladdrar fram VÄLKOMMEN'};
+let cur='A',snow=false,ign=0,T0=performance.now(),runway=0;
+const cv=document.getElementById('sky'),x=cv.getContext('2d');let W,H;
+function rs(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio}rs();onresize=rs;
+const stars=[...Array(220)].map(()=>[Math.random(),Math.random()*.75,Math.random()*1.5+.3,Math.random()*6]);
+const flakes=[...Array(140)].map(()=>[Math.random(),Math.random(),Math.random()*2+1,Math.random()*.5+.3]);
+function draw(t){const s=t/1000;const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#071a3d');g.addColorStop(.6,'#030b22');g.addColorStop(1,'#01040d');x.fillStyle=g;x.fillRect(0,0,W,H);
+ for(const[a,b,r,p]of stars){x.globalAlpha=.4+.6*Math.abs(Math.sin(s*1.3+p));x.fillStyle='#fff';x.fillRect(a*W,b*H,r*devicePixelRatio,r*devicePixelRatio)}
+ x.globalCompositeOperation='lighter';
+ for(let k=0;k<3;k++){const col=[[40,255,170],[120,255,140],[160,90,255]][k];
+  for(let i=0;i<=60;i++){const u=i/60,y=H*(.22+.07*k+.05*Math.sin(u*5+s*.4+k)+.03*Math.sin(u*13-s*.7)),h=H*(.18+.06*Math.sin(u*7+s+k));
+   const gg=x.createLinearGradient(0,y-h,0,y);gg.addColorStop(0,'rgba(0,0,0,0)');gg.addColorStop(1,`rgba(${col},${.07*ign*(.6+.4*Math.sin(u*30+s*2))})`);x.fillStyle=gg;x.fillRect(u*W-W/60,y-h,W/30+2,h)}}
+ x.globalCompositeOperation='source-over';x.globalAlpha=1;
+ // bana
+ const n=14;for(let i=0;i<n;i++){const on=runway>=0?(i/n<runway):1;const p=i/n,yy=H*(.86+.14*p*p),sp=W*(.04+.3*p*p);for(const sd of[-1,1]){x.fillStyle=on?'rgba(255,200,128,.95)':'rgba(255,200,128,.12)';const r=(1+4*p)*devicePixelRatio;x.beginPath();x.arc(W/2+sd*sp,yy,r,0,7);x.fill()}}
+ if(snow){x.fillStyle='rgba(255,255,255,.85)';for(const f of flakes){f[1]+=f[3]*.002;f[0]+=Math.sin(s+f[1]*9)*.0006;if(f[1]>1){f[1]=0;f[0]=Math.random()}x.beginPath();x.arc(f[0]*W,f[1]*H,f[2]*devicePixelRatio,0,7);x.fill()}}
+ requestAnimationFrame(draw)}requestAnimationFrame(draw);
+function anim(to,ms){const f=ign,st=performance.now();(function st2(){const k=Math.min(1,(performance.now()-st)/ms);ign=f+(to-f)*k;if(k<1)requestAnimationFrame(st2)})()}
+function greeting(){const h=new Date().getHours();return h<5?'Lugnt pass i natt? 🌙':h<10?'God morgon ☕':h<17?'God dag ✈️':h<22?'God kväll 🌆':'Lugnt pass i natt? 🌙'}
+const intro=document.getElementById('intro'),box=document.getElementById('box'),home=document.getElementById('home');let tm=[];
+function clear(){tm.forEach(clearTimeout);tm=[]}
+function land(){clear();intro.classList.remove('on','go');home.classList.add('on');runway=1;ign=Math.max(ign,.55);document.getElementById('greet').textContent=cur=='D'?greeting()+' Vad vill du göra?':'Vad vill du göra?'}
+intro.onclick=land;
+const STD='<img id="logo" src="seko-logo.svg" alt="Seko"><div id="t1">Välkommen ombord</div><div id="t2">Tillsammans är vi starka</div>';
+function play(){clear();home.classList.remove('on');ign=0;runway=1;intro.classList.remove('go');intro.classList.add('on');void intro.offsetWidth;let dur=3200;
+ document.getElementById('skip').style.display='block';
+ if(cur=='B'){box.innerHTML='<img id="logo" src="seko-logo.svg" alt="Seko" style="opacity:1;transform:none">';ign=.55;dur=1000;tm.push(setTimeout(()=>box.firstChild.style.cssText+='transition:.4s;opacity:0;transform:scale(1.15)',600))}
+ else if(cur=='D'){box.innerHTML=STD.replace('Välkommen ombord',greeting());anim(1,1500);intro.classList.add('go')}
+ else if(cur=='F'){runway=0;box.innerHTML=STD;let k=0;const iv=setInterval(()=>{runway=k/14;k++;if(k>15)clearInterval(iv)},90);tm.push(setTimeout(()=>{anim(1,1200);intro.classList.add('go')},600));dur=3800}
+ else if(cur=='G'){box.innerHTML='<div class="bp"><div class="h"><img src="seko-logo.svg" alt="Seko"><b>BOARDING PASS</b></div><div class="r"><span>FRÅN<b>Ensam</b></span><span>TILL<b>Tillsammans</b></span></div><div class="r"><span>GATE<b>✊ 1</b></span><span>PLATS<b>Din</b></span><span>KLASS<b>Medlem</b></span></div><div class="stamp">✔ KLAR FÖR START</div></div>';anim(1,1500);dur=3400}
+ else if(cur=='H'){const w='VÄLKOMMEN';box.innerHTML='<div class="board"><small>AVGÅNG · GATE TILLSAMMANS</small><div class="fl">'+[...w].map(()=>'<span>A</span>').join('')+'</div><div id="t2" style="opacity:1;margin-top:14px">Tillsammans är vi starka</div></div>';anim(.8,1200);
+   const sp=box.querySelectorAll('.fl span'),L='ABCDEFGHIJKLMNOPRSTUVÅÄÖ';sp.forEach((e,i)=>{let n=0;const iv=setInterval(()=>{e.textContent=L[Math.random()*L.length|0];if(++n>8+i*3){clearInterval(iv);e.textContent=w[i]}},55)});dur=3300}
+ else{box.innerHTML=STD;anim(1,1500);intro.classList.add('go');if(cur=='C')document.getElementById('skip').innerHTML='👆 <b>Tryck var som helst för att hoppa över</b>'}
+ tm.push(setTimeout(land,dur))}
+const bar=document.getElementById('bar'),info=document.getElementById('info');
+function ui(){bar.innerHTML=Object.keys(C).map(k=>`<button class="${k==cur?'on':''}" data-k="${k}">${k}</button>`).join('')+`<button data-s>${snow?'❄️ på':'❄️ av'}</button><button class="p" data-p>▶ Spela</button>`;info.textContent=cur+') '+C[cur]}
+bar.onclick=e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();if(b.dataset.k){cur=b.dataset.k;if(cur=='E')snow=true;ui();play()}else if('s' in b.dataset){snow=!snow;ui()}else play()};
+const q=new URLSearchParams(location.search).get('k');if(q&&C[q])cur=q;if(cur=='E')snow=true;
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){ui();land()}else{ui();play()}
+</script></body></html>
