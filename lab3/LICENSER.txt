@@ -17,3 +17,7 @@ rost_sm/*.mp3  Microsoft sv-SE-SofieNeural och sv-SE-MattiasNeural, genererade m
 rostprov/      Tre röstprov med samma källa och villkor som ovan.
 three.js r160 (MIT) och GSAP 3.13 (GSAP Standard License) laddas från jsDelivr.
 Drakarna är symboler för problem på jobbet (schema, lön, stress, övertid). De föreställer inte personer.
+
+Flygplan (modeller/plan.glb): "Passenger Airplane" (light), Grab3D, CC0 1.0 – https://grab3d.com/models/vehicles/passenger-airplane/
+Nya Sofie-repliker ns_*.mp3: edge-tts sv-SE-SofieNeural (inofficiellt, endast test).
+Norrsken-musik: egen generativ syntes (Web Audio).
