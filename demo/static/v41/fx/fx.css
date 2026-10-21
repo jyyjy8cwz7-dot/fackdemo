@@ -1,12 +1,12 @@
 /* Fackappen effekter p56 – egen kod, inga externa bibliotek. Av vid prefers-reduced-motion. */
 .fxl{position:fixed;inset:0;pointer-events:none;z-index:9000;overflow:hidden}
-.fx-aur{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;mix-blend-mode:screen;opacity:.55}
+.fx-aur{position:fixed;left:0;right:0;top:0;height:34vh;pointer-events:none;overflow:hidden;z-index:1;opacity:.55}
 header{position:relative}header .bar{position:relative;z-index:1}
-.fx-aur i{position:absolute;left:-20%;width:140%;height:120%;top:-40%;border-radius:50%;filter:blur(28px);background:radial-gradient(ellipse at 50% 60%,#2ee59d88 0,#2ee59d00 60%);animation:fxaur 14s ease-in-out infinite alternate}
-.fx-aur i:nth-child(2){background:radial-gradient(ellipse at 40% 70%,#5fd3ff66 0,#5fd3ff00 55%);animation-duration:19s;animation-delay:-6s}
-.fx-aur i:nth-child(3){background:radial-gradient(ellipse at 60% 65%,#b98cff55 0,#b98cff00 50%);animation-duration:23s;animation-delay:-11s}
+.fx-aur i{position:absolute;left:-20%;width:140%;height:120%;top:-40%;border-radius:50%;filter:blur(28px);background:radial-gradient(ellipse at 50% 60%,#2ee59dcc 0,#2ee59d00 62%);animation:fxaur 14s ease-in-out infinite alternate}
+.fx-aur i:nth-child(2){background:radial-gradient(ellipse at 40% 70%,#5fd3ffaa 0,#5fd3ff00 55%);animation-duration:19s;animation-delay:-6s}
+.fx-aur i:nth-child(3){background:radial-gradient(ellipse at 60% 65%,#b98cff99 0,#b98cff00 50%);animation-duration:23s;animation-delay:-11s}
 @keyframes fxaur{0%{transform:translateX(-8%) skewX(-8deg) scaleY(.9)}50%{transform:translateX(6%) skewX(6deg) scaleY(1.1)}100%{transform:translateX(-3%) skewX(-3deg) scaleY(1)}}
-main.fx-flip{animation:fxflip .45s cubic-bezier(.2,.8,.3,1) both;transform-origin:50% 0;backface-visibility:hidden}
+.fx-flip{animation:fxflip .6s cubic-bezier(.2,.8,.3,1) both;transform-origin:50% 0;backface-visibility:hidden}
 @keyframes fxflip{from{transform:perspective(900px) rotateY(-70deg);opacity:0}to{transform:none;opacity:1}}
 .fx-shake{animation:fxshake .4s}@keyframes fxshake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
 .fx-blink{animation:fxblink 1s ease-in-out 4;box-shadow:0 0 0 3px #B02A43}@keyframes fxblink{50%{box-shadow:0 0 0 6px #B02A4300}}
@@ -14,9 +14,9 @@ main.fx-flip{animation:fxflip .45s cubic-bezier(.2,.8,.3,1) both;transform-origi
 .fx-card b{background:#1E2A38;color:#fff;padding:12px 14px;writing-mode:vertical-rl;font-size:12px;letter-spacing:.15em}
 .fx-card div{padding:10px 14px;border-left:2px dashed #C7CACF}.fx-card small{display:block;font-weight:400;color:#555}
 .fx-board{position:fixed;left:50%;top:40%;transform:translateX(-50%);z-index:9001;background:#111;color:#ffd447;font:700 20px ui-monospace,monospace;padding:10px 16px;border-radius:8px;letter-spacing:.12em;box-shadow:0 8px 24px #0006;pointer-events:none;white-space:nowrap}
-.fx-snow{position:absolute;top:-24px;color:#fff;text-shadow:0 0 4px #7ab8ff;font-size:20px;animation:fxsnow linear forwards}
+.fx-snow{position:absolute;top:-24px;color:#fff;text-shadow:0 0 6px #2a7fff,0 0 2px #2a7fff;font-size:20px;animation:fxsnow linear forwards}
 @keyframes fxsnow{to{transform:translateY(105vh) rotate(360deg)}}
-.fx-snowbg{position:absolute;inset:0;background:#1E2A3833}
+.fx-snowbg{position:absolute;inset:0;background:#1E2A3866}
 .fx-radar{position:absolute;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#06281a 0,#03140d 70%);border:2px solid #2ee59d88;overflow:hidden;opacity:.9}
 .fx-radar::after{content:"";position:absolute;inset:0;background:conic-gradient(from 0deg,#2ee59d00 0 300deg,#2ee59daa 360deg);animation:fxspin 1s linear 2}
 @keyframes fxspin{to{transform:rotate(360deg)}}
@@ -25,7 +25,9 @@ main.fx-flip{animation:fxflip .45s cubic-bezier(.2,.8,.3,1) both;transform-origi
 @keyframes fxconf{to{transform:translate(var(--x),var(--y)) rotate(720deg);opacity:0}}
 .fx-lamp{position:fixed;left:50%;top:80px;transform:translateX(-50%);z-index:9001;display:flex;align-items:center;gap:10px;background:#0c1a12ee;border:1px solid #2ee59d66;border-radius:999px;padding:8px 14px 8px 8px;font:800 14px system-ui;color:#d9ffe9;pointer-events:none}
 .fx-lamp i{width:22px;height:22px;border-radius:50%;background:#2ee59d;animation:fxlamp 1s ease-out 3}@keyframes fxlamp{from{box-shadow:0 0 0 0 #2ee59daa}to{box-shadow:0 0 0 16px #2ee59d00}}
-.fx-tg{position:fixed;right:10px;bottom:84px;z-index:8000;border-radius:999px;border:1px solid #1E2A3855;background:#fffe;padding:6px 12px;font-size:15px;min-height:40px}
-.fx-tg[aria-pressed=true]{background:#1E2A38;color:#fff}
 .fx-in{animation:fxin .3s ease-out both}.fx-out{animation:fxin .4s ease-in reverse both}@keyframes fxin{from{opacity:0;transform:translate(-50%,20px)}}
-@media (prefers-reduced-motion:reduce){.fx-aur i,main.fx-flip,.fx-shake,.fx-blink{animation:none!important}.fxl,.fx-card,.fx-board,.fx-lamp{display:none!important}}
+
+.fx-badge{position:fixed;left:6px;top:50%;writing-mode:vertical-rl;transform:translateY(-50%);z-index:9002;pointer-events:none;background:#1E2A38dd;color:#d9ffe9;font:700 11px system-ui;padding:3px 8px;border-radius:999px}
+/* Minska rörelse på: lugnare men synligt */
+.fx-lugn .fx-flip{animation:fxfade .35s ease-out both}@keyframes fxfade{from{opacity:0;transform:scale(.97)}to{opacity:1}}
+.fx-lugn .fx-aur i{animation-duration:40s}

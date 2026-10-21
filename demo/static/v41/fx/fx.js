@@ -1,7 +1,9 @@
-/* Fackappen effekter p56. Egen kod, inga CDN. Ljud AV som standard (samma knapp 🔇/🔊, nyckel fack_snd).
+/* Fackappen effekter p57: bilder visas ALLTID (även med Minska rörelse: lugnare variant), ljud bara om på. Ingen bakgrundsljud.
+   p56: Egen kod, inga CDN. Ljud AV som standard (samma knapp 🔇/🔊, nyckel fack_snd).
    Allvarliga sidor laddar inte denna fil alls. Element inom [data-nofx] får inga effekter. */
 (function(){
-var P=(location.pathname.replace(/^\/fackdemo\/demo/,"").replace(/\.html$/,"").replace(/\/index$/,"/"))||"/",RM=matchMedia("(prefers-reduced-motion: reduce)").matches,BASE="/fackdemo/demo/static/v41/fx/",C={};
+var P=(location.pathname.replace(/^\/fackdemo\/demo/,"").replace(/\.html$/,"").replace(/\/index$/,"/"))||"/",RM0=matchMedia("(prefers-reduced-motion: reduce)").matches,RM=false,BASE=(document.currentScript&&document.currentScript.src?document.currentScript.src.replace(/fx\.js.*$/,""):"/fackdemo/demo/static/v41/fx/"),C={};
+if(RM0)document.documentElement.classList.add("fx-lugn");
 function on(){try{return localStorage.getItem("fack_snd")==="1"}catch(e){return false}}
 function snd(n,v,voice){if(!on())return null;try{var a=C[n]||(C[n]=new Audio(BASE+(voice?"rost/":"ljud/")+n+".mp3"));a=a.paused?a:a.cloneNode();a.volume=v==null?.5:v;a.currentTime=0;a.play().catch(function(){});return a}catch(e){return null}}
 function layer(ms){var d=document.createElement("div");d.className="fxl";document.body.appendChild(d);setTimeout(function(){d.remove()},ms||2500);return d}
@@ -11,7 +13,7 @@ var FX={
  spara:function(){snd("bekrafta",.5);setTimeout(function(){snd("klocka",.25)},250);setTimeout(function(){snd("sparat",.6,1)},500);if(RM)return;
   var c=document.createElement("div");c.className="fx-card";c.innerHTML="<b>BOARDING</b><div>SPARAT ✓<small>Gate: din telefon · "+new Date().toTimeString().slice(0,5)+"</small></div>";tmp(c,2000)},
  skicka:function(){snd("skicka-svep",.5);if(RM)return;var b=document.createElement("div");b.className="fx-board";var s="SKICKAT ✈ AVGÅNG ",i=0;b.textContent="";tmp(b,2000);var t=setInterval(function(){b.textContent=s.slice(0,++i);if(i>=s.length)clearInterval(t)},45)},
- laddar:function(){if(RM)return;var L=layer(1800),bg=document.createElement("div");bg.className="fx-snowbg";L.appendChild(bg);for(var i=0;i<18;i++){var f=document.createElement("span");f.className="fx-snow";f.textContent="❄";f.style.left=Math.random()*100+"%";f.style.animationDuration=(1+Math.random()*.9)+"s";f.style.fontSize=(12+Math.random()*16)+"px";L.appendChild(f)}},
+ laddar:function(){if(RM)return;var L=layer(1800),bg=document.createElement("div");bg.className="fx-snowbg";L.appendChild(bg);for(var i=0;i<28;i++){var f=document.createElement("span");f.className="fx-snow";f.textContent="❄";f.style.left=Math.random()*100+"%";f.style.animationDuration=(1+Math.random()*.9)+"s";f.style.fontSize=(18+Math.random()*18)+"px";L.appendChild(f)}},
  varning:function(els){snd("varning",.55,1);if(RM)return;(els||[]).forEach(function(e){e.classList.remove("fx-blink");void e.offsetWidth;e.classList.add("fx-blink")})},
  sok:function(t){snd("rymdpip",.3);if(RM||!t)return;var r=t.getBoundingClientRect(),L=layer(2100),d=document.createElement("div");d.className="fx-radar";d.style.left=Math.max(0,r.right-130)+"px";d.style.top=(r.top+r.height/2-60)+"px";L.appendChild(d)},
  vunnet:function(){snd("drakvral",.5);setTimeout(function(){snd("fanfar-trumpet",.6)},900);if(RM)return;var L=layer(3200),d=document.createElement("div");d.className="fx-big";d.textContent="🐉";L.appendChild(d);
@@ -30,9 +32,14 @@ var FX={
 };
 window.fx=function(n,a){if(FX[n])try{FX[n](a)}catch(e){}};
 /* sidbyte: 3D-kortvändning */
-var M=document.querySelector("main");if(M&&!RM){M.classList.add("fx-flip");try{if(sessionStorage.getItem("fx_seen"))snd("blad",.25);sessionStorage.setItem("fx_seen","1")}catch(e){}}
+var M=document.querySelector("main")||document.querySelector(".st")||document.querySelector(".s.on")||document.body.firstElementChild;if(M){M.classList.add("fx-flip");try{if(sessionStorage.getItem("fx_seen"))snd("blad",.25);sessionStorage.setItem("fx_seen","1")}catch(e){}}
+new MutationObserver(function(ms){ms.forEach(function(m){var t=m.target;if(t.classList&&t.classList.contains("s")&&t.classList.contains("on")&&!t._fl){t._fl=1;t.classList.remove("fx-flip");void t.offsetWidth;t.classList.add("fx-flip");setTimeout(function(){t._fl=0},500)}})}).observe(document.body,{subtree:true,attributes:true,attributeFilter:["class"]});
+/* liten skylt: Effekter på */
+(function(){var b=document.createElement("div");b.className="fx-badge";b.setAttribute("aria-hidden","true");b.textContent="✨ Effekter på";document.body.appendChild(b)})();
+/* iOS: lås upp ljud vid första tryck */
+document.addEventListener("touchend",function u(){document.removeEventListener("touchend",u,true);if(!on())return;try{var a=new Audio(BASE+"ljud/backpip.mp3");a.volume=0;a.play().catch(function(){})}catch(e){}},true);
 /* ljud av/på */
-var T=document.getElementById("sndt");if(T)T.addEventListener("click",function(){setTimeout(function(){if(on())snd("vaxla",.5);else stopLoops()},30)});
+var T=document.getElementById("sndt");if(T)T.addEventListener("click",function(){setTimeout(function(){if(on())snd("vaxla",.5);},30)});
 /* klick: spara / skicka / tillbaka */
 document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("a,button,input[type=submit]");if(!t||nofx(t))return;var x=(t.textContent||t.value||"").trim().toLowerCase();
  if(t.classList.contains("bk")||/history\.back/.test(t.getAttribute("href")||"")||/^←|ångra/.test(x)){FX.tillbaka();return}
@@ -55,13 +62,8 @@ if(P==="/fackdemo/demo/n/brister.html")document.addEventListener("change",functi
 if(P==="/fackdemo/demo/ombud/skyddsombud.html")document.addEventListener("change",function(e){if(!/^r54_/.test(e.target.id||""))return;var a=document.querySelectorAll('input[id^="r54_"]');if(a.length&&Array.prototype.every.call(a,function(c){return c.checked}))FX.rond()});
 /* ombud: inloggad -> "skriver på" (en gång per session) */
 if(P==="/fackdemo/demo/ombud.html"){try{if(!sessionStorage.getItem("fx_sign")){sessionStorage.setItem("fx_sign","1");FX.signa()}}catch(e){}}
-/* loopar: gate-ambiens (start), radioprat (ombud). AV som standard, egen knapp. */
-var loops=[];function stopLoops(){loops.forEach(function(l){if(l.a){l.a.pause();l.a=null}l.b.setAttribute("aria-pressed","false")})}
-function loopBtn(key,label,file,vol){var b=document.createElement("button");b.type="button";b.className="fx-tg";b.textContent=label;b.setAttribute("aria-pressed","false");document.body.appendChild(b);var L={b:b,a:null};loops.push(L);
- function st(o){if(o){if(!on()){try{localStorage.setItem("fack_snd","1")}catch(e){}var s=document.getElementById("sndt");if(s){s.textContent="🔊";s.setAttribute("aria-pressed","true")}}L.a=new Audio(BASE+"ljud/"+file+".mp3");L.a.loop=true;L.a.volume=vol;L.a.play().catch(function(){})}else if(L.a){L.a.pause();L.a=null}b.setAttribute("aria-pressed",o?"true":"false");try{sessionStorage.setItem(key,o?"1":"0")}catch(e){}}
- b.addEventListener("click",function(){st(!L.a)});}
-if(P==="/"){var h=document.querySelector("header");if(h){var a=document.createElement("div");a.className="fx-aur";a.setAttribute("aria-hidden","true");a.innerHTML="<i></i><i></i><i></i>";h.insertBefore(a,h.firstChild)}loopBtn("fx_gate","✈️ Gate-ljud","gate-ambiens",.18)}
-if(/^\/ombud/.test(P)&&P!=="/fackdemo/demo/ombud.html")loopBtn("fx_radio","📻 Radio","radioprat",.05);
+/* norrsken på startsidan (syns alltid) */
+if(P==="/"){var a=document.createElement("div");a.className="fx-aur";a.setAttribute("aria-hidden","true");a.innerHTML="<i></i><i></i><i></i>";document.body.insertBefore(a,document.body.firstChild)}
 /* ärendetavlan: deadline-varning */
 if(P==="/fackdemo/demo/ombud/arenden.html"){var lst=document.getElementById("a55list"),warned=false;if(lst)new MutationObserver(function(){var w=lst.querySelectorAll(".a55c.w,.a55c.x");if(w.length&&!warned){warned=true;FX.varning(Array.prototype.slice.call(w))}}).observe(lst,{childList:true});
  setTimeout(function(){var w=lst&&lst.querySelectorAll(".a55c.w,.a55c.x");if(w&&w.length&&!warned){warned=true;FX.varning(Array.prototype.slice.call(w))}},300)}
