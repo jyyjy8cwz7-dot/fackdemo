@@ -46,9 +46,9 @@ canvas#c{position:fixed;inset:0;width:100%;height:100%;display:block}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <canvas id=c></canvas><script>window.addEventListener("error",function(e){var d=document.getElementById("err");if(d){d.style.display="block";d.textContent="Fel: "+(e.message||"okänt")+" – prova att ladda om sidan."}});setTimeout(function(){if(!window.__go){var d=document.getElementById("err");d.style.display="block";d.textContent="3D-motorn laddades inte. Din webbläsare kan vara för gammal (iOS 16.4+ behövs) eller nätet långsamt. Ladda om sidan.";}},12000);</script>
-<div id=start><div><div class=logo style="display:inline-block"><img src="seko-logo.svg" alt="Seko" height=40></div><div style="font-size:13px;letter-spacing:.3em;opacity:.6;margin-top:18px">TESTMATERIAL · LAB 3</div><h1 style="font-size:34px;margin:10px 0">Sex världar på flygplatsen.<br>Plus drakar.</h1><p style="opacity:.7;max-width:320px;margin:auto">Torn, ramp, avisning, gryning, norrsken – och hjältar mot drakarna. Använd hörlurar.</p><button id=go>Starta ▶</button></div></div>
-<div id=ui><div id=top><div class=logo id=logo><img src="seko-logo.svg" alt="Seko"></div><span id=load></span></div><div id=tabs></div><div id=card><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><h1 id=h></h1><span id=rw></span></div><p id=s></p><div class=row><button class=act id=a1></button><button class="act b" id=a2></button></div></div></div>
-<button id=snd>🔊</button><button id=menu style="display:none">☰</button><div id=fx></div><div id=worlds><div class=wh><img src="seko-logo.svg" alt="Seko"><div><b>Välj en värld</b><small>Tryck på ett kort för att flyga in</small></div></div><div class=g></div></div><button id=back>← Tillbaka</button><div id=err></div><div id=panel></div><div id=toast></div>
+<div id=start><div><div class=logo style="display:inline-block"><img src="seko-logo.svg?v=202610212226" alt="Seko" height=40></div><div style="font-size:13px;letter-spacing:.3em;opacity:.6;margin-top:18px">TESTMATERIAL · LAB 3</div><h1 style="font-size:34px;margin:10px 0">Sex världar på flygplatsen.<br>Plus drakar.</h1><p style="opacity:.7;max-width:320px;margin:auto">Torn, ramp, avisning, gryning, norrsken – och hjältar mot drakarna. Använd hörlurar.</p><button id=go>Starta ▶</button></div></div>
+<div id=ui><div id=top><div class=logo id=logo><img src="seko-logo.svg?v=202610212226" alt="Seko"></div><span id=load></span></div><div id=tabs></div><div id=card><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><h1 id=h></h1><span id=rw></span></div><p id=s></p><div class=row><button class=act id=a1></button><button class="act b" id=a2></button></div></div></div>
+<button id=snd>🔊</button><button id=menu style="display:none">☰</button><div id=fx></div><div id=worlds><div class=wh><img src="seko-logo.svg?v=202610212226" alt="Seko"><div><b>Välj en värld</b><small>Tryck på ett kort för att flyga in</small></div></div><div class=g></div></div><button id=back>← Tillbaka</button><div id=err></div><div id=panel></div><div id=toast></div>
 
 <script type=module>
 import * as THREE from 'https://esm.sh/three@0.160.0';
@@ -64,7 +64,7 @@ const files=['backbeep', 'bekrafta', 'boing', 'bubbel', 'clang', 'coin', 'epic',
 const voices=['avisning', 'bagage', 'favorit', 'fler', 'gate', 'hav', 'hjalte', 'kaffe', 'laddar', 'norrsken', 'ramp', 'rymd', 'seger', 'serie', 'skickat', 'skickat_b', 'sparat', 'sparat_b', 'terminal', 'tills', 'torn', 'varning'];
 async function load(p){const r=await fetch(p);return AC.decodeAudioData(await r.arrayBuffer())}
 async function initAudio(){AC=new AudioContext();master=AC.createGain();master.gain.value=.9;master.connect(AC.destination);
- await Promise.all([...files.map(async f=>buf[f]=await load('ljud/'+f+'.mp3')),...voices.map(async v=>buf['v_'+v]=await load('rost/'+v+'.mp3'))])}
+ await Promise.all([...files.map(async f=>buf[f]=await load('ljud/'+f+'.mp3?v=202610212226')),...voices.map(async v=>buf['v_'+v]=await load('rost_sm/'+v+'.mp3?v=202610212226'))])}
 function play(n,{v=1,delay=0,rate=1,pan=0}={}){if(!on||!buf[n])return;const s=AC.createBufferSource();s.buffer=buf[n];s.playbackRate.value=rate;const g=AC.createGain();g.gain.value=v;const p=AC.createStereoPanner();p.pan.value=pan;s.connect(g).connect(p).connect(master);s.start(AC.currentTime+delay);return s}
 function voice(n,delay=0){if(!on||!buf['v_'+n])return;const s=AC.createBufferSource();s.buffer=buf['v_'+n];
  const duck=pad&&pad.g;if(duck){duck.gain.setTargetAtTime(.08,AC.currentTime+delay,.1);duck.gain.setTargetAtTime(.35,AC.currentTime+delay+s.buffer.duration,.4)}
@@ -357,7 +357,7 @@ document.getElementById('go').onclick=()=>{const st=document.getElementById('sta
  try{AC=new (window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.gain.value=.9;master.connect(AC.destination);AC.resume&&AC.resume();
   const b=AC.createBuffer(1,1,22050),q=AC.createBufferSource();q.buffer=b;q.connect(AC.destination);q.start(0)}catch(e){console.warn(e)}
  gsap.to(st,{opacity:0,duration:.5,onComplete:()=>st.remove()});showWorlds();
- Promise.all([...files.map(f=>load('ljud/'+f+'.mp3').then(x=>buf[f]=x).catch(()=>{})),...voices.map(v=>load('rost/'+v+'.mp3').then(x=>buf['v_'+v]=x).catch(()=>{}))]).then(()=>{if(cur&&!wv)setPad(cur.pad)})};
+ Promise.all([...files.map(f=>load('ljud/'+f+'.mp3?v=202610212226').then(x=>buf[f]=x).catch(()=>{})),...voices.map(v=>load('rost_sm/'+v+'.mp3?v=202610212226').then(x=>buf['v_'+v]=x).catch(()=>{}))]).then(()=>{if(cur&&!wv)setPad(cur.pad)})};
 addEventListener('touchend',()=>{AC&&AC.state!=='running'&&AC.resume()},{passive:true});addEventListener('click',()=>{AC&&AC.state!=='running'&&AC.resume()});
 // ---------- WORLD PICKER (immersive entry) ----------
 const DESC={torn:'Flygledartornet i skymning',ramp:'Pushback och bagagetåg i natt',avisning:'Snöstorm och avisningsbil',terminal:'Glasterminal i gryning',norrsken:'Norrsken över banan',drakar:'Hjältar mot drakarna',hav:'Fiskstim och ljusstrålar',rymd:'Rymdstation över jorden',serie:'PANG! Serietidning'};
