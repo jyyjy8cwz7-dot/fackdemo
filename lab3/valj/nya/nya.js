@@ -1,9 +1,8 @@
-/* ✨ Nya förslag – kort med Ja/Kanske/Nej + "Var i appen". Sparas bara i telefonen (localStorage). */
+/* ✨ Nya förslag – kort med Ja/Kanske/Nej och Ta bort förslaget. Sparas bara i telefonen (localStorage). */
 (function(){
 'use strict';
 const BAS=(document.currentScript&&document.currentScript.src||'').replace(/nya\.js.*$/,'')||'nya/';
 const I=(n,cls='nf-i')=>`<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${(window.NF_IKON||{})[n]||''}</svg>`;
-const PLATSER=['Startsida','Intro','Dina rättigheter','Ombud','Viktigt just nu','Avtal och lön','Nyheter','Rapportera','Inställningar'];
 const GRUPPER=[
  ['intro','clapperboard','Introt och 3D-Arlanda','Första mötet med appen. Stort, snyggt och kort.'],
  ['karta','map','Kartan i appen','Riktiga Arlanda att trycka på.'],
@@ -42,7 +41,10 @@ const F=[
  {id:'kontrast',g:'dela',ik:'shield-check',t:'Stor text och tydlig kontrast',m:'Alla knappar är minst 48 px och texten syns bra även i solsken.',k:'Beslut',pv:'kontrast',p:['Startsida','Inställningar']}
 ];
 const K='nya_forslag_val';let VAL={};try{VAL=JSON.parse(localStorage.getItem(K)||'{}')||{}}catch(e){VAL={}}
-const spara=()=>{try{localStorage.setItem(K,JSON.stringify(VAL))}catch(e){}};
+const KB='nya_forslag_bort';let BORT={};try{BORT=JSON.parse(localStorage.getItem(KB)||'{}')||{}}catch(e){BORT={}}
+let visaBort=false;
+const spara=()=>{try{localStorage.setItem(K,JSON.stringify(VAL));localStorage.setItem(KB,JSON.stringify(BORT))}catch(e){}};
+const arBort=id=>!!BORT[id]||(VAL[id]||{}).svar==='nej';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -88,7 +90,7 @@ rot.innerHTML=`
  <div class="nf-hero-text">
   <span class="nf-eyebrow">${I('sparkles','nf-i')}Arlanda-världen</span>
   <h1 id="nf-h1">Nya förslag</h1>
-  <p>${antal} nya idéer för utseende, ljud och 3D. Välj <b>Ja</b>, <b>Kanske</b> eller <b>Nej</b> och var i appen de ska synas.</p>
+  <p>${antal} nya idéer för utseende, ljud och 3D. Välj <b>Ja</b>, <b>Kanske</b> eller <b>Nej</b>. Nej och borttagna kort göms.</p>
   <div class="nf-hero-rad"><a class="nf-knapp guld" href="#nya">${I('play')}Börja välja</a><span class="nf-stat" id="nf-herostat"></span></div>
  </div>
 </section>
@@ -101,6 +103,7 @@ rot.innerHTML=`
    <button class="nf-flik" data-filt="ja" aria-pressed="false">Ja</button>
    <button class="nf-flik" data-filt="kanske" aria-pressed="false">Kanske</button>
    <button class="nf-flik" data-filt="nej" aria-pressed="false">Nej</button>
+   <button class="nf-flik nf-visabort" id="nf-visabort" aria-pressed="false">Visa borttagna</button>
   </div>
  </div>
  <div id="nf-lista"></div>
@@ -110,7 +113,7 @@ rot.innerHTML=`
   <label class="nf-sr" for="nf-text">Mina val som text</label>
   <textarea id="nf-text" readonly></textarea>
   <div class="rad"><button class="nf-knapp guld" id="nf-kopiera">${I('copy')}Kopiera mina val</button></div>
-  <button class="nf-rensa" id="nf-rensa">Rensa alla nya val</button>
+  <button class="nf-knapp nf-rensa" id="nf-rensa">${I('rotate-ccw')}Rensa mina val</button>
   <p class="nf-fot">Valen sparas bara i den här telefonen. Testsida, inte den riktiga appen. Rösterna (Sofie, Mattias) är testljud och måste bytas mot licensierad röst eller egen inspelning. Karta: © OpenStreetMap contributors. Rörliga ikoner: Noto Animated Emoji (Google, CC BY 4.0). Ikoner: Lucide (ISC). Typsnitt: Manrope och Inter (SIL OFL). Ljud: CC0.</p>
  </div>
  <div class="nf-avdelare">Tidigare effekter</div>
@@ -129,7 +132,7 @@ GRUPPER.forEach(([gid,gik,gt,gtxt])=>{
   ${f.ljud?`<button class="nf-ljud" data-ljud="${f.ljud[0]}"><span class="vag"><i></i><i></i><i></i><i></i></span><span class="lt">${esc(f.ljud[1])}</span></button>`:''}
   <div class="nf-val" role="group" aria-label="Ditt svar: ${esc(f.t)}">
    <button data-v="ja" aria-pressed="false">Ja</button><button data-v="kanske" aria-pressed="false">Kanske</button><button data-v="nej" aria-pressed="false">Nej</button></div>
-  <div class="nf-var"><p class="rub">VAR I APPEN?</p><div class="nf-chips">${PLATSER.map(p=>`<button class="nf-chip" data-p="${esc(p)}" aria-pressed="false">${esc(p)}</button>`).join('')}</div></div></div>`;
+  <button class="nf-bort" data-bort>Ta bort förslaget</button></div>`;
   wrap.appendChild(c);
  });
 });
@@ -144,33 +147,34 @@ lista.addEventListener('click',e=>{
  if(lb){const was=aktiv&&aktiv.b===lb;stoppaLjud();if(was)return;const a=new Audio(BAS+'ljud/'+lb.dataset.ljud);a.preload='auto';aktiv={a,b:lb};lb.classList.add('spelar');a.onended=()=>{lb.classList.remove('spelar');if(aktiv&&aktiv.b===lb)aktiv=null};a.play().catch(()=>{lb.classList.remove('spelar')});return}
  const vb=e.target.closest('.nf-val button');
  if(vb){const c=vb.closest('.nf-kort'),id=c.dataset.id,v=vb.dataset.v;const o=VAL[id]||{};
-  if(o.svar===v){delete o.svar}else{o.svar=v;if((v==='ja'||v==='kanske')&&!o.var)o.var=[...byId[id].p]}
-  VAL[id]=o;if(!o.svar&&!(o.var&&o.var.length))delete VAL[id];spara();ritaKort(c,true);uppdatera();
+  if(o.svar===v){delete o.svar}else{o.svar=v}
+  VAL[id]=o;if(!o.svar)delete VAL[id];spara();ritaKort(c,true);uppdatera();if(o.svar==='nej'&&!visaBort)toast('Nej – kortet göms. Visa borttagna tar fram det.');
   if(v==='ja'&&o.svar==='ja'&&window.gsap&&!RM)gsap.fromTo(c,{scale:.985},{scale:1,duration:.5,ease:'elastic.out(1,.5)'});return}
- const ch=e.target.closest('.nf-chip');
- if(ch){const c=ch.closest('.nf-kort'),id=c.dataset.id,p=ch.dataset.p;const o=VAL[id]||(VAL[id]={});o.var=o.var||[];
-  const i=o.var.indexOf(p);if(i>=0)o.var.splice(i,1);else o.var.push(p);o.var.sort((a,b)=>PLATSER.indexOf(a)-PLATSER.indexOf(b));spara();ritaKort(c);uppdatera();return}
+ const bb=e.target.closest('[data-bort]');
+ if(bb){const c=bb.closest('.nf-kort'),id=c.dataset.id;if(BORT[id])delete BORT[id];else BORT[id]=1;spara();ritaKort(c);uppdatera();if(BORT[id]&&!visaBort)toast('Förslaget borttaget. Visa borttagna tar fram det.');return}
 });
 function ritaKort(c,anim){const o=VAL[c.dataset.id]||{};c.classList.remove('ja','kanske','nej');if(o.svar)c.classList.add(o.svar);
  c.querySelectorAll('.nf-val button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===o.svar)));
- c.querySelectorAll('.nf-chip').forEach(b=>b.setAttribute('aria-pressed',String(!!(o.var&&o.var.includes(b.dataset.p)))));
- if(anim&&window.gsap&&!RM&&(o.svar==='ja'||o.svar==='kanske')){const v=c.querySelector('.nf-var');gsap.fromTo(v,{opacity:0,y:-6},{opacity:1,y:0,duration:.35,ease:'power2.out'})}}
+ const id=c.dataset.id;c.classList.toggle('borta',arBort(id));const bb=c.querySelector('[data-bort]');
+ if(bb){bb.hidden=o.svar==='nej';bb.textContent=BORT[id]?'Ångra borttagning':'Ta bort förslaget'}}
 
 /* ---------- filter ---------- */
 let filt='alla';
-document.querySelectorAll('.nf-flik').forEach(b=>b.onclick=()=>{filt=b.dataset.filt;document.querySelectorAll('.nf-flik').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));filtrera()});
-function filtrera(){kort.forEach(c=>{const s=(VAL[c.dataset.id]||{}).svar;c.hidden=!(filt==='alla'||(filt==='ovalda'&&!s)||s===filt)});
+document.querySelectorAll('.nf-flik[data-filt]').forEach(b=>b.onclick=()=>{filt=b.dataset.filt;document.querySelectorAll('.nf-flik[data-filt]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));filtrera()});
+const vbk=document.getElementById('nf-visabort');vbk.onclick=()=>{visaBort=!visaBort;filtrera();uppdatera()};
+function filtrera(){kort.forEach(c=>{const id=c.dataset.id,s=(VAL[id]||{}).svar;const syn=visaBort||filt==='nej'||!arBort(id);c.hidden=!syn||!(filt==='alla'||(filt==='ovalda'&&!s)||s===filt)});
  lista.querySelectorAll('.nf-grupp').forEach(h=>{const w=h.nextElementSibling;const n=[...w.children].some(c=>!c.hidden);h.hidden=!n;w.hidden=!n})}
 
 /* ---------- text + kopiera ---------- */
 function text(){
  const d=new Date(),dat=d.toLocaleDateString('sv-SE',{day:'numeric',month:'short'});
- const rad=v=>F.filter(f=>(VAL[f.id]||{}).svar===v).map(f=>{const w=(VAL[f.id].var||[]);return `- ${f.t}${w.length&&v!=='nej'?' ('+w.join(', ')+')':''}`});
+ const rad=v=>F.filter(f=>(VAL[f.id]||{}).svar===v).map(f=>`- ${f.t}`);const bo=F.filter(f=>BORT[f.id]&&(VAL[f.id]||{}).svar!=='nej').map(f=>`- ${f.t}`);
  const ja=rad('ja'),ka=rad('kanske'),ne=rad('nej');const ov=F.filter(f=>!(VAL[f.id]||{}).svar).length;
  let t=`Nya förslag – mina val (${dat}):\n`;
  t+=`JA (${ja.length}):\n${ja.join('\n')||'- inga'}\n`;
  t+=`KANSKE (${ka.length}):\n${ka.join('\n')||'- inga'}\n`;
  t+=`NEJ (${ne.length}):\n${ne.join('\n')||'- inga'}\n`;
+ if(bo.length)t+=`BORTTAGNA (${bo.length}):\n${bo.join('\n')}\n`;
  if(ov)t+=`Inte valt än: ${ov} st`;
  return t.trim();
 }
@@ -179,14 +183,15 @@ function uppdatera(){const n=F.filter(f=>(VAL[f.id]||{}).svar).length,ja=F.filte
  document.getElementById('nf-progtxt').textContent=`${n} av ${antal} valda`;document.getElementById('nf-progbar').style.width=(n/antal*100)+'%';
  document.getElementById('nf-docktxt').innerHTML=`<b>${n}</b> av ${antal} valda · <b>${ja}</b> ja`;
  document.getElementById('nf-herostat').textContent=n?`${n} av ${antal} valda`:`${antal} förslag · tar ca 5 min`;
- ta.value=text();if(filt!=='alla')filtrera()}
+ const nb=F.filter(f=>arBort(f.id)).length;vbk.textContent=(visaBort?'Göm borttagna':'Visa borttagna')+(nb?` (${nb})`:'');vbk.setAttribute('aria-pressed',String(visaBort));
+ ta.value=text();filtrera()}
 function toast(s){const t=document.getElementById('nf-toast');t.textContent=s;t.classList.add('syns');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('syns'),2000)}
 async function kopiera(){const s=text();ta.value=s;let ok=false;
  if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(s);ok=true}catch(e){}}
  if(!ok){try{ta.focus();ta.select();ta.setSelectionRange(0,s.length);ok=document.execCommand('copy');ta.blur()}catch(e){}}
  window.__nfKopierat=ok?s:null;toast(ok?'✓ Kopierat! Klistra in i chatten':'Texten är markerad – tryck Kopiera');return ok}
 document.getElementById('nf-kopiera').onclick=kopiera;document.getElementById('nf-dockkop').onclick=kopiera;
-document.getElementById('nf-rensa').onclick=()=>{if(confirm('Rensa alla val under Nya förslag?')){VAL={};spara();kort.forEach(c=>ritaKort(c));uppdatera()}};
+document.getElementById('nf-rensa').onclick=()=>{if(confirm('Säker? Alla dina val och borttagna förslag återställs.')){VAL={};BORT={};visaBort=false;try{localStorage.removeItem(K);localStorage.removeItem(KB)}catch(e){}kort.forEach(c=>ritaKort(c));uppdatera();toast('Alla val är rensade')}};
 
 /* ---------- lat laddning av förhandsvisningar ---------- */
 let lottieP=null;const lotKlar=new Set();
